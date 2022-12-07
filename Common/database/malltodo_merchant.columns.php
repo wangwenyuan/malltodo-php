@@ -1,0 +1,35 @@
+<?php
+class MALLTODO_MERCHANT{
+	public static $_table_name = "malltodo_merchant";
+	public static $id = "id";
+	public static $agent_id = "agent_id";
+	public static $malltodo_account = "malltodo_account";
+	public static $merchant_name = "merchant_name";
+	public static $xinyongdaima = "xinyongdaima";
+	public static $yingyezhizhao = "yingyezhizhao";
+	public static $zhizhao_endtime = "zhizhao_endtime";
+	public static $web_name = "web_name";
+	public static $root_domain = "root_domain";
+	public static $database_user = "database_user";
+	public static $database_password = "database_password";
+	public static $mobile = "mobile";
+	public static $password = "password";
+	public static $logo = "logo";
+	public static $address = "address";
+	public static $lng = "lng";
+	public static $lat = "lat";
+	public static $pid = "pid";
+	public static $ppid = "ppid";
+	public static $pppid = "pppid";
+	public static $recommend_code = "recommend_code";
+	public static $web_poster = "web_poster";
+	public static $createtime = "createtime";
+	public static $money = "money";
+	public static $money_0 = "money_0";
+	public static $money_1 = "money_1";
+	public static $integral = "integral";
+	public static $readme_time = "readme_time";
+	public static $is_need_create_website = "is_need_create_website";
+	public static $is_create_website = "is_create_website";
+	public static $is_del = "is_del";
+};

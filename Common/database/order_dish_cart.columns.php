@@ -1,0 +1,30 @@
+<?php
+class ORDER_DISH_CART{
+	public static $_table_name = "order_dish_cart";
+	public static $id = "id";
+	public static $uid = "uid";
+	public static $username = "username";
+	public static $headimg = "headimg";
+	public static $restaurant_id = "restaurant_id";
+	public static $category_id = "category_id";
+	public static $food_id = "food_id";
+	public static $sku_food_id = "sku_food_id";
+	public static $food_name = "food_name";
+	public static $pic = "pic";
+	public static $price = "price";
+	public static $num = "num";
+	public static $food_all_money = "food_all_money";
+	public static $sku = "sku";
+	public static $seat_id = "seat_id";
+	public static $seat_name = "seat_name";
+	public static $seat_area_type = "seat_area_type";
+	public static $restaurant_uid = "restaurant_uid";
+	public static $remark = "remark";
+	public static $feie_user = "feie_user";
+	public static $feie_ukey = "feie_ukey";
+	public static $feie_sn = "feie_sn";
+	public static $feie_sim = "feie_sim";
+	public static $is_print = "is_print";
+	public static $status = "status";
+	public static $is_del = "is_del";
+};

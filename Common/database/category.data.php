@@ -1,0 +1,27 @@
+<?php
+$table_columns = array(
+    "id" => array("char", ""),
+    "pid" => array("char", ""),
+    "website_id" => array("char", ""),
+    "type" => array("varchar", ""),
+    "seo_title" => array("varchar", ""),
+    "seo_keywords" => array("varchar", ""),
+    "seo_description" => array("varchar", ""),
+    "category_name" => array("varchar", ""),
+    "category_sub_name" => array("varchar", ""),
+    "pic" => array("varchar", ""),
+    "url" => array("varchar", ""),
+    "smalltext" => array("text", ""),
+    "detail" => array("mediumtext", ""),
+    "category_type" => array("tinyint", 0),
+    "pc_list_renovation_id" => array("char", ""),
+    "mobile_list_renovation_id" => array("char", ""),
+    "pc_page_renovation_id" => array("char", ""),
+    "mobile_page_renovation_id" => array("char", ""),
+    "pc_custom_id" => array("char", ""),
+    "mobile_custom_id" => array("char", ""),
+    "order_by" => array("varchar", ""),
+    "is_hidden" => array("tinyint", 0),
+    "sort" => array("int", 0),
+    "is_del" => array("tinyint", 0)
+);

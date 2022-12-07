@@ -1,0 +1,1 @@
+<div class="menu_box" onclick="show_widgets_window('底部菜单', '<?=TDU(TD_MODULE_NAME . "/ShowWidget/index", array("category" => "home_bottom_mobile"))?>')">底部菜单</div>

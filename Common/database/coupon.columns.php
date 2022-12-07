@@ -1,0 +1,34 @@
+<?php
+class COUPON{
+	public static $_table_name = "coupon";
+	public static $id = "id";
+	public static $name = "name";
+	public static $is_common_use = "is_common_use";
+	public static $store_id = "store_id";
+	public static $store_group_id = "store_group_id";
+	public static $type = "type";
+	public static $order_money = "order_money";
+	public static $total = "total";
+	public static $limit_num = "limit_num";
+	public static $way = "way";
+	public static $reduce_money = "reduce_money";
+	public static $discount = "discount";
+	public static $full_reduce_money = "full_reduce_money";
+	public static $rebate_money = "rebate_money";
+	public static $rebate_integral = "rebate_integral";
+	public static $rebate_type = "rebate_type";
+	public static $is_receive_link = "is_receive_link";
+	public static $add_to_coupon_center = "add_to_coupon_center";
+	public static $send_start_time = "send_start_time";
+	public static $send_end_time = "send_end_time";
+	public static $spend_money = "spend_money";
+	public static $spend_integral = "spend_integral";
+	public static $is_limit_member_level = "is_limit_member_level";
+	public static $member_level_ids = "member_level_ids";
+	public static $use_start_time = "use_start_time";
+	public static $use_end_time = "use_end_time";
+	public static $add_time = "add_time";
+	public static $available_modules = "available_modules";
+	public static $is_open = "is_open";
+	public static $is_del = "is_del";
+};

@@ -1,0 +1,32 @@
+<?php
+class ORDER_DISH_ORDER{
+	public static $_table_name = "order_dish_order";
+	public static $id = "id";
+	public static $order_sn = "order_sn";
+	public static $uid = "uid";
+	public static $restaurant_id = "restaurant_id";
+	public static $restaurant_uid = "restaurant_uid";
+	public static $addtime = "addtime";
+	public static $pay_type = "pay_type";
+	public static $pay_channel = "pay_channel";
+	public static $paytime = "paytime";
+	public static $paydate = "paydate";
+	public static $transaction_id = "transaction_id";
+	public static $all_food_money = "all_food_money";
+	public static $discount = "discount";
+	public static $coupon_way = "coupon_way";
+	public static $coupon_user_id = "coupon_user_id";
+	public static $coupon_name = "coupon_name";
+	public static $coupon_reduce_money = "coupon_reduce_money";
+	public static $coupon_rebate_money = "coupon_rebate_money";
+	public static $coupon_rebate_integral = "coupon_rebate_integral";
+	public static $coupon_rebate_status = "coupon_rebate_status";
+	public static $coupon_store_id = "coupon_store_id";
+	public static $all_money = "all_money";
+	public static $income = "income";
+	public static $seat_name = "seat_name";
+	public static $seat_id = "seat_id";
+	public static $seat_area_type = "seat_area_type";
+	public static $status = "status";
+	public static $is_del = "is_del";
+};

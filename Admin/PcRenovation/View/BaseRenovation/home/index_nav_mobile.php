@@ -1,0 +1,5 @@
+<div class="menu_box" onclick="show_widgets_window('基础组件', '<?=TDU(TD_MODULE_NAME . "/ShowWidget/index", array("category" => "home_base_mobile"))?>')">基础组件</div>
+<div class="menu_box" onclick="show_widgets_window('搜索组件', '<?=TDU(TD_MODULE_NAME . "/ShowWidget/index", array("category" => "home_search_mobile"))?>')">搜索组件</div>
+<div class="menu_box" onclick="show_widgets_window('栏目组件', '<?=TDU(TD_MODULE_NAME . "/ShowWidget/index", array("category" => "home_menu_mobile"))?>')">栏目组件</div>
+<div class="menu_box" onclick="show_widgets_window('商品组件', '<?=TDU(TD_MODULE_NAME . "/ShowWidget/index", array("category" => "home_goods_mobile"))?>')">商品组件</div>
+<div class="menu_box" onclick="show_widgets_window('底部菜单', '<?=TDU(TD_MODULE_NAME . "/ShowWidget/index", array("category" => "home_bottom_mobile"))?>')">底部菜单</div>

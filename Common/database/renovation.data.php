@@ -1,0 +1,25 @@
+<?php
+$table_columns = array(
+    "id" => array("char", ""),
+    "website_id" => array("char", ""),
+    "name" => array("varchar", ""),
+    "title" => array("varchar", ""),
+    "keywords" => array("varchar", ""),
+    "description" => array("varchar", ""),
+    "page_pic" => array("varchar", ""),
+    "background_color" => array("varchar", ""),
+    "type" => array("varchar", ""),
+    "platform" => array("varchar", ""),
+    "html" => array("mediumtext", ""),
+    "doms" => array("mediumtext", ""),
+    "doms_sort" => array("mediumtext", ""),
+    "header_id" => array("char", ""),
+    "bottom_id" => array("char", ""),
+    "is_list" => array("tinyint", 0),
+    "list_dom" => array("mediumtext", ""),
+    "list_html" => array("mediumtext", ""),
+    "is_default" => array("tinyint", 0),
+    "addtime" => array("bigint", 0),
+    "last_edit_time" => array("bigint", 0),
+    "is_del" => array("tinyint", 0)
+);

@@ -1,0 +1,26 @@
+<?php
+$table_columns = array(
+    "id" => array("char", ""),
+    "website_id" => array("char", ""),
+    "admin_id" => array("char", ""),
+    "type" => array("varchar", ""),
+    "category_id" => array("char", ""),
+    "url" => array("varchar", ""),
+    "seo_title" => array("varchar", ""),
+    "seo_keywords" => array("varchar", ""),
+    "seo_description" => array("varchar", ""),
+    "title" => array("varchar", ""),
+    "pic" => array("varchar", ""),
+    "smalltext" => array("text", ""),
+    "release_time" => array("bigint", 0),
+    "detail" => array("mediumtext", ""),
+    "sort" => array("int", 0),
+    "renovation_type" => array("tinyint", 0),
+    "pc_renovation_id" => array("char", ""),
+    "pc_custom_id" => array("char", ""),
+    "mobile_renovation_id" => array("char", ""),
+    "mobile_custom_id" => array("char", ""),
+    "views" => array("int", 0),
+    "recommend_level" => array("tinyint", 0),
+    "is_del" => array("tinyint", 0)
+);

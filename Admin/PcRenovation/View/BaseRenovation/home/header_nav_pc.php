@@ -1,0 +1,2 @@
+<div class="menu_box" onclick="show_widgets_window('基础组件', '<?=TDU(TD_MODULE_NAME . "/ShowWidget/index", array("category" => "home_base_pc"))?>')">基础组件</div>
+<div class="menu_box" onclick="show_widgets_window('栏目组件', '<?=TDU(TD_MODULE_NAME . "/ShowWidget/index", array("category" => "home_menu_pc"))?>')">栏目组件</div>

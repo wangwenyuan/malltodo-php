@@ -16,7 +16,7 @@ class MenuCacheTDController extends CommonTDController
         if (TD_IS_POST) {
             $opt = trim(TDI("post.opt"));
             $type = trim(TDI("post.type"));
-            if (isset(MenuCache::$home_menu[$type]) && $type != "Index/Category/index") {
+            if (! isset(MenuCache::$home_menu[$type]) && $type != "Index/Category/index") {
                 $this->error("栏目类型有误");
                 return;
             }
@@ -40,11 +40,11 @@ class MenuCacheTDController extends CommonTDController
             $where = array();
             $where[CATEGORY::$id] = array(
                 "eq",
-                table_id
+                $table_id
             );
             $where[CATEGORY::$website_id] = array(
                 "eq",
-                session("website_id")
+                TDSESSION("website_id")
             );
             $data = array();
             $data[CATEGORY::$is_hidden] = 1;
@@ -121,7 +121,7 @@ class MenuCacheTDController extends CommonTDController
     {
         if (TD_IS_POST) {
             $ids = TDI("post.ids");
-            $ids = htmlspecialchars_decode(ids);
+            $ids = htmlspecialchars_decode($ids);
             $list = json_decode($ids, true);
             for ($i = 0; $i < count($list); $i = $i + 1) {
                 $id = $list[$i];
@@ -155,7 +155,7 @@ class MenuCacheTDController extends CommonTDController
             $where = array();
             $where[CATEGORY::$pid] = array(
                 "eq",
-                table_pid
+                $table_pid
             );
             $where[CATEGORY::$is_del] = array(
                 "eq",
@@ -163,11 +163,11 @@ class MenuCacheTDController extends CommonTDController
             );
             $where[CATEGORY::$type] = array(
                 "eq",
-                type
+                $type
             );
             $where[CATEGORY::$website_id] = array(
                 "eq",
-                website_id
+                $website_id
             );
             $info = MU(CATEGORY::$_table_name)->where($where)->find();
             if ($info == null) {
@@ -199,15 +199,15 @@ class MenuCacheTDController extends CommonTDController
         $where = array();
         $where[CATEGORY::$id] = array(
             "eq",
-            table_id
+            $table_id
         );
         $where[CATEGORY::$type] = array(
             "eq",
-            type
+            $type
         );
         $where[CATEGORY::$website_id] = array(
             "eq",
-            website_id
+            $website_id
         );
         $info = MU(CATEGORY::$_table_name)->where($where)->find();
         if ($info == null) {

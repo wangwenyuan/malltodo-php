@@ -316,7 +316,7 @@ function show_link_window(href_dom_javatodo){
 	  shade: false,
 	  maxmin: true,
 	  area: ['850px', '600px'],
-	  content: ["./admin.<%=menu_category_name %>.jsp?m=<%=MODULE_NAME %>&c=ShowLink&a=index&href_dom_id="+href_dom_javatodo],
+	  content: ["<?=TDU(TD_MODULE_NAME . "/ShowLink/index")?>&href_dom_id="+href_dom_javatodo],
 	});
 }
 

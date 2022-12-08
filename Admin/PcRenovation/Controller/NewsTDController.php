@@ -1,21 +1,18 @@
 <?php
 require_once __DIR__ . "/BaseRenovation.php";
 
-class AlbumTDController extends BaseRenovation
+class NewsTDController extends BaseRenovation
 {
 
     public function _td_init()
     {
         if (parent::_td_init()) {
-            $this->type = "Index/Album/index";
+            $this->type = "Index/News/index";
             $this->platform = "pc";
-            $this->assign("page_action", "公司相册栏目");
+            $this->assign("page_action", "新闻栏目");
             return true;
         } else {
             return false;
         }
     }
-
-    public static function getAlbumListDom($param, $doms)
-    {}
 }

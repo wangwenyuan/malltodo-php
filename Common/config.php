@@ -228,4 +228,126 @@ $admin_home['PcRenovation']['Custom'] = [
     'edit' => '编辑自定义模版',
     'del' => '删除自定义模版'
 ];
+
+$admin_home['Category'] = array();
+$admin_home['Category']['_name'] = "栏目管理";
+$admin_home['Category']['_isshow'] = true;
+$admin_home['Category']['_auth'] = true;
+$admin_home['Category']['_icon'] = "icon-user";
+$admin_home['Category']['Index'] = [
+    '_isshow' => true,
+    '_auth' => true,
+    '_name' => '栏目管理',
+    'index' => '栏目管理',
+    'add' => '新增栏目',
+    'edit' => '编辑栏目',
+    'del' => '删除栏目'
+];
+
+$admin_home['Detail'] = array();
+$admin_home['Detail']['_name'] = "内容管理";
+$admin_home['Detail']['_isshow'] = true;
+$admin_home['Detail']['_auth'] = true;
+$admin_home['Detail']['_icon'] = "icon-user";
+$admin_home['Detail']['News'] = [
+    '_isshow' => true,
+    '_auth' => true,
+    '_name' => '新闻管理',
+    'index' => '新闻管理',
+    'add' => '新增新闻',
+    'edit' => '编辑新闻',
+    'del' => '删除新闻'
+];
+$admin_home['Detail']['Products'] = [
+    '_isshow' => true,
+    '_auth' => true,
+    '_name' => '产品管理',
+    'index' => '产品管理',
+    'add' => '新增产品',
+    'edit' => '编辑产品',
+    'del' => '删除产品'
+];
+$admin_home['Detail']['Brief'] = [
+    '_isshow' => true,
+    '_auth' => true,
+    '_name' => '公司简介',
+    'index' => '公司简介',
+    'add' => '新建公司简介',
+    'edit' => '编辑公司简介',
+    'del' => '删除公司简介'
+];
+$admin_home['Detail']['Business'] = [
+    '_isshow' => true,
+    '_auth' => true,
+    '_name' => '业务范围',
+    'index' => '业务范围',
+    'add' => '新建业务范围',
+    'edit' => '编辑业务范围',
+    'del' => '删除业务范围'
+];
+$admin_home['Detail']['Case'] = [
+    '_isshow' => true,
+    '_auth' => true,
+    '_name' => '应用案例',
+    'index' => '应用案例',
+    'add' => '新建应用案例',
+    'edit' => '编辑应用案例',
+    'del' => '删除应用案例'
+];
+$admin_home['Detail']['Album'] = [
+    '_isshow' => true,
+    '_auth' => true,
+    '_name' => '公司相册',
+    'index' => '公司相册',
+    'add' => '新建公司相册',
+    'edit' => '编辑公司相册',
+    'del' => '删除公司相册'
+];
+$admin_home['Detail']['Message'] = [
+    '_isshow' => true,
+    '_auth' => true,
+    '_name' => '客户留言',
+    'index' => '客户留言'
+];
+$admin_home['Detail']['Job'] = [
+    '_isshow' => true,
+    '_auth' => true,
+    '_name' => '人力招聘',
+    'index' => '人力招聘',
+    'add' => '新建人力招聘',
+    'edit' => '编辑人力招聘',
+    'del' => '删除人力招聘'
+];
+$admin_home['Detail']['ContactUs'] = [
+    '_isshow' => true,
+    '_auth' => true,
+    '_name' => '联系我们',
+    'index' => '联系我们',
+    'add' => '新建联系我们',
+    'edit' => '编辑联系我们',
+    'del' => '删除联系我们'
+];
+$admin_home['Detail']['Links'] = [
+    '_isshow' => true,
+    '_auth' => true,
+    '_name' => '友情链接',
+    'index' => '友情链接',
+    'add' => '新建友情链接',
+    'edit' => '编辑友情链接',
+    'del' => '删除友情链接'
+];
+
 TDConfig::$menu["admin_home"] = $admin_home;
+
+TDConfig::$config["detail_recommend_level"] = array(
+    "0" => "不推荐",
+    "1" => "一级推荐",
+    "2" => "二级推荐",
+    "3" => "三级推荐",
+    "4" => "四级推荐",
+    "5" => "五级推荐",
+    "6" => "六级推荐",
+    "7" => "七级推荐",
+    "8" => "八级推荐",
+    "9" => "九级推荐"
+);

@@ -54,11 +54,11 @@ class RenovationWidget
         if ($body_color == "") {
             $body_color = "		<style>\r\n" . "			body {\r\n" . "				margin: 0rem;\r\n" . "				padding: 0rem;\r\n" . "			}\r\n" . "		</style>\r\n";
         } else {
-            $body_color = "		<style>\r\n" . "			body {\r\n" . "				background: " . body_color . ";\r\n" . "				margin: 0rem;\r\n" . "				padding: 0rem;\r\n" . "			}\r\n" . "		</style>\r\n";
+            $body_color = "		<style>\r\n" . "			body {\r\n" . "				background: " . $body_color . ";\r\n" . "				margin: 0rem;\r\n" . "				padding: 0rem;\r\n" . "			}\r\n" . "		</style>\r\n";
         }
 
         // 组装页面
-        $string = "<!DOCTYPE html>\r\n" . "<html>\r\n" . "	<head>\r\n" . "		<base href=\"" . base_url . "\" />\r\n" . "		<meta charset=\"utf-8\">\r\n" . "		<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, user-scalable=0\">\r\n" . "		<title>" . title . "</title>\r\n" . "		<meta name=\"keywords\" content=\"" . keywords . "\">\r\n" . "		<meta name=\"description\" content=\"" . description . "\">\r\n" . "		<script src=\"./Public/js/jquery-1.12.4.min.js\"></script>\r\n" . "		<script src=\"./Public/js/layer.js\"></script>\r\n" . "		<script src=\"./Public/js/http.js\"></script>\r\n" . "		<script src=\"./Public/js/js.js\"></script>\r\n" . "		<script src=\"./Public/js/drop.js\"></script>\r\n" . "		<link href=\"./Public/css/swiper.min.css\" rel=\"stylesheet\" />\r\n" . "		<script src=\"./Public/js/swiper.min.js\"></script>\r\n" . "		<script src=\"./Public/js/vue.min.js\"></script>\r\n		<script charset=\"utf-8\" src=\"https://map.qq.com/api/gljs?v=1.exp&libraries=service&key=JYZBZ-7B2AX-GY24G-7GSPN-I2R36-KOFRO\"></script>\r\n  " . body_color . "	</head>\r\n" . "	<body>\r\n";
+        $string = "<!DOCTYPE html>\r\n" . "<html>\r\n" . "	<head>\r\n" . "		<base href=\"" . base_url . "\" />\r\n" . "		<meta charset=\"utf-8\">\r\n" . "		<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, user-scalable=0\">\r\n" . "		<title>" . title . "</title>\r\n" . "		<meta name=\"keywords\" content=\"" . keywords . "\">\r\n" . "		<meta name=\"description\" content=\"" . description . "\">\r\n" . "		<script src=\"./Public/js/jquery-1.12.4.min.js\"></script>\r\n" . "		<script src=\"./Public/js/layer.js\"></script>\r\n" . "		<script src=\"./Public/js/http.js\"></script>\r\n" . "		<script src=\"./Public/js/js.js\"></script>\r\n" . "		<script src=\"./Public/js/drop.js\"></script>\r\n" . "		<link href=\"./Public/css/swiper.min.css\" rel=\"stylesheet\" />\r\n" . "		<script src=\"./Public/js/swiper.min.js\"></script>\r\n" . "		<script src=\"./Public/js/vue.min.js\"></script>\r\n		<script charset=\"utf-8\" src=\"https://map.qq.com/api/gljs?v=1.exp&libraries=service&key=JYZBZ-7B2AX-GY24G-7GSPN-I2R36-KOFRO\"></script>\r\n  " . $body_color . "	</head>\r\n" . "	<body>\r\n";
         $string = $string . "<style>\r\n";
         $string = $string . "#malltodo_mask{ position: fixed; top: 0rem; left: 0rem; background: center center no-repeat #FFFFFF url(./Public/images/loading.gif); background-size: inherit; z-index: 100000;} \r\n";
         $string = $string . "</style>\r\n";
@@ -77,7 +77,7 @@ class RenovationWidget
         $string = $string . '$(function(){$("#malltodo_mask").fadeOut(500, function(){$("#malltodo_mask").hide();})})\r\n';
         $string = $string . "var malltodo_soft = 'index';\r\n";
         $string = $string . "</script>\r\n";
-        $string = $string . header_html . body_html . bottom_html;
+        $string = $string . $header_html . $body_html . $bottom_html;
 
         // 统计代码
         $code = "\r\n<div style='display:none'>\r\n";
@@ -92,7 +92,7 @@ class RenovationWidget
             $code = $code . htmlspecialchars_decode($websiteInfo[WEBSITE::$statistics_code]);
         }
         $code = $code . "\r\n</div>\r\n";
-        $string = $string . code;
+        $string = $string . $code;
         $string = $string . "</body>\r\n" . "</html>";
         $string = str_replace("javatodo-navigation", "a", $string);
         return $string;

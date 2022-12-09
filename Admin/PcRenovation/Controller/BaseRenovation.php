@@ -87,7 +87,7 @@ class BaseRenovation extends CommonTDController
             $data[RENOVATION::$background_color] = TDI("post." . RENOVATION::$background_color);
             $data[RENOVATION::$bottom_id] = TDI("post." . RENOVATION::$bottom_id);
             $data[RENOVATION::$header_id] = TDI("post." . RENOVATION::$header_id);
-            $data[RENOVATION::$platform] = TDI("post." . RENOVATION::$platform);
+            $data[RENOVATION::$platform] = $this->platform;
 
             /*
              * // 菜品搜索页面

@@ -58,7 +58,7 @@ class RenovationWidget
         }
 
         // 组装页面
-        $string = "<!DOCTYPE html>\r\n" . "<html>\r\n" . "	<head>\r\n" . "		<base href=\"" . base_url . "\" />\r\n" . "		<meta charset=\"utf-8\">\r\n" . "		<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, user-scalable=0\">\r\n" . "		<title>" . title . "</title>\r\n" . "		<meta name=\"keywords\" content=\"" . keywords . "\">\r\n" . "		<meta name=\"description\" content=\"" . description . "\">\r\n" . "		<script src=\"./Public/js/jquery-1.12.4.min.js\"></script>\r\n" . "		<script src=\"./Public/js/layer.js\"></script>\r\n" . "		<script src=\"./Public/js/http.js\"></script>\r\n" . "		<script src=\"./Public/js/js.js\"></script>\r\n" . "		<script src=\"./Public/js/drop.js\"></script>\r\n" . "		<link href=\"./Public/css/swiper.min.css\" rel=\"stylesheet\" />\r\n" . "		<script src=\"./Public/js/swiper.min.js\"></script>\r\n" . "		<script src=\"./Public/js/vue.min.js\"></script>\r\n		<script charset=\"utf-8\" src=\"https://map.qq.com/api/gljs?v=1.exp&libraries=service&key=JYZBZ-7B2AX-GY24G-7GSPN-I2R36-KOFRO\"></script>\r\n  " . $body_color . "	</head>\r\n" . "	<body>\r\n";
+        $string = "<!DOCTYPE html>\r\n" . "<html>\r\n" . "	<head>\r\n" . "		<base href=\"" . $base_url . "\" />\r\n" . "		<meta charset=\"utf-8\">\r\n" . "		<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, user-scalable=0\">\r\n" . "		<title>" . title . "</title>\r\n" . "		<meta name=\"keywords\" content=\"" . keywords . "\">\r\n" . "		<meta name=\"description\" content=\"" . description . "\">\r\n" . "		<script src=\"./Public/js/jquery-1.12.4.min.js\"></script>\r\n" . "		<script src=\"./Public/js/layer.js\"></script>\r\n" . "		<script src=\"./Public/js/http.js\"></script>\r\n" . "		<script src=\"./Public/js/js.js\"></script>\r\n" . "		<script src=\"./Public/js/drop.js\"></script>\r\n" . "		<link href=\"./Public/css/swiper.min.css\" rel=\"stylesheet\" />\r\n" . "		<script src=\"./Public/js/swiper.min.js\"></script>\r\n" . "		<script src=\"./Public/js/vue.min.js\"></script>\r\n		<script charset=\"utf-8\" src=\"https://map.qq.com/api/gljs?v=1.exp&libraries=service&key=JYZBZ-7B2AX-GY24G-7GSPN-I2R36-KOFRO\"></script>\r\n  " . $body_color . "	</head>\r\n" . "	<body>\r\n";
         $string = $string . "<style>\r\n";
         $string = $string . "#malltodo_mask{ position: fixed; top: 0rem; left: 0rem; background: center center no-repeat #FFFFFF url(./Public/images/loading.gif); background-size: inherit; z-index: 100000;} \r\n";
         $string = $string . "</style>\r\n";
@@ -134,7 +134,7 @@ class RenovationWidget
         }
         $html = "";
         $doms_string = "";
-        $doms = array();
+        $doms = new stdClass();
         if ($type == 0) {
             $html = $map["html"];
             $html = htmlspecialchars_decode($html);
@@ -149,9 +149,8 @@ class RenovationWidget
             $doms = json_decode($doms_string);
         }
 
-        $bindDataMap = array();
+        $bindDataMap = new stdClass();
         $doms_sort = array();
-
         foreach ($doms as $key => $v) {
             if ($key == "category") {
                 continue;
@@ -168,8 +167,8 @@ class RenovationWidget
             if ($key == "javatodo-bind-param") {
                 continue;
             }
-            $dom = $doms[$key];
-            $category = $dom["category"];
+            $dom = $doms->$key;
+            $category = $dom->category;
             if ($category == "base") {
                 continue;
             }
@@ -177,7 +176,7 @@ class RenovationWidget
             $bind_loop_list = self::getBindLoopList($dom);
             require_once __DIR__ . "/BindData.php";
             $bindData = BindData::bind($dom, $bind_loop_list);
-            $bindDataMap[$key] = $bindData;
+            $bindDataMap->$key = $bindData;
         }
         return self::buildOneWidgetHtmlCSS($html, $doms, $doms_sort, $bindDataMap, $type);
     }

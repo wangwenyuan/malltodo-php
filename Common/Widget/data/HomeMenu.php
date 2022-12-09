@@ -7,11 +7,11 @@ class HomeMenu
 
     public static function getValue($selfParameter, $bind_loop_list)
     {
-        $object = array();
+        $object = new stdClass();
         $websiteId = TDSESSION("website_id");
         require_once './Common/MenuCache.php';
         $menu_list = MenuCache::getMenuList($websiteId);
-        $object["menu_list"] = $menu_list;
+        $object->menu_list = $menu_list;
         return $object;
     }
 }

@@ -5,7 +5,7 @@ class BindData
 
     public static function bind($dom, $bind_loop_list)
     {
-        $object = array();
+        $object = new stdClass();
         $category = $dom->category;
         $javatodo_bind_param_key = "javatodo-bind-param";
         $bind_param = $dom->$javatodo_bind_param_key;

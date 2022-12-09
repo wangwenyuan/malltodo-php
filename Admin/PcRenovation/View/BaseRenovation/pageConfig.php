@@ -32,7 +32,7 @@
                     <div class="ui-c-box-right">
                     <input id="malltodo_background_color" style="margin-top: 0.125rem;" name="background_color" type="color" value="<?php
 
-echo ($info["background_color"] == "" ? "#FFFFFF" : $info["background_color"])?>" onchange="set_malltodo_config_value('background_color')" /></div>
+            echo ($info["background_color"] == "" ? "#FFFFFF" : $info["background_color"])?>" onchange="set_malltodo_config_value('background_color')" /></div>
                     <div class="ui-c-clear"></div>
                     </div>
                     <div class="ui-c-box">
@@ -40,7 +40,7 @@ echo ($info["background_color"] == "" ? "#FFFFFF" : $info["background_color"])?>
                     <div class="ui-c-box-right">
                     <select id="malltodo_header_id" name="header_id" class="ui-c-select"  onchange="set_malltodo_config_value('header_id')">
                     <?php
-            for ($i = 0; $i < count(header_list); $i = $i + 1) {
+            for ($i = 0; $i < count($header_list); $i = $i + 1) {
                 echo "<option value=\"" . $header_list[$i]["id"] . "\">" . $header_list[$i]["name"] . "</option>";
             }
             ?>

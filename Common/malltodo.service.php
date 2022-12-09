@@ -3,9 +3,9 @@
 class Malltodo
 {
 
-    private static $serviceHost = "http://api.malltodo.com/";
+    // private static $serviceHost = "http://api.malltodo.com/";
+    private static $serviceHost = "http://127.0.0.1:9500/";
 
-    // private static $serviceHost = "http://127.0.0.1:9500/";
     private static function urlencodeParam($param)
     {
         foreach ($param as $k => $v) {
@@ -142,7 +142,6 @@ class Malltodo
     {
         $getParam = array();
         $postData = array();
-
         // $domJSONString = str_replace("[]", "{}", $domJSONString);
         $postData["domJSONString"] = $domJSONString;
         $postData["domsSort"] = $domsSort;
@@ -151,7 +150,8 @@ class Malltodo
         $postData["typeString"] = $typeString;
         $postData = self::urlencodeParam($postData);
         $postData["htmlString"] = $htmlString;
-        return self::postToService(self::getServiceUrl("buildOneWidgetHtmlCSS", $getParam), $postData);
+        $ret = self::postToService(self::getServiceUrl("buildOneWidgetHtmlCSS", $getParam), $postData);
+        return $ret;
     }
 
     public static function parseTemplateMenuDom($htmlString, $domJSONString, $bindDataJSONString)

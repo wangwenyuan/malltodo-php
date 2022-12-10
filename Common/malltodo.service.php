@@ -3,9 +3,9 @@
 class Malltodo
 {
 
-    // private static $serviceHost = "http://api.malltodo.com/";
-    private static $serviceHost = "http://127.0.0.1:9500/";
+    private static $serviceHost = "http://api.malltodo.com/";
 
+    // private static $serviceHost = "http://127.0.0.1:9500/";
     private static function urlencodeParam($param)
     {
         foreach ($param as $k => $v) {

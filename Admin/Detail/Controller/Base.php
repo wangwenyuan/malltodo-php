@@ -1,6 +1,8 @@
 <?php
 require_once dirname(dirname(__DIR__)) . '/Index/Controller/CommonTDController.php';
 
+require_once './Common/MenuCache.php';
+
 class Base extends CommonTDController
 {
 

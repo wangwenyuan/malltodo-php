@@ -9,7 +9,7 @@ if (file_exists(TDConfig::$todo_database_orm_path . "_init.php")) {
 }
 
 TDConfig::$app_path = dirname(__DIR__) . "/";
-TDConfig::$url = TD_URL . "/malltodo-php/phptodo/";
+TDConfig::$phptodo_url = TD_URL . "/phptodo/";
 
 // 配置项目菜单
 TDConfig::$menu = array();
@@ -351,3 +351,17 @@ TDConfig::$config["detail_recommend_level"] = array(
     "8" => "八级推荐",
     "9" => "九级推荐"
 );
+TDConfig::$upload = array(
+    "maxSize" => 5048576,
+    "exts" => array(
+        'jpg',
+        'gif',
+        'png',
+        'jpeg',
+        'xlsx',
+        'xls'
+    ),
+    "rootPath" => "./Uploads/" // 图片保存的根目录
+);
+TDConfig::$upload_url = TDUU("Index/Upload/index", array(), "index.php");
+TDConfig::$editor_controller = TDUU("Index/Editor/index", array(), "index.php");

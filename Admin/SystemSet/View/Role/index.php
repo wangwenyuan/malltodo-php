@@ -1,60 +1,39 @@
 <?php
-require_once dirname(dirname(dirname(__DIR__))) . '/Index/View/Index/sub_header.php';
+require_once dirname(dirname(dirname(__DIR__))) . '/Index/View/Index/header.php';
 ?>
-<form method="post" action="" id="html_form">
-    <table width="100%" cellpadding="0" cellspacing="0" class="small_main_table">
-
-<?php
-foreach ($role as $k => $v) {
-    if ($k == '_name' || $k == '_isshow' || $k == '_auth' || $k == '_icon') {
-        continue;
-    }
-    foreach ($v as $kk => $vv) {
-        if ($kk == '_isshow' || $kk == '_auth' || $kk == '_icon' || $kk == '_name') {
-            continue;
+<div style="padding:15px;">
+<div class="main_title">权限分配</div>
+<a onclick="malltodoJs.sub_window('新建', '<?=TDU(TD_MODULE_NAME . "/" . TD_CONTROLLER_NAME . "/add")?>')" class="main_button">新建</a>
+<div class="clear_5px"></div>
+  <table width="100%" cellpadding="0" cellspacing="0" class="main_table">
+    <tr class="main_table_header">
+      <td>名称</td>
+      <td width="100px">权限设置</td>
+      <td width="100px">操作</td>
+    </tr>
+    <?php
+    if (count($list) == 0) {
+        echo "<tr><td colspan=3>尚未创建任何内容</td></tr>";
+    } else {
+        for ($i = 0; $i < count($list); $i = $i + 1) {
+            echo "<tr>";
+            echo "<td>" . $list[$i][ROLE::$role_name] . "</td>";
+            $auth_url = TDU(TD_MODULE_NAME . "/Auth/index", array(
+                "rid" => $list[$i][ROLE::$id]
+            ));
+            echo "<td><a href=\"javascript:malltodoJs.sub_window('权限设置', '" . $auth_url . "')\">权限设置</a></td>";
+            $edit_url = TDU(TD_MODULE_NAME . "/" . TD_CONTROLLER_NAME . "/edit", array(
+                "id" => $list[$i][ROLE::$id]
+            ));
+            $del_url = TDU(TD_MODULE_NAME . "/" . TD_CONTROLLER_NAME . "/del");
+            echo "<td><a href=\"javascript:malltodoJs.sub_window('编辑', '" . $edit_url . "')\">修改</a> <a href=\"javascript:malltodoJs.del('" . $del_url . "','" . $list[$i]["id"] . "')\">删除</a></td>";
+            echo "</tr>";
         }
-        echo '<tr><td align="right" width="100px" valign="top">' . $vv['_name'] . '：</td><td align="left">';
-        foreach ($vv as $kkk => $vvv) {
-            if ($kkk == '_isshow' || $kkk == '_auth' || $kkk == '_icon') {
-                continue;
-            }
-            if ($kkk == '_name') {
-                if (in_array($k . '+' . $kk, $role_list)) {
-                    $checked = 'checked = "checked"';
-                } else {
-                    $checked = '';
-                }
-                echo '<input type="checkbox" name="r[]" value="' . $k . '+' . $kk . '" class="' . $k . ' ' . $k . '_' . $kk . '" title="' . $vvv . '" data-level="2" ' . $checked . ' >' . $vvv . '<br />';
-            } else {
-                if (in_array($k . '+' . $kk . '+' . $kkk, $role_list)) {
-                    $checked = 'checked = "checked"';
-                } else {
-                    $checked = '';
-                }
-                echo '<input type="checkbox" name="r[]" value="' . $k . '+' . $kk . '+' . $kkk . '" class="' . $k . ' ' . $k . '_' . $kk . ' ' . $k . '_' . $kk . '_' . $kkk . '" title="' . $vvv . '" data-level="3" ' . $checked . ' >' . $vvv . "&nbsp;&nbsp;";
-            }
-        }
-        echo '</td></tr>';
     }
-}
-?>
-        <tr><td></td><td><input type="button" class="anniu" id="add" value="提交" /></td></tr>
+    ?>
     </table>
-</form>
-<script>
-$("input[type='checkbox']").change(function(){
-	var zhi = $(this).val();
-	var zhi_arr = new Array();
-	zhi_arr = zhi.split('+');
-	if(zhi_arr.length == 2){
-		if($(this).prop('checked')){
-			$('.'+zhi_arr[0]+"_"+zhi_arr[1]).prop('checked', true);
-		}else{
-			$('.'+zhi_arr[0]+"_"+zhi_arr[1]).prop('checked', false);
-		}
-	}
-})
-</script>
+    <div class="page"><?=$page?></div>
+</div>
 <?php
-require_once dirname(dirname(dirname(__DIR__))) . '/Index/View/Index/sub_bottom.php';
+require_once dirname(dirname(dirname(__DIR__))) . '/Index/View/Index/bottom.php';
 ?>

@@ -8,7 +8,7 @@ require_once dirname(dirname(dirname(__DIR__))) . '/Index/View/Index/header.php'
   <table width="100%" cellpadding="0" cellspacing="0" class="main_table">
     <tr class="main_table_header">
       <td>登录用户名</td>
-      <td>所在岗位</td>
+      <td>所拥有的权限</td>
       <td>联系方式</td>
       <td width="100px">操作</td>
     </tr>
@@ -20,11 +20,14 @@ require_once dirname(dirname(dirname(__DIR__))) . '/Index/View/Index/header.php'
         for ($i = 0; $i < count($list); $i = $i + 1) {
             echo "<tr>";
             echo "<td>" . $list[$i][ADMIN::$username] . "</td>";
-            echo "<td>" . $list[$i]["group_name"] . "</td>";
+            if ($list[$i]["role_name"] == "") {
+                $list[$i]["role_name"] = "超级管理员";
+            }
+            echo "<td>" . $list[$i]["role_name"] . "</td>";
             echo "<td>" . $list[$i][ADMIN::$mobile] . "</td>";
             $arr = array();
             $arr["id"] = $list[$i][ADMIN::$id];
-            echo "<td><a href=\"javascript:phptodo.sub_window('编辑', '" . TDU("SystemSet/Admin/edit", $arr) . "')\">修改</a> <a href=\"javascript:phptodo.del('" . TDU("SystemSet/Admin/del") . "','" . $list[$i][ADMIN::$id] . "')\">删除</a></td>";
+            echo "<td><a href=\"javascript:malltodoJs.sub_window('编辑', '" . TDU("SystemSet/Admin/edit", $arr) . "')\">修改</a> <a href=\"javascript:malltodoJs.del('" . TDU("SystemSet/Admin/del") . "','" . $list[$i][ADMIN::$id] . "')\">删除</a></td>";
             echo "</tr>";
         }
     }

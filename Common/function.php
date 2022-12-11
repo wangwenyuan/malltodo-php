@@ -365,7 +365,7 @@ function export_csv($filename, $arr)
 
 function create_password($password)
 {
-    return md5("malltodo" . md5("javatodo" . $password));
+    return TDCREATEPASSWORD($password);
 }
 
 // 获取当前站点
@@ -428,5 +428,14 @@ function get_all_website()
         TDS("website_cache", $map);
     }
     return TDS("website_cache");
+}
+
+function checkIsInstall()
+{
+    if (file_exists(TDConfig::$todo_runtime_path . "lock")) {
+        return true;
+    } else {
+        return false;
+    }
 }
 ?>

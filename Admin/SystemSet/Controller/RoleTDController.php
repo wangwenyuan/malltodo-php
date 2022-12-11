@@ -6,74 +6,74 @@ class RoleTDController extends CommonTDController
 
     public function index()
     {
-        $gid = (int) TDI("get.gid");
-        if ($gid == 0 || $gid == "") {
-            $this->error("请选择岗位");
-        }
         $where = array();
-        $where[ADMIN_GROUP::$id] = array(
-            "eq",
-            $gid
-        );
-        $where[ADMIN_GROUP::$is_del] = array(
+        $where[ROLE::$is_del] = array(
             "eq",
             0
         );
-        $admin_group_info = TDORM(ADMIN_GROUP::$_table_name)->where($where)->find();
-        if (! $admin_group_info) {
-            $this->error("不存在该岗位");
-            return;
-        }
+        $count = MU(ROLE::$_table_name)->where($where)->count();
+        $page = $this->page($count, 16);
+        $list = MU(ROLE::$_table_name)->where($where)
+            ->order($page->firstRow . "," . $page->listRows)
+            ->order(ROLE::$id . " desc")
+            ->select();
+        $this->assign("list", $list);
+        $this->assign("page", $page->show());
+        $this->display();
+    }
 
-        if (TD_IS_POST) {
-            $auth_where = array();
-            $auth_where[ADMIN_AUTH::$group_id] = array(
+    public function add()
+    {
+        $id = trim(TDI("get.id"));
+        $where = array();
+        $info = array();
+        if ($id != "") {
+            $where[ROLE::$id] = array(
                 "eq",
-                $gid
+                $id
             );
-            TDORM(ADMIN_AUTH::$_table_name)->where($auth_where)->delete();
-            $list = TDI("post.r");
-            for ($i = 0; $i < count($list); $i = $i + 1) {
-                $string = $list[$i];
-                $string_arr = explode("+", $string);
-                $data = array();
-                $data[ADMIN_AUTH::$group_id] = $gid;
-                if (count($string_arr) > 0 && $string_arr[0] != "") {
-                    $data[ADMIN_AUTH::$m] = $string_arr[0];
-                }
-                if (count($string_arr) > 1 && $string_arr[1] != "") {
-                    $data[ADMIN_AUTH::$c] = $string_arr[1];
-                }
-                if (count($string_arr) > 2 && $string_arr[2] != "") {
-                    $data[ADMIN_AUTH::$a] = $string_arr[2];
-                }
-                TDORM(ADMIN_AUTH::$_table_name)->data($data)->add();
+            $where[ROLE::$is_del] = array(
+                "eq",
+                0
+            );
+            $info = MU(ROLE::$_table_name)->where($where)->find();
+        }
+        if (TD_IS_POST) {
+            $data = trim_array(TDI("post."));
+            if ($data[ROLE::$role_name] == "") {
+                $this->error("名称不能为空");
+                return;
+            }
+            if ($id == "") {
+                MU(ROLE::$_table_name)->data($data)->add();
+            } else {
+                MU(ROLE::$_table_name)->where($where)->save($data);
             }
             $this->success("设置成功");
         } else {
-            $auth_where = array();
-            $auth_where[ADMIN_AUTH::$group_id] = array(
+            $this->assign("info", $info);
+            $this->display("add");
+        }
+    }
+
+    public function edit()
+    {
+        $this->add();
+    }
+
+    public function del()
+    {
+        if (IS_POST) {
+            $id = trim(TDI("post.id"));
+            $where = array();
+            $where[ROLE::$id] = array(
                 "eq",
-                $gid
+                $id
             );
-            $list = TDORM(ADMIN_AUTH::$_table_name)->where($auth_where)->select();
-            $arr = array();
-            for ($i = 0; $i < count($list); $i = $i + 1) {
-                $string = "";
-                if ($list[$i][ADMIN_AUTH::$m] != "") {
-                    $string = $list[$i][ADMIN_AUTH::$m];
-                }
-                if ($list[$i][ADMIN_AUTH::$c] != "") {
-                    $string = $list[$i][ADMIN_AUTH::$m] . "+" . $list[$i][ADMIN_AUTH::$c];
-                }
-                if ($list[$i][ADMIN_AUTH::$a] != "") {
-                    $string = $list[$i][ADMIN_AUTH::$m] . "+" . $list[$i][ADMIN_AUTH::$c] . "+" . $list[$i][ADMIN_AUTH::$a];
-                }
-                array_push($arr, $string);
-            }
-            $this->assign("role", TDConfig::$menu["admin_menu_auth"]);
-            $this->assign("role_list", $arr);
-            $this->display();
+            $data = array();
+            $data[ROLE::$is_del] = 1;
+            MU(ROLE::$_table_name)->where($where)->save($data);
+            $this->success("删除成功");
         }
     }
 }

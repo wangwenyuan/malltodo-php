@@ -337,6 +337,35 @@ $admin_home['Detail']['Links'] = [
     'edit' => '编辑友情链接',
     'del' => '删除友情链接'
 ];
+$admin_home['SystemSet'] = array();
+$admin_home['SystemSet']['_name'] = "系统设置";
+$admin_home['SystemSet']['_isshow'] = true;
+$admin_home['SystemSet']['_auth'] = true;
+$admin_home['SystemSet']['_icon'] = "icon-user";
+$admin_home['SystemSet']['Role'] = [
+    '_isshow' => true,
+    '_auth' => true,
+    '_name' => '权限分配',
+    'index' => '权限分配',
+    'add' => '新增权限',
+    'edit' => '编辑选项',
+    'del' => '删除权限'
+];
+$admin_home['SystemSet']['Auth'] = [
+    '_isshow' => false,
+    '_auth' => true,
+    '_name' => '权限设置',
+    'index' => '权限设置'
+];
+$admin_home['SystemSet']['Admin'] = [
+    '_isshow' => true,
+    '_auth' => true,
+    '_name' => '成员管理',
+    'index' => '成员列表',
+    'add' => '新增成员',
+    'edit' => '编辑成员',
+    'del' => '删除成员'
+];
 
 TDConfig::$menu["admin_home"] = $admin_home;
 

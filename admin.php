@@ -5,4 +5,8 @@ require_once 'Common/function.php';
 require_once 'Common/malltodo.service.php';
 require_once 'Common/RenovationWidget.php';
 require_once 'Common/MU.php';
-echo PHPTODO::run("Admin");
+if (checkIsInstall()) {
+    echo PHPTODO::run("Admin");
+} else {
+    echo PHPTODO::run("Install");
+}

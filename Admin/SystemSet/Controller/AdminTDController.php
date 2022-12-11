@@ -23,16 +23,16 @@ class AdminTDController extends CommonTDController
             "eq",
             0
         );
-        $count = TDORM(ADMIN::$_table_name)->alias("a")
+        $count = MU(ADMIN::$_table_name)->alias("a")
             ->where($where)
             ->count();
 
         $page = new TDPAGE($count, 16);
-        $list = TDORM(ADMIN::$_table_name)->alias("a")
-            ->join(ADMIN_GROUP::$_table_name, "as ag on a." . ADMIN::$group_id . " = ag." . ADMIN_GROUP::$id, "left")
+        $list = MU(ADMIN::$_table_name)->alias("a")
+            ->join(ROLE::$_table_name, "as ag on a." . ADMIN::$role_id . " = ag." . ROLE::$id, "left")
             ->where($where)
             ->order(ADMIN::$id . " desc")
-            ->field("a.*, ag." . ADMIN_GROUP::$name . " as group_name")
+            ->field("a.*, ag." . ROLE::$role_name . " as role_name")
             ->limit($page->firstRow . "," . $page->listRows)
             ->select();
         $this->assign("page", $page->show());
@@ -42,10 +42,10 @@ class AdminTDController extends CommonTDController
 
     public function add()
     {
-        $id = (int) trim(TDI("get.id"));
+        $id = trim(TDI("get.id"));
         $info = array();
         $where = array();
-        if ($id) {
+        if ($id != "") {
             $where[ADMIN::$id] = array(
                 "eq",
                 $id
@@ -54,7 +54,7 @@ class AdminTDController extends CommonTDController
                 "eq",
                 0
             );
-            $info = TDORM(ADMIN::$_table_name)->where($where)->find();
+            $info = MU(ADMIN::$_table_name)->where($where)->find();
             if (! $info) {
                 $this->error("该成员不存在或已被删除");
                 return;
@@ -62,17 +62,14 @@ class AdminTDController extends CommonTDController
         }
         $map = array();
         $map[0] = "超级管理员";
-        require_once 'AdminGroupTDController.php';
-        $arr = AdminGroupTDController::get_admin_group();
-        for ($i = 0; $i < count($arr); $i = $i + 1) {
-            $_id = $arr[$i][ADMIN_GROUP::$id];
-            $_name = $arr[$i][ADMIN_GROUP::$name];
-            $level = $arr[$i]["level"];
-            $_name = "—— " . $_name;
-            for ($n = 0; $n < $level; $n = $n + 1) {
-                $_name = "—— " . $_name;
-            }
-            $map[$_id] = $_name;
+        $role_where = array();
+        $role_where[ROLE::$is_del] = array(
+            "eq",
+            0
+        );
+        $role_list = MU(ROLE::$_table_name)->where($role_where)->select();
+        for ($i = 0; $i < count($role_list); $i = $i + 1) {
+            $map[$role_list[$i]["id"]] = $role_list[$i][ROLE::$role_name];
         }
         if (TD_IS_POST) {
             $data = TDTRIM(TDI("post."));
@@ -86,19 +83,19 @@ class AdminTDController extends CommonTDController
                 "eq",
                 0
             );
-            if ($id) {
+            if ($id != "") {
                 $where[ADMIN::$id] = array(
                     "neq",
                     $id
                 );
             }
-            $check_info = TDORM(ADMIN::$_table_name)->where($where)->find();
+            $check_info = MU(ADMIN::$_table_name)->where($where)->find();
             if ($check_info) {
                 $this->error("该用户名已存在");
                 return;
             }
             // 检测密码
-            if (! $id) {
+            if ($id != "") {
                 $password = TDTRIM(TDI("post.password"));
                 if ($password == "") {
                     $this->error("密码不能为空");
@@ -118,22 +115,22 @@ class AdminTDController extends CommonTDController
                 }
             }
             // 检测管理员组
-            $group_id = (int) TDTRIM(TDI("post." . ADMIN::$group_id));
-            if (! isset($map[$group_id])) {
+            $role_id = TDTRIM(TDI("post." . ADMIN::$role_id));
+            if (! isset($map[$role_id])) {
                 $this->error("不存在该岗位");
                 return;
             }
             // 记入数据库
-            if ($id) {
+            if ($id != "") {
                 $where = array();
                 $where[ADMIN::$id] = array(
                     "eq",
                     $id
                 );
-                TDORM(ADMIN::$_table_name)->where($where)->save($data);
+                MU(ADMIN::$_table_name)->where($where)->save($data);
                 $this->success("修改成功");
             } else {
-                TDORM(ADMIN::$_table_name)->data($data)->add();
+                MU(ADMIN::$_table_name)->data($data)->add();
                 $this->success("新建成功");
             }
         } else {
@@ -151,17 +148,13 @@ class AdminTDController extends CommonTDController
     public function del()
     {
         if (TD_IS_POST) {
-            $id = (int) TDTRIM(TDI("post.id"));
-            if ($id == 1) {
-                $this->error("主管理员不能删除");
-                return;
-            }
+            $id = TDTRIM(TDI("post.id"));
             $where = array();
             $where[ADMIN::$id] = array(
                 "eq",
                 $id
             );
-            TDORM(ADMIN::$_table_name)->where($where)->save(array(
+            MU(ADMIN::$_table_name)->where($where)->save(array(
                 ADMIN::$is_del => 1
             ));
             $this->success("删除成功");
@@ -175,13 +168,13 @@ class AdminTDController extends CommonTDController
         $where = array();
         $where[ADMIN::$id] = array(
             "eq",
-            (int) $id
+            $id
         );
         $where[ADMIN::$is_del] = array(
             "eq",
             0
         );
-        $info = TDORM(ADMIN::$_table_name)->where($where)->find();
+        $info = MU(ADMIN::$_table_name)->where($where)->find();
         if (! $info) {
             $this->error("该成员不存在或已被删除");
         }
@@ -201,7 +194,7 @@ class AdminTDController extends CommonTDController
                 "neq",
                 $id
             );
-            $check = TDORM(ADMIN::$_table_name)->where($where)->find();
+            $check = MU(ADMIN::$_table_name)->where($where)->find();
             if (! $check) {
                 $this->error("该用户名已存在");
                 return;
@@ -219,10 +212,10 @@ class AdminTDController extends CommonTDController
                 }
             }
             // 不能修改所属的管理员组
-            if (isset($data[ADMIN::$group_id])) {
-                unset($data[ADMIN::$group_id]);
+            if (isset($data[ADMIN::$role_id])) {
+                unset($data[ADMIN::$role_id]);
             }
-            TDORM(ADMIN::$_table_name)->where($where)->save($data);
+            MU(ADMIN::$_table_name)->where($where)->save($data);
             $this->success("修改成功");
         } else {
             $this->assign("info", $info);

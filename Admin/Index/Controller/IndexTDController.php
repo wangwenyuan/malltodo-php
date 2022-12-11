@@ -28,6 +28,10 @@ class IndexTDController extends CommonTDController
                 "eq",
                 create_password($password)
             );
+            $where[ADMIN::$is_del] = array(
+                "eq",
+                0
+            );
             $info = TDORM(ADMIN::$_table_name)->where($where)->find();
             if ($info) {
                 TDSESSION("admin_id", $info[ADMIN::$id]);

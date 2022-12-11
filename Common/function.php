@@ -409,4 +409,24 @@ function get_home_website_id()
     }
     return TDSESSION("website_id");
 }
+
+function get_all_website()
+{
+    if (! TDS("website_cache")) {
+        $where = array();
+        $where[WEBSITE::$is_del] = array(
+            "eq",
+            0
+        );
+        $list = TDORM(WEBSITE::$_table_name)->where($where)
+            ->order(WEBSITE::$id . " desc")
+            ->select();
+        $map = array();
+        for ($i = 0; $i < count($list); $i = $i + 1) {
+            $map[$list[$i][WEBSITE::$id]] = $list[$i][WEBSITE::$website_name];
+        }
+        TDS("website_cache", $map);
+    }
+    return TDS("website_cache");
+}
 ?>

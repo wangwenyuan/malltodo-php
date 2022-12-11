@@ -29,7 +29,8 @@ $admin_home['WebSite']['Index'] = [
     'index' => '站点管理',
     'add' => '新增站点',
     'edit' => '编辑站点',
-    'del' => '删除站点'
+    'del' => '删除站点',
+    'switch_websites' => '切换站点'
 ];
 
 $admin_home['PcRenovation'] = array();
@@ -174,8 +175,8 @@ $admin_home['PcRenovation']['AlbumDetail'] = [
     'del' => '删除公司相册详情模版'
 ];
 $admin_home['PcRenovation']['Message'] = [
-    '_isshow' => true,
-    '_auth' => true,
+    '_isshow' => false,
+    '_auth' => false,
     '_name' => '客户留言页面',
     'index' => '客户留言模版',
     'add' => '新增客户留言模版',

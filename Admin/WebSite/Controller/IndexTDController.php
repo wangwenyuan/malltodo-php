@@ -88,10 +88,12 @@ class IndexTDController extends CommonTDController
             if ($id == "") {
                 $data[WEBSITE::$addtime] = time();
                 MU(WEBSITE::$_table_name)->data($data)->add();
+                TDS("website_cache", null); // 清空缓存
                 $this->success("添加成功");
                 return;
             } else {
                 MU(WEBSITE::$_table_name)->where($where)->save($data);
+                TDS("website_cache", null); // 清空缓存
                 $this->success("修改成功");
                 return;
             }
@@ -121,8 +123,32 @@ class IndexTDController extends CommonTDController
             if (TDSESSION("website_id") == $id) {
                 TDSESSION("website_id", null);
             }
+            TDS("website_cache", null); // 清空缓存
             $this->success("删除成功");
             return;
+        }
+    }
+
+    public function switch_websites()
+    {
+        if (TD_IS_POST) {
+            $website_id = TDI("post.website_id");
+            $where = array();
+            $where[WEBSITE::$id] = array(
+                "eq",
+                $website_id
+            );
+            $where[WEBSITE::$is_del] = array(
+                "eq",
+                0
+            );
+            $website_info = MU(WEBSITE::$_table_name)->where($where)->find();
+            if ($website_info == null) {
+                $this->error("该站点不存在或已被删除");
+            } else {
+                TDSESSION("website_id", $website_id);
+                $this->success("站点切换成功");
+            }
         }
     }
 }

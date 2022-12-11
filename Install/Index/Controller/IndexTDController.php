@@ -83,8 +83,19 @@ class IndexTDController extends TDCONTROLLER
             }
             // 生成lock文件
             file_put_contents("./runtime/lock", "");
+            // 写入超级管理员用户名和密码
+            TDConfig::$db_host = $db_host;
+            TDConfig::$db_port = $db_port;
+            TDConfig::$db_name = $db_name;
+            TDConfig::$db_username = $db_username;
+            TDConfig::$db_password = $db_password;
+            TDConfig::$table_pre = "javatodo_";
+            $data = array();
+            $data[ADMIN::$username] = $admin_username;
+            $data[ADMIN::$password] = TDCREATEPASSWORD($admin_password);
+            MU(ADMIN::$_table_name)->data($data)->add();
             // 删除安装文件
-            // deldir("./Install");
+            deldir("./Install");
         } else {
             $this->display();
         }

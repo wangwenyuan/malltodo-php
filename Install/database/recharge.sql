@@ -1,0 +1,21 @@
+CREATE TABLE `javatodo_recharge` (
+  `id` char(25) NOT NULL DEFAULT '',
+  `uid` char(25) NOT NULL DEFAULT '',
+  `re_order_sn` varchar(99) NOT NULL DEFAULT '',
+  `money` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `pay_money` decimal(10,2) NOT NULL ,
+  `addtime` bigint(20) NOT NULL DEFAULT '0',
+  `pay_time` bigint(20) NOT NULL DEFAULT '0',
+  `transaction_id` varchar(32) NOT NULL DEFAULT '',
+  `pay_type` tinyint(4) NOT NULL DEFAULT '0' ,
+  `paydate` date NOT NULL DEFAULT '0000-00-00',
+  `coupon_way` tinyint(4) NOT NULL DEFAULT '0' ,
+  `coupon_user_id` char(25) NOT NULL DEFAULT '',
+  `coupon_name` varchar(255) NOT NULL DEFAULT '',
+  `coupon_reduce_money` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `coupon_rebate_money` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `coupon_rebate_integral` int(11) NOT NULL DEFAULT '0',
+  `coupon_rebate_status` tinyint(4) NOT NULL DEFAULT '0' ,
+  `status` tinyint(4) NOT NULL DEFAULT '0' ,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4

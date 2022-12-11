@@ -1,0 +1,20 @@
+CREATE TABLE `javatodo_order_dish_seat_qr` (
+  `id` char(25) NOT NULL DEFAULT '',
+  `store_id` char(25) NOT NULL DEFAULT '',
+  `bgimg` varchar(255) NOT NULL,
+  `bgimg_width` int(11) NOT NULL,
+  `bgimg_height` int(11) NOT NULL,
+  `qrimg_width` int(11) NOT NULL,
+  `qrimg_height` int(11) NOT NULL,
+  `qrimg_left` int(11) NOT NULL,
+  `qrimg_top` int(11) NOT NULL,
+  `qrimg_all_top` int(11) NOT NULL,
+  `title_font_size` int(11) NOT NULL,
+  `title_font_weight` varchar(32) NOT NULL,
+  `title_margin_top` int(11) NOT NULL,
+  `title_margin_bottom` int(11) NOT NULL,
+  `title_margin_left` int(11) NOT NULL,
+  `title_margin_right` int(11) NOT NULL,
+  `title_color` varchar(25) NOT NULL ,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4

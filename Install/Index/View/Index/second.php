@@ -194,10 +194,10 @@
     </div>
 
     <div class="install_btn">
-        <div id="tijiao" style="float:left" onclick="window.location.href = '<?=TDU("Index/Index/index")?>'">
+        <div id="tijiao" style="float:left" onclick="window.location.href = '<?=TDUU("Index/Index/index", array(), "admin.php")?>'">
             上一步
         </div>
-        <div id="tijiao" style="float:right" onclick="window.location.href = '<?=TDU("Index/Index/third")?>'">
+        <div id="tijiao" style="float:right" onclick="window.location.href = '<?=TDUU("Index/Index/third", array(), "admin.php")?>'">
             下一步
         </div>
         <div style="clear:both;"></div>

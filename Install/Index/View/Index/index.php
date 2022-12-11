@@ -208,7 +208,7 @@ loginresize();
 //登录提交
 $('#tijiao').click(function () {
     if($("#xieyi").prop("checked")){
-        window.location.href = "<?=TDU("Index/Index/second")?>";
+        window.location.href = "<?=TDUU("Index/Index/second", array(), "admin.php")?>";
     }else{
         layer.msg("您必须同意软件许可协议才能安装！")
         return ;

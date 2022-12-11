@@ -4,9 +4,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <title>管理后台</title>
 <?php
-echo "<script type=\"text/javascript\" src=\"" . TD_URL . "/PUBLIC/js/jquery-1.12.4.min.js\"></script>";
-echo "<script type=\"text/javascript\" src=\"" . TD_URL . "/PUBLIC/js/layer.js\"></script>";
-echo "<script type=\"text/javascript\" src=\"" . TD_URL . "/PUBLIC/js/http.js\"></script>";
+echo "<script type=\"text/javascript\" src=\"" . TD_URL . "/Public/js/jquery-1.12.4.min.js\"></script>";
+echo "<script type=\"text/javascript\" src=\"" . TD_URL . "/Public/js/layer.js\"></script>";
+echo "<script type=\"text/javascript\" src=\"" . TD_URL . "/Public/js/http.js\"></script>";
 ?>
 <script>
 if (window.top != window) {
@@ -33,7 +33,7 @@ border-radius: 5px;
 box-shadow:0px 0px 8px #F0F0F0;
 }
 
-#logo_img{ width:580px; height:410px; position: fixed; background-image: url('<?=TD_URL?>/PUBLIC/images/logo_img.png');}
+#logo_img{ width:580px; height:410px; position: fixed; background-image: url('<?=TD_URL?>/Public/images/logo_img.png');}
 
 .logo{
     width: 420px;

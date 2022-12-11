@@ -174,7 +174,7 @@
     </div>
 
     <div class="install_btn">
-        <div id="tijiao" style="float:left" onclick="window.location.href = '<?=TDU("Index/Index/second")?>'">
+        <div id="tijiao" style="float:left" onclick="window.location.href = '<?=TDUU("Index/Index/second", array(), "admin.php")?>'">
             上一步
         </div>
         <div id="tijiao" style="float:right" onclick="set_db()">

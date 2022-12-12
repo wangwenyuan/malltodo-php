@@ -5,6 +5,8 @@ CREATE TABLE `javatodo_website` (
   `addtime` bigint(20) NOT NULL,
   `admin_id` char(25) NOT NULL,
   `statistics_code` text NOT NULL,
+  `menu_list` text NOT NULL,
+  `admin_menu_list` text NOT NULL,
   `is_del` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4

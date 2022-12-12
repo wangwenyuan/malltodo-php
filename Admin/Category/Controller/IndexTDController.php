@@ -99,16 +99,23 @@ class IndexTDController extends CommonTDController
         if (TD_IS_POST) {
             $_input = trim_array(TDI("post."));
             $data = $_input;
-            if ($data[CATEGORY::$seo_title] == "") {
-                $this->error("seo标题不能为空");
-                return;
-            }
             if ($data[CATEGORY::$category_name] == "") {
                 $this->error("栏目名称不能为空");
                 return;
             }
             $type = $data[CATEGORY::$type];
-            if (! isset(MenuCache::$home_menu[$key])) {
+
+            if ($data[CATEGORY::$seo_title] == "") {
+                $data[CATEGORY::$seo_title] = $data[CATEGORY::$category_name];
+            }
+            if ($data[CATEGORY::$seo_keywords] == "") {
+                $data[CATEGORY::$seo_keywords] = $data[CATEGORY::$category_name];
+            }
+            if ($data[CATEGORY::$seo_description] == "") {
+                $data[CATEGORY::$seo_description] = $data[CATEGORY::$category_name];
+            }
+
+            if (! isset(MenuCache::$home_menu[$type])) {
                 $this->error("您选择的模型有误");
                 return;
             }
@@ -145,6 +152,7 @@ class IndexTDController extends CommonTDController
                 }
                 MU(CATEGORY::$_table_name)->where($where)->save($data);
             } else { // 添加
+                $data[CATEGORY::$website_id] = TDSESSION("website_id");
                 MU(CATEGORY::$_table_name)->data($data)->add();
             }
             MenuCache::clean(TDSESSION("website_id"));

@@ -29,7 +29,7 @@ $order_by_json["release_time asc"] = "发布时间的先后次序，正序";
         <tr><td align="right" width="150px">SEO标题：</td><td align="left"><?=TDWIDGET::text(CATEGORY::$seo_title, $info[CATEGORY::$seo_title])?></td></tr>
         <tr><td align="right" width="150px">SEO关键字：</td><td align="left"><?=TDWIDGET::text(CATEGORY::$seo_keywords, $info[CATEGORY::$seo_keywords])?></td></tr>
         <tr><td align="right" width="150px">SEO描述：</td><td align="left"><?=TDWIDGET::textarea(CATEGORY::$seo_description, $info[CATEGORY::$seo_description])?></td></tr>
-        <tr><td align="right" width="150px">栏目名称：</td><td align="left"><?=TDWIDGET::text(CATEGORY::$category_name, $info[CATEGORY::$category_name])?></td></tr>
+        <tr><td align="right" width="150px">栏目名称：</td><td align="left"><?=TDWIDGET::text(CATEGORY::$category_name, $info[CATEGORY::$category_name])?>（必填）</td></tr>
         <tr><td align="right" width="150px">栏目别名：</td><td align="left"><?=TDWIDGET::text(CATEGORY::$category_sub_name, $info[CATEGORY::$category_sub_name])?></td></tr>
         <tr><td align="right" width="150px">所属模型：</td><td align="left"><?=TDWIDGET::select(CATEGORY::$type, $info[CATEGORY::$type], MenuCache::$home_menu)?></td></tr>
         <tr class="type_no_index"><td align="right" width="150px">上级栏目：</td><td align="left"><?=TDWIDGET::select(CATEGORY::$pid, $info[CATEGORY::$pid], _menu_json)?></td></tr>

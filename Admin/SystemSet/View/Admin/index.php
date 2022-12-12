@@ -3,7 +3,7 @@ require_once dirname(dirname(dirname(__DIR__))) . '/Index/View/Index/header.php'
 ?>
 <div style="padding:15px;">
 <div class="main_title">成员管理</div>
-<a onclick="phptodo.sub_window('新建成员', '<?=TDU("SystemSet/Admin/add")?>')" class="main_button">新建</a>
+<a onclick="malltodoJs.sub_window('新建成员', '<?=TDU("SystemSet/Admin/add")?>')" class="main_button">新建</a>
 <div class="clear_5px"></div>
   <table width="100%" cellpadding="0" cellspacing="0" class="main_table">
     <tr class="main_table_header">

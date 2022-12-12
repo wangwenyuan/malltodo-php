@@ -34,7 +34,7 @@ require_once dirname(dirname(dirname(__DIR__))) . '/Index/View/Index/header.php'
             for ($n = 0; $n < $jsonObject["level"]; $n = $n + 1) {
                 $sign = $sign . "——";
             }
-            echo "<td>" . $sign . $jsonObject[CATEGORY::$category_name] . "</td>";
+            echo "<td>" . $sign . " " . $jsonObject[CATEGORY::$category_name] . "</td>";
             echo "<td>" . MenuCache::$home_menu[$jsonObject[CATEGORY::$type]] . "</td>";
             $is_hidden_word = "隐藏，<a href='javascript:adjust(\"" . $jsonObject[CATEGORY::$id] . "\")'>设置为显示</a>";
             if ($jsonObject[CATEGORY::$is_hidden] == "0") {

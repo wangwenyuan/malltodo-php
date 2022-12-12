@@ -10,6 +10,18 @@ class Base extends CommonTDController
 
     protected $detailType = "";
 
+    private $admin_menu_list = array();
+
+    private function get_admin_menu_list($_admin_menu_list)
+    {
+        for ($i = 0; $i < count($_admin_menu_list); $i = $i + 1) {
+            array_push($this->admin_menu_list, $_admin_menu_list[$i]);
+            if (count($_admin_menu_list[$i]->sub_menu) > 0) {
+                $this->get_admin_menu_list($_admin_menu_list[$i]->sub_menu);
+            }
+        }
+    }
+
     public function index()
     {
         $where = array();
@@ -72,11 +84,12 @@ class Base extends CommonTDController
         }
 
         // 获取栏目
-        $admin_menu_list = MenuCache::getAdminMenuList(TDSESSION("website_id"));
-        $admin_menu_list = json_decode(json_encode($admin_menu_list, JSON_UNESCAPED_UNICODE), true);
+        $_admin_menu_list = MenuCache::getAdminMenuList(TDSESSION("website_id"));
+        $this->get_admin_menu_list($_admin_menu_list);
+        $admin_menu_list = json_decode(json_encode($this->admin_menu_list, JSON_UNESCAPED_UNICODE), true);
         $menu_json = array();
         for ($i = 0; $i < count($admin_menu_list); $i = $i + 1) {
-            $jsonObject = admin_menu_list[$i];
+            $jsonObject = $admin_menu_list[$i];
             $sign = "";
             for ($n = 0; $n < $jsonObject["level"]; $n = $n + 1) {
                 $sign = $sign . "——";
@@ -151,7 +164,7 @@ class Base extends CommonTDController
                 $this->error("请选择正确的栏目");
                 return;
             }
-            $title = trim(TDI(DETAIL::$title));
+            $title = trim(TDI("post." . DETAIL::$title));
             if ($title == "") {
                 $this->error("标题不能为空");
                 return;

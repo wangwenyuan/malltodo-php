@@ -7,11 +7,24 @@ require_once './Common/MenuCache.php';
 class IndexTDController extends CommonTDController
 {
 
+    private $admin_menu_list = array();
+
+    private function get_admin_menu_list($_admin_menu_list)
+    {
+        for ($i = 0; $i < count($_admin_menu_list); $i = $i + 1) {
+            array_push($this->admin_menu_list, $_admin_menu_list[$i]);
+            if (count($_admin_menu_list[$i]->sub_menu) > 0) {
+                $this->get_admin_menu_list($_admin_menu_list[$i]->sub_menu);
+            }
+        }
+    }
+
     public function index()
     {
         MenuCache::init(TDSESSION("website_id"));
-        $admin_menu_list = MenuCache::getAdminMenuList(TDSESSION("website_id"));
-        $admin_menu_list = json_decode(json_encode($admin_menu_list, JSON_UNESCAPED_UNICODE), true);
+        $_admin_menu_list = MenuCache::getAdminMenuList(TDSESSION("website_id"));
+        $this->get_admin_menu_list($_admin_menu_list);
+        $admin_menu_list = json_decode(json_encode($this->admin_menu_list, JSON_UNESCAPED_UNICODE), true);
         $this->assign("list", $admin_menu_list);
         $this->display();
     }
@@ -72,11 +85,12 @@ class IndexTDController extends CommonTDController
             $mobile_renovation[$mobile_renovation_list[$i][RENOVATION::$id]] = $object;
         }
 
-        $admin_menu_list = MenuCache::getAdminMenuList(TDSESSION("website_id"));
+        $_admin_menu_list = MenuCache::getAdminMenuList(TDSESSION("website_id"));
+        $this->get_admin_menu_list($_admin_menu_list);
         $menu_json = array();
         $_menu_json = array();
         $_menu_json["0"] = "顶级栏目";
-        $admin_menu_list = json_decode(json_encode($admin_menu_list, JSON_UNESCAPED_UNICODE), true);
+        $admin_menu_list = json_decode(json_encode($this->admin_menu_list, JSON_UNESCAPED_UNICODE), true);
         for ($i = 0; $i < count($admin_menu_list); $i = $i + 1) {
             $jsonObject = $admin_menu_list[$i];
             $sign = "";
@@ -85,7 +99,7 @@ class IndexTDController extends CommonTDController
             }
             $id = $jsonObject[CATEGORY::$id];
             $name = $jsonObject[CATEGORY::$category_name];
-            $name = $sign . $name;
+            $name = $sign . " " . $name;
             $type = $jsonObject[CATEGORY::$type];
             $object = array();
             $object["id"] = $id;

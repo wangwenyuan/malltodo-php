@@ -195,7 +195,7 @@ class AdminTDController extends CommonTDController
                 $id
             );
             $check = MU(ADMIN::$_table_name)->where($where)->find();
-            if (! $check) {
+            if ($check) {
                 $this->error("该用户名已存在");
                 return;
             }
@@ -215,6 +215,19 @@ class AdminTDController extends CommonTDController
             if (isset($data[ADMIN::$role_id])) {
                 unset($data[ADMIN::$role_id]);
             }
+            $where = array();
+            $where[ADMIN::$username] = array(
+                "eq",
+                $username
+            );
+            $where[ADMIN::$is_del] = array(
+                "eq",
+                0
+            );
+            $where[ADMIN::$id] = array(
+                "eq",
+                $id
+            );
             MU(ADMIN::$_table_name)->where($where)->save($data);
             $this->success("修改成功");
         } else {

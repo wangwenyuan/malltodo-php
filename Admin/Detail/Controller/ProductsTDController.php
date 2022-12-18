@@ -7,8 +7,8 @@ class ProductsTDController extends Base
     public function _td_init()
     {
         if (parent::_td_init()) {
-            $this->categoryType = "Index/Products/index";
-            $this->detailType = "Index/Products/detail";
+            $this->categoryType = "Index/Product/index";
+            $this->detailType = "Index/Product/detail";
             $this->assign("page_action", "产品");
             return true;
         } else {

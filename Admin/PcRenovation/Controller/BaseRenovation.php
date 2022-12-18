@@ -72,8 +72,9 @@ class BaseRenovation extends CommonTDController
         if (TD_IS_POST) {
             $name = trim(TDI("post." . RENOVATION::$name));
             if ($name == "") {
-                $this->error("模板名称不能为空");
-                return;
+                // $this->error("模板名称不能为空");
+                // return;
+                $name = date("Y-m-d H:i:s", time()) . "新建模板";
             }
             $data = array();
             $data[RENOVATION::$type] = $this->type;

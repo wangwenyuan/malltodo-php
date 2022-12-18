@@ -17,7 +17,7 @@ require_once dirname(dirname(dirname(__DIR__))) . '/Index/View/Index/sub_header.
     <table width="100%" cellpadding="0" cellspacing="0" class="small_main_table">
         <tr><td align="right" width="150px">链接名称：</td><td align="left"><?=TDWIDGET::text(LINKS::$name, $info[LINKS::$name])?>（必填）</td></tr>
         <tr><td align="right" width="150px">展示图片：</td><td align="left"><?=TDWIDGET::upload(LINKS::$pic, $info[LINKS::$pic])?></td></tr>
-        <tr><td align="right" width="150px">跳转链接：</td><td align="left"><?=TDWIDGET::text(LINKS::$url, $info[LINKS::$url])?>（如果该链接不为空，则进入该栏目时自动跳转至该链接上。链接前面请添加“http://”或“https://”）</td></tr>
+        <tr><td align="right" width="150px">跳转链接：</td><td align="left"><?=TDWIDGET::text(LINKS::$url, $info[LINKS::$url])?>（链接前面请添加“http://”或“https://”）</td></tr>
         <tr><td align="right" width="150px">推荐等级：</td><td align="left"><?=TDWIDGET::select(LINKS::$recommend_level, $info[LINKS::$recommend_level], TDConfig::$config['detail_recommend_level'])?></td></tr>
         <tr><td align="right" width="150px">排序：</td><td align="left"><?=TDWIDGET::text(LINKS::$sort, $info[LINKS::$sort])?>（值越大越靠前）</td></tr>
         <tr><td></td><td><input type="button" class="anniu" id="add" value="提交" /></td></tr>

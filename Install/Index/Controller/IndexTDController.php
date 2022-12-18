@@ -95,7 +95,7 @@ class IndexTDController extends TDCONTROLLER
             $data[ADMIN::$password] = TDCREATEPASSWORD($admin_password);
             MU(ADMIN::$_table_name)->data($data)->add();
             // 删除database.php文件
-            deldir("./database.php");
+            unlink("./database.php");
             // 删除安装文件
             deldir("./Install");
             $this->success("安装成功", TDUU("Index/Index/index", array(), "admin.php"));

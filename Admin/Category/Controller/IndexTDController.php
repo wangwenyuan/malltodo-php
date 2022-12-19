@@ -1,6 +1,4 @@
 <?php
-use function TDUPLOAD\check;
-
 require_once dirname(dirname(__DIR__)) . '/Index/Controller/CommonTDController.php';
 require_once './Common/MenuCache.php';
 
@@ -160,7 +158,7 @@ class IndexTDController extends CommonTDController
             // 加入数据库
             if (TDI("get." . CATEGORY::$id) != "") { // 修改
                                                      // 检测上级id是否符合规定
-                if (! check(TDI("get." . CATEGORY::$id), $pid)) {
+                if (! $this->check(TDI("get." . CATEGORY::$id), $pid)) {
                     $this->error("上级id选择错误");
                     return;
                 }
@@ -242,8 +240,20 @@ class IndexTDController extends CommonTDController
                 "eq",
                 $id
             );
+            $info = MU(CATEGORY::$_table_name)->where($where)->find();
+            $pid = $info[CATEGORY::$pid];
+            // 删除当前栏目
             $data = array();
             $data[CATEGORY::$is_del] = 1;
+            MU(CATEGORY::$_table_name)->where($where)->save($data);
+            // 将当前栏目的所有子栏目转移至父栏目下
+            $where = array();
+            $where[CATEGORY::$pid] = array(
+                "eq",
+                $id
+            );
+            $data = array();
+            $data[CATEGORY::$pid] = $pid;
             MU(CATEGORY::$_table_name)->where($where)->save($data);
             MenuCache::clean(TDSESSION("website_id"));
             $this->success("删除成功");

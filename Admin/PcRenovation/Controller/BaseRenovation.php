@@ -34,6 +34,7 @@ class BaseRenovation extends CommonTDController
         $list = MU(RENOVATION::$_table_name)->where($where)
             ->limit($page->firstRow . "," . $page->listRows)
             ->order(RENOVATION::$id . " desc")
+            ->field("id, website_id, name, type, platform, is_default, addtime, last_edit_time")
             ->select();
         $this->assign("page", $page->show());
         $this->assign("list", $list);
@@ -81,7 +82,7 @@ class BaseRenovation extends CommonTDController
             $data[RENOVATION::$doms] = TDI("post." . RENOVATION::$doms);
             $data[RENOVATION::$doms_sort] = TDI("post." . RENOVATION::$doms_sort);
             $data[RENOVATION::$html] = RenovationWidget::buildHtmlCSSTemplate(TD_URL, htmlspecialchars_decode($data[RENOVATION::$doms]), htmlspecialchars_decode($data[RENOVATION::$doms_sort]));
-            $data[RENOVATION::$name] = TDI("post." . RENOVATION::$name);
+            $data[RENOVATION::$name] = $name;
             $data[RENOVATION::$title] = TDI("post." . RENOVATION::$title);
             $data[RENOVATION::$keywords] = TDI("post." . RENOVATION::$keywords);
             $data[RENOVATION::$description] = TDI("post." . RENOVATION::$description);
@@ -163,7 +164,7 @@ class BaseRenovation extends CommonTDController
     public function setDefault()
     {
         if (TD_IS_POST) {
-            $id = TDI("get." . RENOVATION::$id);
+            $id = TDI("post." . RENOVATION::$id);
             $where = array();
             $where[RENOVATION::$id] = array(
                 "eq",

@@ -33,7 +33,7 @@ require_once dirname(dirname(dirname(__DIR__))) . '/Index/View/Index/header.php'
                         $checked = "checked=\"checked\"";
                     }
                     if (isset(TDConfig::$menu["admin_home"][TD_MODULE_NAME][TD_CONTROLLER_NAME]["setDefault"])) {
-                        echo "<td><div><input onclick=\"changeDefault('" . $jsonObject["id"] . "')\" class=\"ui-c-open\" type=\"checkbox\" name=\"open\" " . checked . " /></div></td>";
+                        echo "<td><div><input onclick=\"changeDefault('" . $jsonObject["id"] . "')\" class=\"ui-c-open\" type=\"checkbox\" name=\"open\" " . $checked . " /></div></td>";
                     }
                     echo "<td><a href=\"javascript:malltodoJs.max_sub_window('编辑', '" . TDU(TD_MODULE_NAME . "/" . TD_CONTROLLER_NAME . "/edit", array(
                         "id" => $jsonObject["id"]
@@ -56,7 +56,7 @@ require_once dirname(dirname(dirname(__DIR__))) . '/Index/View/Index/header.php'
 
 <script>
 function changeDefault(id){
-	var url = "<?=TDU(TD_MODULE_NAME + "/" + TD_CONTROLLER_NAME + "/setDefault")?>";
+	var url = "<?=TDU(TD_MODULE_NAME . "/" . TD_CONTROLLER_NAME . "/setDefault")?>";
 	$.ajax({
 		async : true,
 		type : "POST",

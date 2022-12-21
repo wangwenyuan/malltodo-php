@@ -35,6 +35,13 @@ require_once dirname(dirname(dirname(__DIR__))) . '/Index/View/Index/sub_header.
         <tr class="renovation_type_1"><td align="right" width="150px">电脑端自定义页模版：</td><td align="left"><?=TDWIDGET::select(DETAIL::$pc_custom_id, $info[DETAIL::$pc_custom_id], $pc_custom)?></td></tr>
         <tr><td align="right" width="150px">推荐等级：</td><td align="left"><?=TDWIDGET::select(DETAIL::$recommend_level, $info[DETAIL::$recommend_level], TDConfig::$config['detail_recommend_level'])?></td></tr>
         <tr><td align="right" width="150px">排序：</td><td align="left"><?=TDWIDGET::text(DETAIL::$sort, $info[DETAIL::$sort])?>（值越大越靠前）</td></tr>
+        <?php
+        if (isset($info[DETAIL::$release_time]) && $info[DETAIL::$release_time]) {
+            $info[DETAIL::$release_time] = date("Y-m-d H:i:s", $info[DETAIL::$release_time]);
+        } else {
+            $info[DETAIL::$release_time] = date("Y-m-d H:i:s", time());
+        }
+        ?>
         <tr><td align="right" width="150px">发布时间：</td><td align="left"><?=TDWIDGET::date(DETAIL::$release_time, $info[DETAIL::$release_time])?></td></tr>
         <tr><td></td><td><input type="button" class="anniu" id="add" value="提交" /></td></tr>
     </table>

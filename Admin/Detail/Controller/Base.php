@@ -187,8 +187,8 @@ class Base extends CommonTDController
             $_data[DETAIL::$admin_id] = TDSESSION("admin_id");
             $renovation_type = (int) trim(TDI("post.renovation_type"));
             if ($renovation_type == 0) { // 普通模板
-                $pc_renovation_id = trim(TDI("pc_renovation_id"));
-                $mobile_renovation_id = trim(TDI("mobile_renovation_id"));
+                $pc_renovation_id = trim(TDI("post.pc_renovation_id"));
+                $mobile_renovation_id = trim(TDI("post.mobile_renovation_id"));
                 if (! isset($pc_renovation_map[$pc_renovation_id])) {
                     $this->error("电脑端模板选择有误");
                     return;
@@ -211,10 +211,10 @@ class Base extends CommonTDController
                 $_data[DETAIL::$pc_custom_id] = $pc_custom_id;
                 $_data[DETAIL::$mobile_custom_id] = $mobile_custom_id;
             }
-            $_data[DETAIL::$type] = $detailType;
+            $_data[DETAIL::$type] = $this->detailType;
             if ($id == "") {
                 $_data[DETAIL::$website_id] = TDSESSION("website_id");
-                MU(DETAIL::$_table_name)->data(_data)->add();
+                MU(DETAIL::$_table_name)->data($_data)->add();
                 $this->success("添加成功");
                 return;
             } else {
@@ -227,7 +227,7 @@ class Base extends CommonTDController
                     "eq",
                     TDSESSION("website_id")
                 );
-                MU(DETAIL::$_table_name)->where($where)->save(_data);
+                MU(DETAIL::$_table_name)->where($where)->save($_data);
                 $this->success("修改成功");
                 return;
             }

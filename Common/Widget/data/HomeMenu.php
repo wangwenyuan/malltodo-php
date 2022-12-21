@@ -5,7 +5,7 @@ class HomeMenu
 
     public $parameter = array();
 
-    public static function getValue($selfParameter, $bind_loop_list)
+    public function getValue($selfParameter, $bind_loop_list)
     {
         $object = new stdClass();
         $websiteId = TDSESSION("website_id");

@@ -160,8 +160,8 @@ margin-left:5px;
 <p>感谢您选择MALLTODO零代码建站系统（以下简称MALLTODO），MALLTODO由郑州掌勺信息技术有限公司开发，是目前国内强大、稳定的零代码建站系统建设解决方案之一，基于 PHP + MySQL   的技术开发，全部源码开放。</p>
 <p>MALLTODO 的官方网址是： <a href="http://www.malltodo.com" target="_blank">www.malltodo.com</a></p>
 <p>为了使你正确并合法的使用本软件，请你在使用前务必阅读清楚下面的协议条款：</p>
-<strong>一、本授权协议适用且仅适用于 MALLTODO V1.x 版本，MALLTODO官方对本授权协议的最终解释权。</strong>
-<strong>二、协议许可的权利 </strong>
+<p><strong>一、本授权协议适用且仅适用于 MALLTODO V1.x 版本，MALLTODO官方对本授权协议的最终解释权。</strong></p>
+<p><strong>二、协议许可的权利 </strong></p>
 <p>1、您可以在完全遵守本最终用户授权协议的基础上，将本软件应用于非商业用途，而不必支付软件版权授权费用。 </p>
 <p>2、您可以在协议规定的约束和限制范围内修改 MALLTODO 源代码或界面风格以适应您的网站要求。 </p>
 <p>3、您拥有使用本软件构建的网站全部内容所有权，并独立承担与这些内容的相关法律义务。 </p>

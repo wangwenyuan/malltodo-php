@@ -16,7 +16,7 @@ require_once dirname(dirname(dirname(__DIR__))) . '/Index/View/Index/header.php'
 
     <?php
     if (count($list) == 0) {
-        echo "<tr><td colspan=4>尚未创建任何信息</td></tr>";
+        echo "<tr><td colspan=5>尚未创建任何信息</td></tr>";
     } else {
         for ($i = 0; $i < count($list); $i = $i + 1) {
             $jsonObject = $list[$i];

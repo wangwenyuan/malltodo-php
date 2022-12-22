@@ -107,7 +107,7 @@ function sign_out(){
           <div class="clear"></div>
             <div class="zuo_kuang">
             <?php
-            $menu = TDConfig::$menu["admin_menu_auth"];
+            $menu = TDConfig::$menu["admin_home"];
             foreach ($menu as $key => $submenu) {
                 if (! $submenu['_isshow']) {
                     continue;

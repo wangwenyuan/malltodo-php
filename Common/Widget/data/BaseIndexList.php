@@ -130,6 +130,10 @@ class BaseIndexList
         if ($category[CATEGORY::$url] == "") {
             $url = "./index.php?m=Index&c=Index&a=category&id=" . $category[CATEGORY::$id];
             $category[CATEGORY::$url] = $url;
+        } else {
+            $url = $category[CATEGORY::$url];
+            $url = htmlspecialchars_decode($url);
+            $category[CATEGORY::$url] = $url;
         }
         array_push($list, $category);
         // 获取该栏目的所有子栏目
@@ -142,12 +146,21 @@ class BaseIndexList
             "eq",
             0
         );
+        $where[CATEGORY::$is_hidden] = array(
+            "eq",
+            0
+        );
         $_list = MU(CATEGORY::$_table_name)->where($where)
             ->order(CATEGORY::$sort . " asc")
             ->select();
         for ($i = 0; $i < count(_list); $i = $i + 1) {
             if ($_list[$i][CATEGORY::$url] == "") {
                 $url = "./index.php?m=Index&c=Index&a=category&id=" . $_list[$i][CATEGORY::$id];
+                $_list[$i][CATEGORY::$url] = $url;
+                array_push($list, $_list[$i]);
+            } else {
+                $url = $_list[$i][CATEGORY::$url];
+                $url = htmlspecialchars_decode($url);
                 $_list[$i][CATEGORY::$url] = $url;
                 array_push($list, $_list[$i]);
             }

@@ -50,9 +50,20 @@ class RenovationWidget
             $description = $map[RENOVATION::$description];
         }
         $body_color = $map[RENOVATION::$background_color];
-        $base_url = TD_URL;
-        if ($body_color == "") {
-            $body_color = "		<style>\r\n" . "			body {\r\n" . "				margin: 0rem;\r\n" . "				padding: 0rem;\r\n" . "			}\r\n" . "		</style>\r\n";
+        $body_image = $map[RENOVATION::$background_image];
+        $body_repeat = $map[RENOVATION::$background_repeat];
+
+        // 初始化body样式
+        if ($body_image != "") {
+            $background_image = "";
+            $background_image = "background-image:" . htmlspecialchars_decode($body_image) . ";";
+            if ($body_repeat == "repeat") {
+                $background_image = "background-repeat:repeat; background-size:auto; " . $background_image;
+            } else {
+                $background_image = "background:center center no-repeat; background-size:cover; background-repeat:no-repeat; " . $background_image;
+            }
+
+            $body_color = "		<style>\r\n" . "			body {\r\n" . $background_image . "				margin: 0rem;\r\n" . "				padding: 0rem;\r\n" . "			}\r\n" . "		</style>\r\n";
         } else {
             $body_color = "		<style>\r\n" . "			body {\r\n" . "				background: " . $body_color . ";\r\n" . "				margin: 0rem;\r\n" . "				padding: 0rem;\r\n" . "			}\r\n" . "		</style>\r\n";
         }
@@ -61,7 +72,7 @@ class RenovationWidget
         $string = "<!DOCTYPE html>\r\n" . "<html>\r\n" . "	<head>\r\n" . "		<meta charset=\"utf-8\">\r\n" . "		<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, user-scalable=0\">\r\n" . "		<title>" . $title . "</title>\r\n" . "		<meta name=\"keywords\" content=\"" . $keywords . "\">\r\n" . "		<meta name=\"description\" content=\"" . $description . "\">\r\n" . "		<script src=\"" . TD_URL . "/Public/js/jquery-1.12.4.min.js\"></script>\r\n" . "		<script src=\"" . TD_URL . "/Public/js/layer.js\"></script>\r\n" . "		<script src=\"" . TD_URL . "/Public/js/http.js\"></script>\r\n" . "		<script src=\"" . TD_URL . "/Public/js/js.js\"></script>\r\n" . "		<script src=\"" . TD_URL . "/Public/js/drop.js\"></script>\r\n" . "		<link href=\"" . TD_URL . "/Public/css/swiper.min.css\" rel=\"stylesheet\" />\r\n" . "		<script src=\"" . TD_URL . "/Public/js/swiper.min.js\"></script>\r\n" . "		<script src=\"" . TD_URL . "/Public/js/vue.min.js\"></script>\r\n		<script charset=\"utf-8\" src=\"https://map.qq.com/api/gljs?v=1.exp&libraries=service&key=JYZBZ-7B2AX-GY24G-7GSPN-I2R36-KOFRO\"></script>\r\n  " . $body_color . "	</head>\r\n" . "	<body>\r\n";
 
         $string = $string . "<style>\r\n";
-        $string = $string . "#malltodo_mask{ position: fixed; top: 0rem; left: 0rem; background: center center no-repeat #FFFFFF url(" . TD_URL . "/Public/images/loading.gif); background-size: inherit; z-index: 100000;} \r\n";
+        $string = $string . "#malltodo_mask{ position: fixed; top: 0rem; left: 0rem; background: center center no-repeat #FFFFFF url(" . TD_URL . "/Public/images/loading.gif); background-size: auto; z-index: 100000;} \r\n";
         $string = $string . "</style>\r\n";
         $string = $string . "<link rel=\"stylesheet\" type=\"text/css\" href=\"" . TD_URL . "/Public/css/index.css\" />\r\n";
         $string = $string . "<link rel=\"stylesheet\" type=\"text/css\" href=\"" . TD_URL . "/Public/css/pintuer.css\" />\r\n";

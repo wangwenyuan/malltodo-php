@@ -9,6 +9,8 @@ class RENOVATION{
 	public static $description = "description";
 	public static $page_pic = "page_pic";
 	public static $background_color = "background_color";
+	public static $background_image = "background_image";
+	public static $background_repeat = "background_repeat";
 	public static $type = "type";
 	public static $platform = "platform";
 	public static $html = "html";

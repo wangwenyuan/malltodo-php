@@ -28,13 +28,153 @@
                     <div class="ui-c-clear"></div>
                     </div>
                     <div class="ui-c-box">
-                    <div class="ui-c-box-left">页面背景色：</div>
-                    <div class="ui-c-box-right">
-                    <input id="malltodo_background_color" style="margin-top: 0.125rem;" name="background_color" type="color" value="<?php
-
-            echo ($info["background_color"] == "" ? "#FFFFFF" : $info["background_color"])?>" onchange="set_malltodo_config_value('background_color')" /></div>
-                    <div class="ui-c-clear"></div>
+                    	<div class="ui-c-box-left">页面背景类型：</div>
+                    	<div class="ui-c-box-right"><select id="malltodo_background_0" class="ui-c-select" onchange="malltodo_background.background_select()">
+                    			<option value="1">颜色背景</option>
+                    			<option value="2">图片背景</option>
+                    		</select></div>
+                    	<div class="ui-c-clear"></div>
                     </div>
+
+                    <div class="ui-c-box" id="malltodo_background_1">
+                    	<div class="ui-c-box-left">页面背景色：</div>
+                    	<div class="ui-c-box-right">
+                    		<input id="malltodo_background_color" style="margin-top: 0.125rem;" name="malltodo_background_color" type="color" value="<?=$info["background_color"] == "" ? "#FFFFFF" : $info["background_color"]?>" onchange="malltodo_background.change_background_color()" /></div>
+                    	<div class="ui-c-clear"></div>
+                    </div>
+
+                    <div class="ui-c-box" id="malltodo_background_2">
+                    	<div class="ui-c-box-left">背景图片：</div>
+                    	<div class="ui-c-box-right">
+                    		<div style="clear:both; height:10px;"></div>
+                    		<input accept="image/*" name="malltodo_background_2_image" type="file" style="display: none;" id="malltodo_background_2_image"
+                    		 onchange="malltodo_background.change_background_image()">
+                    		<div id="malltodo_background_2_pic" onclick="malltodo_background.upload_background_image()" class="ui-c-upload"></div>
+                    	</div>
+                    	<div class="ui-c-clear"></div>
+                    	<div style="height:10px;"></div>
+                    	<div class="ui-c-box-left">背景图是否重复：</div>
+                    	<div class="ui-c-box-right"><select id="malltodo_background_repeat" class="ui-c-select" onchange="malltodo_background.css()">
+                    			<option value="no-repeat">不重复</option>
+                    			<option value="repeat">重复</option>
+                    		</select></div>
+                    	<div class="ui-c-clear"></div>
+                    </div>
+
+<script>
+if (typeof malltodo_background == "undefined") {
+	var malltodo_background = {};
+	malltodo_background.background_select = function() {
+		var zhi = $("#malltodo_background_0").val();
+		if(zhi == 1){
+			$("#malltodo_background_1").show();
+			$("#malltodo_background_2").hide();
+		}else{
+			$("#malltodo_background_1").hide();
+			$("#malltodo_background_2").show();
+		}
+	};
+	malltodo_background.color_to_hex = function(color) {
+		return color_to_hex(color);
+	};
+	malltodo_background.change_background_color = function() {
+		malltodo_background.css();
+	};
+	malltodo_background.change_background_image = function() {
+		var file = document.getElementById("malltodo_background_2_image").files[0];
+		var r = new FileReader();
+		var base64 = "";
+		r.readAsDataURL(file);
+		var base64 = "";
+		r.onload = function() {
+			base64 = r.result;
+			http.post('./index.php?m=Index&c=Upload&a=base64', {
+				"base64": base64
+			}, function(data) {
+				if (data["error"] == 1) {
+					layer.msg("上传失败");
+				} else {
+					$("#malltodo_background_2_pic").css('background-image', "url(" + data["url"] + ")");
+					malltodo_background.css();
+				}
+			})
+		}
+	};
+	malltodo_background.upload_background_image = function() {
+		document.getElementById("malltodo_background_2_image").click();
+	}
+	malltodo_background.init = function() {
+		var color = malltodo_page_config["background_color"];
+		if(color === "rgba(0, 0, 0, 0)"){
+			color = "#FFFFFF";
+		}else{
+			color = malltodo_background.color_to_hex(color);
+		}
+		$("#malltodo_background_color").val(color);
+		var pic = malltodo_page_config["background_image"];
+		if (!(pic == 'none' || pic == "" || pic == undefined)) {
+			$("#malltodo_background_2_pic").css('background-image', pic);
+			$("#malltodo_background_0").val(2);
+			var repeat_value = malltodo_page_config["background_repeat"];
+			if(repeat_value == "no-repeat"){
+				$("#malltodo_background_repeat").val("no-repeat");
+				$("body").css('background', "center center no-repeat");
+				$("body").css('background-size', "cover");
+				$("body").css('background-repeat', "no-repeat");
+				$("body").css('background-color', 'none');
+			}else{
+				$("#malltodo_background_repeat").val("repeat");
+				$("body").css('background', "repeat");
+				$("body").css('background-repeat', "repeat");
+				$("body").css('background-size', "auto");
+				$("body").css('background-color', 'none');
+			}
+			$("body").css('background-image', pic);
+		} else {
+			$("#malltodo_background_0").val(1);
+			$("body").css('background-color', color);
+		}
+		malltodo_background.background_select();
+	};
+	malltodo_background.css = function() {
+		var zhi = $("#malltodo_background_0").val();
+		if (zhi == 1) {
+			$("body").css('background-color', $("#malltodo_background_color").val());
+			$("body").css('background-image', 'none');
+			malltodo_page_config["background_color"] = $("#malltodo_background_color").val();
+			malltodo_page_config["background_image"] = "";
+			malltodo_page_config["background_repeat"] = "";
+		} else {
+			var repeat_value = $("#malltodo_background_repeat").val();
+			if(repeat_value == "no-repeat"){
+				$("body").css('background', "center center no-repeat");
+				$("body").css('background-size', "cover");
+				$("body").css('background-repeat', "no-repeat");
+				$("body").css('background-image', $("#malltodo_background_2_pic").css('background-image'));
+				$("body").css('background-color', 'none');
+
+				malltodo_page_config["background_color"] = "";
+				malltodo_page_config["background_image"] = $("#malltodo_background_2_pic").css('background-image');
+				malltodo_page_config["background_repeat"] = "no-repeat";
+			}else{
+				$("body").css('background', "repeat");
+				$("body").css('background-repeat', "repeat");
+				$("body").css('background-size', "auto");
+				$("body").css('background-image', $("#malltodo_background_2_pic").css('background-image'));
+				$("body").css('background-color', 'none');
+
+				malltodo_page_config["background_color"] = "";
+				malltodo_page_config["background_image"] = $("#malltodo_background_2_pic").css('background-image');
+				malltodo_page_config["background_repeat"] = "repeat";
+			}
+
+		}
+	};
+}
+malltodo_background.init();
+
+</script>
+
                     <div class="ui-c-box">
                     <div class="ui-c-box-left">顶部模块：</div>
                     <div class="ui-c-box-right">

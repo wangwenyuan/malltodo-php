@@ -56,6 +56,10 @@ class IndexTDController extends CommonTDController
             "eq",
             0
         );
+        $pc_renovation_where[RENOVATION::$website_id] = array(
+            "eq",
+            TDSESSION("website_id")
+        );
         $pc_renovation_list = MU(RENOVATION::$_table_name)->where($pc_renovation_where)->select();
         $pc_renovation = array();
         for ($i = 0; $i < count($pc_renovation_list); $i = $i + 1) {
@@ -73,6 +77,10 @@ class IndexTDController extends CommonTDController
         $mobile_renovation_where[RENOVATION::$is_del] = array(
             "eq",
             0
+        );
+        $mobile_renovation_where[RENOVATION::$website_id] = array(
+            "eq",
+            TDSESSION("website_id")
         );
         $mobile_renovation_list = MU(RENOVATION::$_table_name)->where($mobile_renovation_where)->select();
         $mobile_renovation = array();

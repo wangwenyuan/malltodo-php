@@ -7,6 +7,8 @@ CREATE TABLE `javatodo_renovation` (
   `description` varchar(255) NOT NULL DEFAULT '',
   `page_pic` varchar(255) NOT NULL DEFAULT '',
   `background_color` varchar(25) NOT NULL DEFAULT '',
+  `background_image` varchar(255) NOT NULL DEFAULT '',
+  `background_repeat` varchar(25) NOT NULL DEFAULT '',
   `type` varchar(99) NOT NULL DEFAULT '' ,
   `platform` varchar(25) NOT NULL ,
   `html` mediumtext NOT NULL ,

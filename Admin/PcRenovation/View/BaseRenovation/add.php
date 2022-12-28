@@ -198,6 +198,8 @@ var malltodo_page_config = {
 	"keywords":"<?=$info["keywords"]?>",
 	"description":"<?=$info["description"]?>",
 	"background_color":"<?=$info["background_color"] == "" ? "#FFFFFF" : $info["background_color"]?>",
+	"background_image":'<?=htmlspecialchars_decode($info["background_image"])?>',
+	"background_repeat":"<?=$info["background_repeat"]?>",
 	"header_id":"<?=$info["header_id"]?>",
 	"bottom_id":"<?=$info["bottom_id"]?>"
 };
@@ -464,6 +466,8 @@ function malltodo_renovation_submit(){
 		"keywords":malltodo_page_config["keywords"],
 		"description":malltodo_page_config["description"],
 		"background_color":malltodo_page_config["background_color"],
+		"background_image":malltodo_page_config["background_image"],
+		"background_repeat":malltodo_page_config["background_repeat"],
 		"header_id":malltodo_page_config["header_id"],
 		"bottom_id":malltodo_page_config["bottom_id"]
 	};

@@ -108,6 +108,16 @@ $order_by_json["release_time asc"] = "发布时间的先后次序，正序";
     	$("#mobile_list_renovation_id").html(mobile_list_html);
     	$("#mobile_page_renovation_id").html(mobile_detail_html);
 
+    	var pc_list_renovation_id = "<?=$info[CATEGORY::$pc_list_renovation_id]?>";
+    	if(pc_list_renovation_id != ""){
+    		$("#pc_list_renovation_id").val(pc_list_renovation_id);
+    	}
+
+    	var pc_page_renovation_id = "<?=$info[CATEGORY::$pc_page_renovation_id]?>";
+    	if(pc_page_renovation_id != ""){
+    		$("#pc_page_renovation_id").val(pc_page_renovation_id);
+    	}
+
     	//修改栏目上级可选内容
     	var pid_option_html = '<option value="0">顶级栏目</option>';
     	var pid_arr = [0];
@@ -153,6 +163,17 @@ $order_by_json["release_time asc"] = "发布时间的先后次序，正序";
     	$("#mobile_custom_id").html("");
     	$("#pc_custom_id").html(pc_custom_html);
     	$("#mobile_custom_id").html(mobile_custom_html);
+
+    	var pc_custom_id = "<?=$info[CATEGORY::$pc_custom_id]?>";
+    	if(pc_custom_id != ""){
+    		$("#pc_custom_id").val(pc_custom_id);
+    	}
+
+    	var mobile_custom_id = "<?=$info[CATEGORY::$mobile_custom_id]?>";
+    	if(mobile_custom_id != ""){
+    		$("#mobile_custom_id").val(mobile_custom_id);
+    	}
+
     	ui_c.render();
     }
     custom_init();

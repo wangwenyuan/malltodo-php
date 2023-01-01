@@ -5,7 +5,6 @@ class Malltodo
 
     private static $serviceHost = "http://api.malltodo.com/";
 
-    // private static $serviceHost = "http://127.0.0.1:9500/";
     private static function urlencodeParam($param)
     {
         foreach ($param as $k => $v) {
@@ -31,7 +30,6 @@ class Malltodo
 
     private static function postToService($serviceUrl, $postData = array())
     {
-        // $postData = self::urlencodeParam($postData);
         foreach ($postData as $k => $v) {
             $postData[$k] = $v;
         }
@@ -77,7 +75,6 @@ class Malltodo
             $getParam["timeId"] = $shijian;
         }
         $postData = array();
-        // $jsonString = str_replace("[]", "{}", $jsonString);
         $postData["jsonString"] = $jsonString;
         $postData = self::urlencodeParam($postData);
         $jsonHtmlString = self::postToService(self::getServiceUrl("getBaseWidget", $getParam), $postData);
@@ -116,8 +113,6 @@ class Malltodo
         $postData = array();
         $domJSONObjectString = json_encode($domJSONObject, JSON_UNESCAPED_UNICODE);
         $postData["domJSONObjectString"] = $domJSONObjectString;
-        // var_dump($domJSONObject);
-        // exit();
         $postData = self::urlencodeParam($postData);
         $jsonHtmlString = self::postToService(self::getServiceUrl("getBindLoopList", $getParam), $postData);
         if ($jsonHtmlString != "") {
@@ -142,13 +137,11 @@ class Malltodo
     {
         $getParam = array();
         $postData = array();
-        // $domJSONString = str_replace("[]", "{}", $domJSONString);
         $postData["domJSONString"] = $domJSONString;
         $postData["domsSort"] = $domsSort;
-        // $bindDataMapString = str_replace("[]", "{}", $bindDataMapString);
-        $postData["bindDataMapString"] = $bindDataMapString;
         $postData["typeString"] = $typeString;
         $postData = self::urlencodeParam($postData);
+        $postData["bindDataMapString"] = $bindDataMapString;
         $postData["htmlString"] = $htmlString;
         $ret = self::postToService(self::getServiceUrl("buildOneWidgetHtmlCSS", $getParam), $postData);
         return $ret;

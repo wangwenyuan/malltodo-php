@@ -57,11 +57,11 @@ TDConfig::$todo_pre = "";';
             } else {
                 $fullpath = $path . "/" . $file;
                 $sql = file_get_contents($fullpath);
-                file_put_contents($this->target . "/import.sql", $sql . PHP_EOL, FILE_APPEND);
+                file_put_contents($this->target . "/import.sql", $sql . ";" . PHP_EOL, FILE_APPEND);
             }
         }
         $sql = "INSERT INTO `javatodo_admin` (`id`, `mobile`, `username`, `password`, `name`, `alias`, `hader_img`, `department`, `role_id`, `sort`, `position`, `gender`, `email`, `biz_mail`, `telephone`, `is_leader_in_dept`, `direct_leader`, `external_position`, `address`, `main_department`, `apptoken`, `is_del`) VALUES ('1', '', 'admin', '7681c526a4414ffa6d20ef756e8a9c46', '', '', '', '', '0', 0, '', 1, '', '', '', '', '', '', '', '', '', 0);";
-        file_put_contents($this->target . "/import.sql", $sql . PHP_EOL, FILE_APPEND);
+        file_put_contents($this->target . "/import.sql", $sql . ";" . PHP_EOL, FILE_APPEND);
     }
 
     public function build()

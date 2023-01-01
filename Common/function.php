@@ -88,6 +88,52 @@ function deldir($path)
     }
 }
 
+// 复制文件夹（包含文件夹里面的文件以及子文件夹）
+function copy_dir($src, $dst)
+{
+    if (empty($src) || empty($dst)) {
+        return false;
+    }
+    $dir = opendir($src);
+    dir_mkdir($dst);
+    while (false !== ($file = readdir($dir))) {
+        if (($file != '.') && ($file != '..') && ($file != '.git') && ($file != '.settings')) {
+            $srcRecursiveDir = $src . DIRECTORY_SEPARATOR . $file;
+            $dstRecursiveDir = $dst . DIRECTORY_SEPARATOR . $file;
+            if (is_dir($srcRecursiveDir)) {
+                copy_dir($srcRecursiveDir, $dstRecursiveDir);
+            } else {
+                copy($srcRecursiveDir, $dstRecursiveDir);
+            }
+        }
+    }
+    closedir($dir);
+    return true;
+}
+
+/**
+ * 创建文件夹
+ *
+ * @param string $path
+ *            文件夹路径
+ * @param int $mode
+ *            访问权限
+ * @param bool $recursive
+ *            是否递归创建
+ * @return bool
+ */
+function dir_mkdir($path = '', $mode = 0755, $recursive = true)
+{
+    clearstatcache();
+
+    if (! is_dir($path)) {
+        mkdir($path, $mode, $recursive);
+        return chmod($path, $mode);
+    }
+
+    return true;
+}
+
 function is_mobile()
 {
     $user_merchant = $_SERVER['HTTP_USER_AGENT'];

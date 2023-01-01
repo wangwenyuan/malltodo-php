@@ -33,14 +33,14 @@ class HomeIndexLinks
             "eq",
             0
         );
-        $is_pic = $selfParameter["is_pic"];
+        $is_pic = $selfParameter->is_pic;
         if ($is_pic != "0") {
             $where[LINKS::$pic] = array(
                 "neq",
                 ""
             );
         }
-        $recommend_level = $selfParameter["recommend_level"];
+        $recommend_level = $selfParameter->recommend_level;
         if ($recommend_level != "0") {
             $where[LINKS::$recommend_level] = array(
                 "eq",

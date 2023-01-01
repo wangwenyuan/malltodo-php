@@ -80,7 +80,7 @@ class BaseIndexList
         $page = new TDPAGE($count, $page_size);
         $list = MU(DETAIL::$_table_name)->where($where)
             ->limit($page->firstRow . "," . $page->listRows)
-            ->order(DETAIL::$sort . " desc," . DETAIL::$sort)
+            ->order(DETAIL::$sort . ", " . DETAIL::$id . " desc,")
             ->select();
         for ($i = 0; $i < count($list); $i = $i + 1) {
             $list[$i][DETAIL::$release_time] = date("Y-m-d H:i:s", $list[$i][DETAIL::$release_time]);

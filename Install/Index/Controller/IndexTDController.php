@@ -96,6 +96,8 @@ class IndexTDController extends TDCONTROLLER
             MU(ADMIN::$_table_name)->data($data)->add();
             // 删除database.php文件
             unlink("./database.php");
+            // 删除bt.php文件
+            unlink("./bt.php");
             // 删除安装文件
             deldir("./Install");
             $this->success("安装成功", TDUU("Index/Index/index", array(), "admin.php"));

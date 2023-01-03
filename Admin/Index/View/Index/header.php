@@ -34,7 +34,7 @@ static_resources();
           		})
           	</script>
           </div>
-          <div class="header_right">当前管理员： <a href="javascript:malltodoJs.sub_window('修改资料', '<?=TDU("SystemSet/Admin/material")?>')"> <?=TDSESSION("admin_name")?></a> &nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:sign_out()">退出</a></div>
+          <div class="header_right">当前管理员： <a href="javascript:malltodoJs.sub_window('修改资料', '<?=TDU("SystemSet/Admin/material")?>')"> <?=TDSESSION("admin_name")?></a> &nbsp;&nbsp;&nbsp;&nbsp; <a target="_blank" href="<?=TD_URL?>">网站首页</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:sign_out()">退出</a></div>
         <div class="clear"></div>
         </div></td>
     </tr>

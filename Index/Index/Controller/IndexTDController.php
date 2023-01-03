@@ -121,7 +121,7 @@ class IndexTDController extends BaseTDController
         );
         $where[RENOVATION::$id] = array(
             "eq",
-            pc_renovation_id
+            $pc_renovation_id
         );
         $where[RENOVATION::$website_id] = array(
             "eq",

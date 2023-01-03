@@ -39,12 +39,16 @@ class BaseIndexList
         $category_ids = array();
         $websiteId = TDSESSION("website_id");
         require_once dirname(dirname(__DIR__)) . "/MenuCache.php";
-        $all_category_list = MenuCache::$getAdminMenuList($websiteId);
+        $all_category_list = MenuCache::getAdminMenuList($websiteId);
+        $this->get_admin_menu_list($all_category_list);
+        $all_category_list = $this->admin_menu_list;
         $pointer_category_level = 0;
         $open = 0; // 是否装载的开关
+
         for ($i = 0; $i < count($all_category_list); $i = $i + 1) {
-            $cur_category_id = $all_category_list[$i]["id"];
-            $cur_level = $all_category_list[$i]["level"];
+            $cur_category_id = $all_category_list[$i]->id;
+            $cur_level = $all_category_list[$i]->level;
+
             if ($cur_category_id == $category_id) {
                 $pointer_category_level = $cur_level;
                 $open = 1;
@@ -60,11 +64,14 @@ class BaseIndexList
                 }
             }
         }
+
         $where[DETAIL::$category_id] = array(
             "in",
             $category_ids
         );
+
         $count = MU(DETAIL::$_table_name)->where($where)->count();
+
         $page_size = 100;
         if ($bind_loop_list != null && count($bind_loop_list) > 0) {
             for ($i = 0; $i < count($bind_loop_list); $i = $i + 1) {
@@ -78,10 +85,12 @@ class BaseIndexList
         }
 
         $page = new TDPAGE($count, $page_size);
+
         $list = MU(DETAIL::$_table_name)->where($where)
             ->limit($page->firstRow . "," . $page->listRows)
-            ->order(DETAIL::$sort . ", " . DETAIL::$id . " desc,")
+            ->order($category[CATEGORY::$order_by])
             ->select();
+
         for ($i = 0; $i < count($list); $i = $i + 1) {
             $list[$i][DETAIL::$release_time] = date("Y-m-d H:i:s", $list[$i][DETAIL::$release_time]);
             if ($list[$i][DETAIL::$url] == "") {
@@ -166,5 +175,17 @@ class BaseIndexList
             }
         }
         return $list;
+    }
+
+    private $admin_menu_list = array();
+
+    private function get_admin_menu_list($_admin_menu_list)
+    {
+        for ($i = 0; $i < count($_admin_menu_list); $i = $i + 1) {
+            array_push($this->admin_menu_list, $_admin_menu_list[$i]);
+            if (count($_admin_menu_list[$i]->sub_menu) > 0) {
+                $this->get_admin_menu_list($_admin_menu_list[$i]->sub_menu);
+            }
+        }
     }
 }

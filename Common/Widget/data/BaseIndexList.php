@@ -134,7 +134,14 @@ class BaseIndexList
                 "eq",
                 0
             );
-            $category = MU(CATEGORY::$_table_name)->where($where)->find();
+            $where[CATEGORY::$is_hidden] = array(
+                "eq",
+                0
+            );
+            $pid_category = MU(CATEGORY::$_table_name)->where($where)->find();
+            if ($pid_category != null) {
+                $category = $pid_category;
+            }
         }
         if ($category[CATEGORY::$url] == "") {
             $url = "./index.php?m=Index&c=Index&a=category&id=" . $category[CATEGORY::$id];
@@ -162,7 +169,7 @@ class BaseIndexList
         $_list = MU(CATEGORY::$_table_name)->where($where)
             ->order(CATEGORY::$sort . " asc")
             ->select();
-        for ($i = 0; $i < count(_list); $i = $i + 1) {
+        for ($i = 0; $i < count($_list); $i = $i + 1) {
             if ($_list[$i][CATEGORY::$url] == "") {
                 $url = "./index.php?m=Index&c=Index&a=category&id=" . $_list[$i][CATEGORY::$id];
                 $_list[$i][CATEGORY::$url] = $url;

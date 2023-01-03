@@ -132,9 +132,9 @@ class BaseIndexDetail
             ->order($order_by)
             ->find();
         if ($map == null) {
-            return "<a target='_blank' href='index.php?m=Index&c=Index&a=category&id=" . $category_id . "'>返回列表</a>";
+            return "<a target='_blank' href='./index.php?m=Index&c=Index&a=category&id=" . $category_id . "'>返回列表</a>";
         } else {
-            return "<a target='_blank' href='index.php?m=Index&c=Index&a=detail&id=" . $map[DETAIL::$id] + "'>" . $map[DETAIL::$title] . "</a>";
+            return "<a target='_blank' href='./index.php?m=Index&c=Index&a=detail&id=" . $map[DETAIL::$id] . "'>" . $map[DETAIL::$title] . "</a>";
         }
     }
 
@@ -205,9 +205,9 @@ class BaseIndexDetail
             ->order($order_by)
             ->find();
         if ($map == null) {
-            return "<a target='_blank' href='index.php?m=Index&c=Index&a=category&id=" . $category_id . "'>返回列表</a>";
+            return "<a target='_blank' href='./index.php?m=Index&c=Index&a=category&id=" . $category_id . "'>返回列表</a>";
         } else {
-            return "<a target='_blank' href='index.php?m=Index&c=Index&a=detail&id=" . $map[DETAIL::$id] + "'>" . $map[DETAIL::$title] . "</a>";
+            return "<a target='_blank' href='./index.php?m=Index&c=Index&a=detail&id=" . $map[DETAIL::$id] . "'>" . $map[DETAIL::$title] . "</a>";
         }
     }
 }

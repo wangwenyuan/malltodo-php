@@ -81,10 +81,10 @@ $order_by_json["release_time asc"] = "发布时间的先后次序，正序";
     	var list_sign = zhi_arr[0]+"/"+zhi_arr[1]+"/index";
     	var detail_sign = zhi_arr[0]+"/"+zhi_arr[1]+"/detail";
 
-    	var pc_list_html = "";
-    	var mobile_list_html = "";
-    	var pc_detail_html = "";
-    	var mobile_detail_html = "";
+    	var pc_list_html = "<option value=''>请选择模板</option>";
+    	var mobile_list_html = "<option value=''>请选择模板</option>";
+    	var pc_detail_html = "<option value=''>请选择模板</option>";
+    	var mobile_detail_html = "<option value=''>请选择模板</option>";
 
     	for(var id in pc_renovation){
     		if(pc_renovation[id]["type"] == list_sign){
@@ -145,8 +145,8 @@ $order_by_json["release_time asc"] = "发布时间的先后次序，正序";
 
     function custom_init(){
     	var sign = "Index/Index/custom";
-    	var pc_custom_html = "";
-    	var mobile_custom_html = "";
+    	var pc_custom_html = "<option value=''>请选择模板</option>";
+    	var mobile_custom_html = "<option value=''>请选择模板</option>";
     	for(var id in pc_renovation){
     		if(pc_renovation[id]["type"] == sign){
     			pc_custom_html = pc_custom_html + "<option value='"+id+"'>"+pc_renovation[id]["name"]+"</option>";

@@ -13,12 +13,12 @@ MALLTODO 的官方网址是： www.malltodo.com
 
 # MALLTODO软件截图
 
-![image](./readme_images/001.gif)  
-![image](./readme_images/002.gif)  
-![image](./readme_images/003.gif)  
-![image](./readme_images/004.gif)  
-![image](./readme_images/005.gif)  
-![image](./readme_images/006.gif)  
+![image](http://www.malltodo.com/Public/images/001.gif)  
+![image](http://www.malltodo.com/Public/images/002.gif)  
+![image](http://www.malltodo.com/Public/images/003.gif)  
+![image](http://www.malltodo.com/Public/images/004.gif)  
+![image](http://www.malltodo.com/Public/images/005.gif)  
+![image](http://www.malltodo.com/Public/images/006.gif)  
  
 
 # MALLTODO技术交流

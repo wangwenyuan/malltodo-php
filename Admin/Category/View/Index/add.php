@@ -130,9 +130,9 @@ $order_by_json["release_time asc"] = "发布时间的先后次序，正序";
     	$('#pid').html(pid_option_html);
 
     	if(pid_arr.includes('<?=$info[CATEGORY::$pid]?>')){
-    		$('#pid').val(<?=$info[CATEGORY::$pid]?>);
+    		$('#pid').val("<?=$info[CATEGORY::$pid]?>");
     	}else{
-    		$('#pid').val(0);
+    		$('#pid').val("0");
     	}
     	ui_c.render();
     }

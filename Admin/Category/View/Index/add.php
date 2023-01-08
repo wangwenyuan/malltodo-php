@@ -32,7 +32,7 @@ $order_by_json["release_time asc"] = "发布时间的先后次序，正序";
         <tr><td align="right" width="150px">栏目名称：</td><td align="left"><?=TDWIDGET::text(CATEGORY::$category_name, $info[CATEGORY::$category_name])?>（必填）</td></tr>
         <tr><td align="right" width="150px">栏目别名：</td><td align="left"><?=TDWIDGET::text(CATEGORY::$category_sub_name, $info[CATEGORY::$category_sub_name])?></td></tr>
         <tr><td align="right" width="150px">所属模型：</td><td align="left"><?=TDWIDGET::select(CATEGORY::$type, $info[CATEGORY::$type], MenuCache::$home_menu)?></td></tr>
-        <tr class="type_no_index"><td align="right" width="150px">上级栏目：</td><td align="left"><?=TDWIDGET::select(CATEGORY::$pid, $info[CATEGORY::$pid], _menu_json)?></td></tr>
+        <tr class="type_no_index"><td align="right" width="150px">上级栏目：</td><td align="left"><?=TDWIDGET::select(CATEGORY::$pid, $info[CATEGORY::$pid], $_menu_json)?></td></tr>
         <tr><td align="right" width="150px">栏目图片：</td><td align="left"><?=TDWIDGET::upload(CATEGORY::$pic, $info[CATEGORY::$pic])?></td></tr>
         <tr><td align="right" width="150px">排序：</td><td align="left"><?=TDWIDGET::text(CATEGORY::$sort, $info[CATEGORY::$sort])?>（值越小栏目越靠前）</td></tr>
         <tr><td align="right" width="150px">外部跳转链接：</td><td align="left"><?=TDWIDGET::text(CATEGORY::$url, $info[CATEGORY::$url])?>（如果该链接不为空，则进入该栏目时自动跳转至该链接上。链接前面请添加“http://”或“https://”）</td></tr>

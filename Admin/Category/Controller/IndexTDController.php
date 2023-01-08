@@ -141,7 +141,7 @@ class IndexTDController extends CommonTDController
             }
 
             // 下级栏目的模型与上级栏目应该一致
-            $pid = TDI("get." . CATEGORY::$pid);
+            $pid = TDI("post." . CATEGORY::$pid);
             if ($pid != "" && $pid != "0") {
                 // 获取上级的栏目模型
                 $pid_type = $menu_json[$pid]["type"];
@@ -167,7 +167,7 @@ class IndexTDController extends CommonTDController
             if (TDI("get." . CATEGORY::$id) != "") { // 修改
                                                      // 检测上级id是否符合规定
                 if (! $this->check(TDI("get." . CATEGORY::$id), $pid)) {
-                    $this->error("上级id选择错误");
+                    $this->error("上级栏目选择有误");
                     return;
                 }
                 MU(CATEGORY::$_table_name)->where($where)->save($data);

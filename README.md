@@ -11,6 +11,9 @@ MALLTODO零代码建站系统可以帮助用户快速搭建个性化的企业官
   
 MALLTODO 的官方网址是： www.malltodo.com
 
+# 免费版与收费版的区别
+免费版的组件较少，收费版的组件更为丰富。  
+
 # MALLTODO软件截图
 
 ![image](./readme_images/001.gif)  

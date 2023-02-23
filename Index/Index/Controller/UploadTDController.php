@@ -1,4 +1,5 @@
 <?php
+require_once 'BaseTDController.php';
 
 class UploadTDController extends TDCONTROLLER
 {

@@ -1,4 +1,5 @@
 <?php
+require_once 'BaseTDController.php';
 
 class AlbumTDController extends BaseTDController
 {

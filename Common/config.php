@@ -393,5 +393,11 @@ TDConfig::$upload = array(
     ),
     "rootPath" => "./Uploads/" // 图片保存的根目录
 );
+
+// 加载外部模板配置文件
+if (file_exists(dirname(__DIR__) . "/template/config.php")) {
+    require_once dirname(__DIR__) . "/template/config.php";
+}
+
 TDConfig::$upload_url = TDUU("Index/Upload/index", array(), "index.php");
 TDConfig::$editor_controller = TDUU("Index/Editor/index", array(), "index.php");

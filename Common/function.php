@@ -481,7 +481,7 @@ function checkIsInstall()
     if (file_exists(TDConfig::$todo_runtime_path . "lock")) {
         return true;
     } else {
-        if (TD_URL == "http://127.0.0.1/malltodo-php") {
+        if (TD_URL == "http://127.0.0.1/malltodo-php-dev") {
             return true;
         } else {
             return false;

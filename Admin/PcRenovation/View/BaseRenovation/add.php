@@ -207,7 +207,7 @@ var malltodo_page_config = {
 function malltodo_page_config_init(){
 	if(malltodo_page_config["background_color"] != ""){
 		$(".ui-c-renovation-phone-body").css('background-color', malltodo_page_config["background_color"]);
-		$("#phone_body").css('background-color', malltodo_page_config["background_color"]);
+		$("body").css('background-color', malltodo_page_config["background_color"]);
 	}
 	var malltodo_page_config_url = "<?=TDU(TD_MODULE_NAME . "/" . TD_CONTROLLER_NAME . "/pageConfig")?>";
 	http.get(malltodo_page_config_url, function(data){

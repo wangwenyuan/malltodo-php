@@ -78,13 +78,13 @@ class BaseIndex
             ->select();
         for ($i = 0; $i < count($list); $i = $i + 1) {
             $time = $list[$i][DETAIL::$release_time];
-            $list[$i]["release_time"] = date("Y-m-d H:i:s", $time);
             $list[$i]["release_time_year"] = date("Y", $list[$i][DETAIL::$release_time]);
             $list[$i]["release_time_month"] = date("m", $list[$i][DETAIL::$release_time]);
             $list[$i]["release_time_day"] = date("d", $list[$i][DETAIL::$release_time]);
             $list[$i]["release_time_hour"] = date("H", $list[$i][DETAIL::$release_time]);
             $list[$i]["release_time_minute"] = date("i", $list[$i][DETAIL::$release_time]);
             $list[$i]["release_time_second"] = date("s", $list[$i][DETAIL::$release_time]);
+            $list[$i]["release_time"] = date("Y-m-d H:i:s", $time);
             if ($list[$i][DETAIL::$url] == "") {
                 $url = "./index.php?m=Index&c=Index&a=detail&id=" . $list[$i][DETAIL::$id];
                 $list[$i][DETAIL::$url] = $url;

@@ -52,7 +52,7 @@
 	left: 0;
 	top: 2rem;
 	padding: 5px 0;
-	z-index: 899;
+	z-index: 1000;
 	min-width: 100%;
 	border: 1px solid #e6e6e6;
 	max-height: 300px;

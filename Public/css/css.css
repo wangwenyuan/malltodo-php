@@ -561,3 +561,7 @@ body {
 .ui-c-remark{ width:auto; font-size:14px; color:red; padding-top:10px; padding-bottom:5px;}
 .ui-c-tips{margin-left:10px; color:red; font-size:1rem}
 .ui-c-tips-text{display:none;}
+
+.ui-c-icon{width: 30px; height: 30px; padding-top: 9px; box-sizing: border-box; float: left; cursor: pointer; text-align: center; color: black}
+.ui-c-icon:hover{ background: #09C; color: white;}
+.ui-c-icon-panel{display: none; position: absolute; width: 300px; height: 300px; overflow-y: scroll; margin-top: 40px; margin-left: -170px; background:#EEEEEE; z-index: 100000000;}

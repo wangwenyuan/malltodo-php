@@ -9,6 +9,9 @@ require_once dirname(dirname(dirname(__DIR__))) . '/Index/View/Index/sub_header.
 <script>
 	var malltodo_soft = 'admin';
 	function color_to_hex(color) {
+		if(color == undefined){
+			color = "#FFFFFF";
+		}
 		if(color.indexOf("#") == 0 ){
 			return color;
 		}else{
@@ -193,21 +196,21 @@ if (! $info || ! $info["doms"] || $info["doms"] == "") {
 }
 ?>
 var malltodo_page_config = {
-	"name":"<?=$info["name"]?>",
-	"title":"<?=$info["title"]?>",
-	"keywords":"<?=$info["keywords"]?>",
-	"description":"<?=$info["description"]?>",
-	"background_color":"<?=$info["background_color"] == "" ? "#FFFFFF" : $info["background_color"]?>",
-	"background_image":'<?=htmlspecialchars_decode($info["background_image"])?>',
-	"background_repeat":"<?=$info["background_repeat"]?>",
-	"header_id":"<?=$info["header_id"]?>",
-	"bottom_id":"<?=$info["bottom_id"]?>"
+	"name":"<?=trim($info["name"])?>",
+	"title":"<?=trim($info["title"])?>",
+	"keywords":"<?=trim($info["keywords"])?>",
+	"description":"<?=trim($info["description"])?>",
+	"background_color":"<?=trim($info["background_color"]) == "" ? "#FFFFFF" : trim($info["background_color"])?>",
+	"background_image":'<?=trim(htmlspecialchars_decode($info["background_image"]))?>',
+	"background_repeat":"<?=trim($info["background_repeat"])?>",
+	"header_id":"<?=trim($info["header_id"])?>",
+	"bottom_id":"<?=trim($info["bottom_id"])?>"
 };
 
 function malltodo_page_config_init(){
 	if(malltodo_page_config["background_color"] != ""){
 		$(".ui-c-renovation-phone-body").css('background-color', malltodo_page_config["background_color"]);
-		$("#phone_body").css('background-color', malltodo_page_config["background_color"]);
+		$("body").css('background-color', malltodo_page_config["background_color"]);
 	}
 	var malltodo_page_config_url = "<?=TDU(TD_MODULE_NAME . "/" . TD_CONTROLLER_NAME . "/pageConfig")?>";
 	http.get(malltodo_page_config_url, function(data){
@@ -241,6 +244,17 @@ function malltodo_dom_click(sign){
 	$(".malltodo").removeClass("malltodo-drag");
 	$(".malltodo-"+sign).addClass("malltodo-drag");
 	cur_dom_pointer = "malltodo"+sign;
+	for(var _key in malltodo_doms[cur_dom_pointer]){
+		if(_key.indexOf("javatodocss")>-1){
+			if(malltodo_doms[cur_dom_pointer][_key]["css"] != undefined && malltodo_doms[cur_dom_pointer][_key]["css"] != "undefined"){
+				var _css_list = [];
+				for(var css_key_name in malltodo_doms[cur_dom_pointer][_key]["css"]){
+					_css_list.push(css_key_name)
+				}
+				malltodo_doms[cur_dom_pointer][_key]["css_key_list"] = _css_list;
+			}
+		}
+	}
 	var sub_json = malltodo_doms[cur_dom_pointer];
 	get_widget(sub_json["category"], sub_json["name"], sub_json["sign"], JSON.stringify(sub_json));
 }
@@ -397,6 +411,17 @@ function update_malltodo_dom(){
 	var category = malltodo_doms[cur_dom_pointer]["category"];
 	var name = malltodo_doms[cur_dom_pointer]["name"];
 	var sign = malltodo_doms[cur_dom_pointer]["sign"];
+	for(var _key in malltodo_doms[cur_dom_pointer]){
+		if(_key.indexOf("javatodocss")>-1){
+			if(malltodo_doms[cur_dom_pointer][_key]["css"] != undefined && malltodo_doms[cur_dom_pointer][_key]["css"] != "undefined"){
+				var _css_list = [];
+				for(var css_key_name in malltodo_doms[cur_dom_pointer][_key]["css"]){
+					_css_list.push(css_key_name)
+				}
+				malltodo_doms[cur_dom_pointer][_key]["css_key_list"] = _css_list;
+			}
+		}
+	}
 	var json = malltodo_doms[cur_dom_pointer];
 	json = JSON.stringify(json);
 	get_widget(category, name, sign, json);
@@ -453,6 +478,17 @@ function malltodo_renovation_submit(){
 						var bind_loop_attr_arr = bind_loop_attr.split("|");
 						var attr_param = bind_loop_attr_arr[0];
 						malltodo_doms[malltodosign]["javatodo-bind-loop"][_key]["bind_param"] = attr_param;
+					}
+				}
+			}
+			for(var _key in malltodo_doms[malltodosign]){
+				if(_key.indexOf("javatodocss")>-1){
+					if(malltodo_doms[malltodosign][_key]["css"] != undefined && malltodo_doms[malltodosign][_key]["css"] != "undefined"){
+						var css_list = [];
+						for(var _css_key in malltodo_doms[malltodosign][_key]["css"]){
+							css_list.push(_css_key);
+						}
+						malltodo_doms[malltodosign][_key]["css_key_list"] = css_list;
 					}
 				}
 			}

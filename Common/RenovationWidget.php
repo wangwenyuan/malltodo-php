@@ -80,7 +80,7 @@ class RenovationWidget
         $string = $string . "<script>\r\n";
         $string = $string . "var malltodo_windows_width = parseInt($(window).width());\r\n";
         if (is_mobile()) {
-            $string = $string . "$('html').css({'font-size': (malltodo_windows_width / 304)*16 + 'px'});\r\n";
+            // $string = $string . "$('html').css({'font-size': (malltodo_windows_width / 304)*16 + 'px'});\r\n";
         }
         $string = $string . "</script>\r\n";
         $string = $string . "<div id=\"malltodo_mask\"></div>\r\n";

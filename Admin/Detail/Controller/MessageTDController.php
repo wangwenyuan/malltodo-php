@@ -31,4 +31,24 @@ class MessageTDController extends CommonTDController
         $this->assign("list", $list);
         $this->display();
     }
+
+    public function del()
+    {
+        if (TD_IS_POST) {
+            $id = trim(TDI("post.id"));
+            $where = array();
+            $where[MESSAGE::$id] = array(
+                "eq",
+                $id
+            );
+            $where[MESSAGE::$website_id] = array(
+                "eq",
+                TDSESSION("website_id")
+            );
+            $data = array();
+            $data[MESSAGE::$is_del] = 1;
+            MU(MESSAGE::$_table_name)->where($where)->save($data);
+            $this->success("删除成功");
+        }
+    }
 }

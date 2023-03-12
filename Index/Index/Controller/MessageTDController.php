@@ -23,7 +23,8 @@ class MessageTDController extends BaseTDController
             }
             $email = trim(TDI("post.email"));
             $yanzhengma = trim(TDI("post.yanzhengma"));
-            if (! $this->check_verify($yanzhengma)) {
+            $Verify = new TDVERIFY();
+            if (! $Verify->check($yanzhengma)) {
                 $this->error("验证码输入错误");
                 return;
             }

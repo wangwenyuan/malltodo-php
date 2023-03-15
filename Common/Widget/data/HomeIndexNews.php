@@ -5,4 +5,6 @@ class HomeIndexNews extends BaseIndex
 {
 
     public $type = "Index/News/detail";
+
+    public $category_type = "Index/News/index";
 }

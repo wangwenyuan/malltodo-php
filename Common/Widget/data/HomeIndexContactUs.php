@@ -1,12 +1,10 @@
 <?php
+require_once __DIR__ . "/BaseIndex.php";
 
-class HomeIndexContactUs
+class HomeIndexContactUs extends BaseIndex
 {
 
-    public $parameter = array();
+    public $type = "Index/ContactUs/detail";
 
-    public function getValue($selfParameter, $bind_loop_list)
-    {
-        return new stdClass();
-    }
+    public $category_type = "Index/ContactUs/index";
 }

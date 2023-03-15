@@ -21,10 +21,48 @@ class BaseIndex
             "7" => "七级推荐",
             "8" => "八级推荐",
             "9" => "九级推荐"
+        ),
+        "category_id" => array(
+            "_title" => "所属栏目",
+            "0" => "所有栏目"
         )
     );
 
+    private $admin_menu_list = array();
+
+    private function get_admin_menu_list($_admin_menu_list)
+    {
+        for ($i = 0; $i < count($_admin_menu_list); $i = $i + 1) {
+            array_push($this->admin_menu_list, $_admin_menu_list[$i]);
+            if (count($_admin_menu_list[$i]->sub_menu) > 0) {
+                $this->get_admin_menu_list($_admin_menu_list[$i]->sub_menu);
+            }
+        }
+    }
+
     public $type = "";
+
+    public $category_type = "";
+
+    public function __construct()
+    {
+        $websiteId = TDSESSION("website_id");
+        require_once dirname(dirname(__DIR__)) . "/MenuCache.php";
+        $all_category_list = MenuCache::getAdminMenuList($websiteId);
+        $this->get_admin_menu_list($all_category_list);
+        $all_category_list = $this->admin_menu_list;
+        for ($i = 0; $i < count($all_category_list); $i = $i + 1) {
+            if ($all_category_list[$i]->type == $this->category_type) {
+                $_category_name = $all_category_list[$i]->category_name;
+                $_split_sign = "——";
+                for ($n = 0; $n < (int) $all_category_list[$i]->level; $n = $n + 1) {
+                    $_split_sign = $_split_sign . "——";
+                }
+                $_category_name = $_split_sign . " " . $_category_name;
+                $this->parameter["category_id"][$all_category_list[$i]->id] = $_category_name;
+            }
+        }
+    }
 
     public function getValue($selfParameter, $bind_loop_list)
     {
@@ -61,6 +99,40 @@ class BaseIndex
                 $recommend_level
             );
         }
+
+        if ((int) $selfParameter->category_id != 0) {
+            $category_id = $selfParameter->category_id;
+            $category_ids = array();
+            $all_category_list = $this->admin_menu_list;
+            $pointer_category_level = 0;
+            $open = 0; // 是否装载的开关
+
+            for ($i = 0; $i < count($all_category_list); $i = $i + 1) {
+                $cur_category_id = $all_category_list[$i]->id;
+                $cur_level = $all_category_list[$i]->level;
+
+                if ($cur_category_id == $category_id) {
+                    $pointer_category_level = $cur_level;
+                    $open = 1;
+                    array_push($category_ids, $cur_category_id);
+                    continue;
+                }
+                if ($open == 1) { // 说明开关处于开启状态
+                    if ($cur_level > $pointer_category_level) { // 说明当前栏目是目标栏目的子栏目
+                        array_push($category_ids, $cur_category_id);
+                    } else { // 说明当前栏目不是目标栏目的子栏目
+                        $open = 0;
+                        break;
+                    }
+                }
+            }
+
+            $where[DETAIL::$category_id] = array(
+                "in",
+                $category_ids
+            );
+        }
+
         $page_size = "100";
         if ($bind_loop_list != null && count($bind_loop_list) > 0) {
             for ($i = 0; $i < count($bind_loop_list); $i = $i + 1) {

@@ -5,4 +5,6 @@ class HomeIndexJob extends BaseIndex
 {
 
     public $type = "Index/Job/detail";
+
+    public $category_type = "Index/Job/index";
 }

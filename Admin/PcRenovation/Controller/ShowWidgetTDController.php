@@ -48,6 +48,12 @@ class ShowWidgetTDController extends CommonTDController
             $jsonObject = $class->parameter;
         }
 
+        if ($category == "home_index_brief_pc") {
+            require_once "./Common/Widget/data/HomeIndexBrief.php";
+            $class = new HomeIndexBrief();
+            $jsonObject = $class->parameter;
+        }
+
         if ($category == "home_index_products_pc") {
             require_once "./Common/Widget/data/HomeIndexProducts.php";
             $class = new HomeIndexProducts();
@@ -87,6 +93,12 @@ class ShowWidgetTDController extends CommonTDController
         if ($category == "home_index_links_pc") {
             require_once "./Common/Widget/data/HomeIndexLinks.php";
             $class = new HomeIndexLinks();
+            $jsonObject = $class->parameter;
+        }
+
+        if ($category == "home_index_contactus_pc") {
+            require_once "./Common/Widget/data/HomeIndexContactUs.php";
+            $class = new HomeIndexContactUs();
             $jsonObject = $class->parameter;
         }
 

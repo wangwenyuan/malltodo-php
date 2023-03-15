@@ -5,4 +5,6 @@ class HomeIndexAlbum extends BaseIndex
 {
 
     public $type = "Index/Album/detail";
+
+    public $category_type = "Index/Album/index";
 }

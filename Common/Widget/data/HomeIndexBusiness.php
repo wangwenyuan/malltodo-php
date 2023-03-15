@@ -5,4 +5,6 @@ class HomeIndexBusiness extends BaseIndex
 {
 
     public $type = "Index/Business/detail";
+
+    public $category_type = "Index/Business/index";
 }

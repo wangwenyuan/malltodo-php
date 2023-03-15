@@ -1,7 +1,9 @@
 # MALLTODO零代码企业建站系统 V1.2
 版权所有 (R) MALLTODO 保留所有权利。
 
-从V1.2版本开始，系统新增了对SQLite数据库的支持，并**将SQLite作为默认数据库**，如果希望继续使用MySQL数据库请将template文件夹删除。（如果存在template文件夹，默认使用SQLite数据库，如果不存在默认使用MySQL数据库。）
+从V1.2版本开始，系统新增了对SQLite数据库的支持，并**将SQLite作为默认数据库**，如果希望继续使用MySQL数据库请将template文件夹删除。（如果存在template文件夹，默认使用SQLite数据库，如果不存在默认使用MySQL数据库。）  
+
+**系统后台地址：http://您的域名/admin.php  默认用户名：admin  默认密码：111111**  
 
 感谢您选择MALLTODO零代码企业建站系统（以下简称MALLTODO），MALLTODO由郑州掌勺信息技术有限公司开发，是目前国内强大、稳定的企业网站建设解决方案之一，基于 PHP + MySQL 的技术开发，源码开放。  
 

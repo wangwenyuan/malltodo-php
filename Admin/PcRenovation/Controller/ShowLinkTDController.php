@@ -9,7 +9,7 @@ class ShowLinkTDController extends CommonTDController
     public function index()
     {
         $linkMap = array();
-        require_once './Common/MenuCache.php';
+        require_once dirname(dirname(dirname(__DIR__))) . '/Common/MenuCache.php';
         foreach (MenuCache::$home_menu as $key => $val) {
             $linkMap[$val] = TDUU($key, array(), "index.php");
         }

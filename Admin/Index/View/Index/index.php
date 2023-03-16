@@ -1,5 +1,5 @@
 <?php
-require_once 'header.php';
+require_once __DIR__ . '/header.php';
 ?>
 <div style="padding:15px;">
 <div class="main_title">工作面板</div>
@@ -33,5 +33,5 @@ require_once 'header.php';
 
 </div>
 <?php
-require_once 'bottom.php';
+require_once __DIR__ . '/bottom.php';
 ?>

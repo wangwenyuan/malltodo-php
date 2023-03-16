@@ -43,61 +43,61 @@ class ShowWidgetTDController extends CommonTDController
         $jsonObject = null;
 
         if ($category == "home_menu_mobile" || $category == "home_menu_pc" || $category == "home_bottom_menu_mobile" || $category == "home_bottom_menu_pc") {
-            require_once "./Common/Widget/data/HomeMenu.php";
+            require_once dirname(dirname(dirname(__DIR__))) . "/Common/Widget/data/HomeMenu.php";
             $class = new HomeMenu();
             $jsonObject = $class->parameter;
         }
 
         if ($category == "home_index_brief_pc") {
-            require_once "./Common/Widget/data/HomeIndexBrief.php";
+            require_once dirname(dirname(dirname(__DIR__))) . "/Common/Widget/data/HomeIndexBrief.php";
             $class = new HomeIndexBrief();
             $jsonObject = $class->parameter;
         }
 
         if ($category == "home_index_products_pc") {
-            require_once "./Common/Widget/data/HomeIndexProducts.php";
+            require_once dirname(dirname(dirname(__DIR__))) . "/Common/Widget/data/HomeIndexProducts.php";
             $class = new HomeIndexProducts();
             $jsonObject = $class->parameter;
         }
 
         if ($category == "home_index_news_pc") {
-            require_once "./Common/Widget/data/HomeIndexNews.php";
+            require_once dirname(dirname(dirname(__DIR__))) . "/Common/Widget/data/HomeIndexNews.php";
             $class = new HomeIndexNews();
             $jsonObject = $class->parameter;
         }
 
         if ($category == "home_index_business_pc") {
-            require_once "./Common/Widget/data/HomeIndexBusiness.php";
+            require_once dirname(dirname(dirname(__DIR__))) . "/Common/Widget/data/HomeIndexBusiness.php";
             $class = new HomeIndexBusiness();
             $jsonObject = $class->parameter;
         }
 
         if ($category == "home_index_album_pc") {
-            require_once "./Common/Widget/data/HomeIndexAlbum.php";
+            require_once dirname(dirname(dirname(__DIR__))) . "/Common/Widget/data/HomeIndexAlbum.php";
             $class = new HomeIndexAlbum();
             $jsonObject = $class->parameter;
         }
 
         if ($category == "home_index_job_pc") {
-            require_once "./Common/Widget/data/HomeIndexJob.php";
+            require_once dirname(dirname(dirname(__DIR__))) . "/Common/Widget/data/HomeIndexJob.php";
             $class = new HomeIndexJob();
             $jsonObject = $class->parameter;
         }
 
         if ($category == "home_index_case_pc") {
-            require_once "./Common/Widget/data/HomeIndexCase.php";
+            require_once dirname(dirname(dirname(__DIR__))) . "/Common/Widget/data/HomeIndexCase.php";
             $class = new HomeIndexCase();
             $jsonObject = $class->parameter;
         }
 
         if ($category == "home_index_links_pc") {
-            require_once "./Common/Widget/data/HomeIndexLinks.php";
+            require_once dirname(dirname(dirname(__DIR__))) . "/Common/Widget/data/HomeIndexLinks.php";
             $class = new HomeIndexLinks();
             $jsonObject = $class->parameter;
         }
 
         if ($category == "home_index_contactus_pc") {
-            require_once "./Common/Widget/data/HomeIndexContactUs.php";
+            require_once dirname(dirname(dirname(__DIR__))) . "/Common/Widget/data/HomeIndexContactUs.php";
             $class = new HomeIndexContactUs();
             $jsonObject = $class->parameter;
         }

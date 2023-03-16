@@ -77,6 +77,7 @@ class PHPTODO
         } else {
             $file = TDConfig::$app_path . $module . "/Controller/" . $controller . TDConfig::$controller_suffix . ".php";
         }
+
         if (file_exists($file)) {
             require_once $file;
             if (class_exists($controller . TDConfig::$controller_suffix, false)) {

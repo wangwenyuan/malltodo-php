@@ -1,6 +1,6 @@
 <?php
-require_once 'CommonTDController.php';
-require_once './Common/MenuCache.php';
+require_once __DIR__ . '/CommonTDController.php';
+require_once dirname(dirname(dirname(__DIR__))) . '/Common/MenuCache.php';
 
 class MenuCacheTDController extends CommonTDController
 {

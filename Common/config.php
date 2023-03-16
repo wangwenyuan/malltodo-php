@@ -1,7 +1,7 @@
 <?php
-require_once 'database.config.php';
+require_once __DIR__ . '/database.config.php';
 // 配置runtime路径
-TDConfig::$todo_runtime_path = dirname(__DIR__) . "/runtime/";
+TDConfig::$todo_runtime_path = dirname(__DIR__) . "/www/runtime/";
 
 TDConfig::$todo_database_orm_path = __DIR__ . "/database/";
 if (file_exists(TDConfig::$todo_database_orm_path . "_init.php")) {
@@ -9,7 +9,7 @@ if (file_exists(TDConfig::$todo_database_orm_path . "_init.php")) {
 }
 
 TDConfig::$app_path = dirname(__DIR__) . "/";
-TDConfig::$phptodo_url = TD_URL . "/phptodo/";
+TDConfig::$phptodo_url = TD_URL . "/Public/";
 
 // 配置项目菜单
 TDConfig::$menu = array();
@@ -391,13 +391,12 @@ TDConfig::$upload = array(
         'xlsx',
         'xls'
     ),
-    "rootPath" => "./Uploads/" // 图片保存的根目录
+    "rootPath" => dirname(__DIR__) . "/www/Uploads/", // 图片保存的根目录
+    "picUrl" => "./Uploads/" // 图片链接前缀
 );
-
 // 加载外部模板配置文件
 if (file_exists(dirname(__DIR__) . "/template/config.php")) {
     require_once dirname(__DIR__) . "/template/config.php";
 }
-
 TDConfig::$upload_url = TDUU("Index/Upload/index", array(), "index.php");
 TDConfig::$editor_controller = TDUU("Index/Editor/index", array(), "index.php");

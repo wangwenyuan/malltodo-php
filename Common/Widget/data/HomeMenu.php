@@ -9,7 +9,7 @@ class HomeMenu
     {
         $object = new stdClass();
         $websiteId = TDSESSION("website_id");
-        require_once './Common/MenuCache.php';
+        require_once dirname(dirname(dirname(__DIR__))) . '/Common/MenuCache.php';
         $menu_list = MenuCache::getMenuList($websiteId);
         $object->menu_list = $menu_list;
         return $object;

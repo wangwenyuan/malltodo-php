@@ -1,5 +1,5 @@
 <?php
-require_once 'BaseTDController.php';
+require_once __DIR__ . '/BaseTDController.php';
 
 class UploadTDController extends TDCONTROLLER
 {
@@ -32,7 +32,7 @@ class UploadTDController extends TDCONTROLLER
             $data[FILE::$uid] = $uid;
             $data[FILE::$agent_id] = $agent_id;
             $data[FILE::$merchant_id] = $merchant_id;
-            $data[FILE::$url] = TDConfig::$upload["rootPath"] . $info["savepath"] . $info["savename"];
+            $data[FILE::$url] = TDConfig::$upload["picUrl"] . $info["savepath"] . $info["savename"];
             $data[FILE::$name] = $info["name"];
             $data[FILE::$ext] = $info["ext"];
             $data[FILE::$show_pic] = $data[FILE::$url];
@@ -41,7 +41,7 @@ class UploadTDController extends TDCONTROLLER
             MU(FILE::$_table_name)->data($data)->add();
             $ret = array();
             $ret["error"] = 0;
-            $ret["url"] = TDConfig::$upload["rootPath"] . $info["savepath"] . $info["savename"];
+            $ret["url"] = TDConfig::$upload["picUrl"] . $info["savepath"] . $info["savename"];
             echo json_encode($ret, JSON_UNESCAPED_UNICODE);
         }
     }
@@ -92,7 +92,7 @@ class UploadTDController extends TDCONTROLLER
             $data[FILE::$uid] = $uid;
             $data[FILE::$agent_id] = $agent_id;
             $data[FILE::$merchant_id] = $merchant_id;
-            $data[FILE::$url] = TDConfig::$upload["rootPath"] . $save_dir . "/" . $save_file;
+            $data[FILE::$url] = TDConfig::$upload["picUrl"] . $save_dir . "/" . $save_file;
             $data[FILE::$name] = $save_file;
             $data[FILE::$ext] = $houzhui;
             $data[FILE::$show_pic] = $data[FILE::$url];
@@ -101,7 +101,7 @@ class UploadTDController extends TDCONTROLLER
             MU(FILE::$_table_name)->data($data)->add();
             $ret = array();
             $ret["error"] = 0;
-            $ret["url"] = TDConfig::$upload["rootPath"] . $save_dir . "/" . $save_file;
+            $ret["url"] = TDConfig::$upload["picUrl"] . $save_dir . "/" . $save_file;
             echo json_encode($ret, JSON_UNESCAPED_UNICODE);
         }
     }

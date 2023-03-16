@@ -1,5 +1,5 @@
 <?php
-require_once 'BaseTDController.php';
+require_once __DIR__ . '/BaseTDController.php';
 
 class ContactUsTDController extends BaseTDController
 {

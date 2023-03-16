@@ -17,7 +17,7 @@ if (file_exists($base_path)) {
     TDConfig::$db_type = "sqlite";
     TDConfig::$table_pre = "javatodo_";
     TDConfig::$sqlite_db = $base_path . "db/malltodo.db";
-    TDConfig::$upload["rootPath"] = dirname(__DIR__) . "/www/template/" . $_domain_prefix . "/Uploads/";
+    TDConfig::$upload["rootPath"] = dirname(__DIR__) . "/entrance/template/" . $_domain_prefix . "/Uploads/";
     TDConfig::$upload["picUrl"] = "./template/" . $_domain_prefix . "/Uploads/"; // 图片链接前缀
 } else {
     exit();

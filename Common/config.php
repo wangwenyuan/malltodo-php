@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/database.config.php';
 // 配置runtime路径
-TDConfig::$todo_runtime_path = dirname(__DIR__) . "/entrance/runtime/";
+TDConfig::$todo_runtime_path = dirname(__DIR__) . "/runtime/";
 
 TDConfig::$todo_database_orm_path = __DIR__ . "/database/";
 if (file_exists(TDConfig::$todo_database_orm_path . "_init.php")) {

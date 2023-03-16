@@ -82,7 +82,7 @@ class IndexTDController extends TDCONTROLLER
                 }
             }
             // 生成lock文件
-            file_put_contents("./runtime/lock", "");
+            file_put_contents(dirname(dirname(dirname(__DIR__))) . "/runtime/lock", "");
             // 写入超级管理员用户名和密码
             TDConfig::$db_host = $db_host;
             TDConfig::$db_port = $db_port;

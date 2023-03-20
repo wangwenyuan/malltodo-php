@@ -3,6 +3,9 @@
 function get_domain_prefix()
 {
     $domain = $_SERVER["HTTP_HOST"];
+    if ($domain == "www.malltodo.com" || $domain == "malltodo.com" || $domain == "www.malltodo.cn") {
+        return "main";
+    }
     if (strpos($domain, ".template.malltodo.com") !== FALSE) {
         return str_replace(".template.malltodo.com", "", $domain);
     } else if (strpos($domain, ".template.malltodo.cn") !== FALSE) {

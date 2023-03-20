@@ -395,8 +395,8 @@ TDConfig::$upload = array(
     "picUrl" => "./Uploads/" // 图片链接前缀
 );
 // 加载外部模板配置文件
-if (file_exists(dirname(__DIR__) . "/template/config.php")) {
-    require_once dirname(__DIR__) . "/template/config.php";
+if (file_exists(dirname(__DIR__) . "/SQLiteDB/config.php")) {
+    require_once dirname(__DIR__) . "/SQLiteDB/config.php";
 }
 TDConfig::$upload_url = TDUU("Index/Upload/index", array(), "index.php");
 TDConfig::$editor_controller = TDUU("Index/Editor/index", array(), "index.php");

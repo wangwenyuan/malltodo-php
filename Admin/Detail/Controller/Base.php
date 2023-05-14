@@ -37,6 +37,50 @@ class Base extends CommonTDController
             "eq",
             TDSESSION("website_id")
         );
+        if (trim(TDI("get." . DETAIL::$title)) != "") {
+            $where["n." . DETAIL::$title] = array(
+                "like",
+                "%" . trim(TDI("get." . DETAIL::$title)) . "%"
+            );
+        }
+        if (trim(TDI("get." . DETAIL::$category_id)) != "" && trim(TDI("get." . DETAIL::$category_id)) != "0") {
+            $category_ids = array(
+                trim(TDI("get." . DETAIL::$category_id))
+            );
+            $websiteId = TDSESSION("website_id");
+            require_once dirname(dirname(dirname(__DIR__))) . "/Common/MenuCache.php";
+            $all_category_list = MenuCache::getAdminMenuList($websiteId);
+            $this->admin_menu_list = array();
+            $this->get_admin_menu_list($all_category_list);
+            $all_category_list = $this->admin_menu_list;
+            $pointer_category_level = 0;
+            $open = 0; // 是否装载的开关
+            for ($i = 0; $i < count($all_category_list); $i = $i + 1) {
+                $cur_category_id = $all_category_list[$i]->id;
+                $cur_level = $all_category_list[$i]->level;
+
+                if ($cur_category_id == $category_id) {
+                    $pointer_category_level = $cur_level;
+                    $open = 1;
+                    array_push($category_ids, $cur_category_id);
+                    continue;
+                }
+                if ($open == 1) { // 说明开关处于开启状态
+                    if ($cur_level > $pointer_category_level) { // 说明当前栏目是目标栏目的子栏目
+                        array_push($category_ids, $cur_category_id);
+                    } else { // 说明当前栏目不是目标栏目的子栏目
+                        $open = 0;
+                        break;
+                    }
+                }
+            }
+
+            $where["n." . DETAIL::$category_id] = array(
+                "in",
+                $category_ids
+            );
+        }
+
         $count = MU(DETAIL::$_table_name)->alias("n")
             ->where($where)
             ->count();
@@ -48,6 +92,16 @@ class Base extends CommonTDController
             ->order(DETAIL::$id . " desc")
             ->field("n.*, c.category_name")
             ->select();
+
+        $_category_map = $this->get_category_map();
+        $category_map = array(
+            "0" => "所有栏目"
+        );
+        foreach ($_category_map as $k => $v) {
+            $category_map[$k] = $v;
+        }
+
+        $this->assign("category_map", $category_map);
         $this->assign("list", $list);
         $this->assign("page", $page->show());
         $this->display("Detail/Base/index");
@@ -84,24 +138,7 @@ class Base extends CommonTDController
         }
 
         // 获取栏目
-        $_admin_menu_list = MenuCache::getAdminMenuList(TDSESSION("website_id"));
-        $this->get_admin_menu_list($_admin_menu_list);
-        $admin_menu_list = json_decode(json_encode($this->admin_menu_list, JSON_UNESCAPED_UNICODE), true);
-        $menu_json = array();
-        for ($i = 0; $i < count($admin_menu_list); $i = $i + 1) {
-            $jsonObject = $admin_menu_list[$i];
-            $sign = "";
-            for ($n = 0; $n < $jsonObject["level"]; $n = $n + 1) {
-                $sign = $sign . "——";
-            }
-            $_id = $jsonObject[CATEGORY::$id];
-            $name = $jsonObject[CATEGORY::$category_name];
-            $name = $sign . $name;
-            $type = $jsonObject[CATEGORY::$type];
-            if ($type == $this->categoryType) {
-                $menu_json[$_id] = $name;
-            }
-        }
+        $menu_json = $this->get_category_map();
 
         // 获取所有的默认模板
         $where = array();
@@ -266,5 +303,29 @@ class Base extends CommonTDController
             MU(DETAIL::$_table_name)->where($where)->save($data);
             $this->success("删除成功");
         }
+    }
+
+    private function get_category_map()
+    {
+        $_admin_menu_list = MenuCache::getAdminMenuList(TDSESSION("website_id"));
+        $this->admin_menu_list = array();
+        $this->get_admin_menu_list($_admin_menu_list);
+        $admin_menu_list = json_decode(json_encode($this->admin_menu_list, JSON_UNESCAPED_UNICODE), true);
+        $menu_json = array();
+        for ($i = 0; $i < count($admin_menu_list); $i = $i + 1) {
+            $jsonObject = $admin_menu_list[$i];
+            $sign = "";
+            for ($n = 0; $n < $jsonObject["level"]; $n = $n + 1) {
+                $sign = $sign . "——";
+            }
+            $_id = $jsonObject[CATEGORY::$id];
+            $name = $jsonObject[CATEGORY::$category_name];
+            $name = $sign . $name;
+            $type = $jsonObject[CATEGORY::$type];
+            if ($type == $this->categoryType) {
+                $menu_json[$_id] = $name;
+            }
+        }
+        return $menu_json;
     }
 }

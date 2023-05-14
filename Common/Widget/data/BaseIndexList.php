@@ -88,7 +88,7 @@ class BaseIndexList
 
         $list = MU(DETAIL::$_table_name)->where($where)
             ->limit($page->firstRow . "," . $page->listRows)
-            ->order($category[CATEGORY::$order_by])
+            ->order('sort desc ,' . $category[CATEGORY::$order_by])
             ->select();
 
         for ($i = 0; $i < count($list); $i = $i + 1) {

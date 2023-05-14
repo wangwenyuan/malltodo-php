@@ -3,7 +3,7 @@
 
 从V1.2版本开始，系统新增了对SQLite数据库的支持，并**将SQLite作为默认数据库**，如果希望继续使用MySQL数据库请将SQLiteDB文件夹删除。（如果存在SQLiteDB文件夹，默认使用SQLite数据库，如果不存在默认使用MySQL数据库。）  
 
-**系统后台地址：http://您的域名/admin.php  默认用户名：admin  默认密码：111111**  
+**系统后台地址：http://您的域名/admin.php  默认用户名：malltodo  默认密码：malltodo**  
 
 **请将网站的运行目录设置为项目中的entrance目录，其余目录请不要对外暴露，这样可以更加安全。**
 

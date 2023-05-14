@@ -417,8 +417,10 @@ function create_password($password)
 // 获取当前站点
 function get_home_website_id()
 {
-    if (TDSESSION("website_id")) {
-        return TDSESSION("website_id");
+    if(strpos($_SERVER["PHP_SELF"], "index.php") === FALSE){
+        if (TDSESSION("website_id")) {
+            return TDSESSION("website_id");
+        }
     }
     $domain = $_SERVER['HTTP_HOST'];
     $where = array();
@@ -438,8 +440,8 @@ function get_home_website_id()
             0
         );
         $website_info = MU(WEBSITE::$_table_name)->where($where)
-            ->order(WEBSITE::$id . " asc")
-            ->find();
+        ->order(WEBSITE::$id . " asc")
+        ->find();
         if ($website_info) {
             TDSESSION("website_id", $website_info[WEBSITE::$id]);
         } else {
@@ -464,7 +466,7 @@ function get_all_website()
             "eq",
             0
         );
-        $list = TDORM(WEBSITE::$_table_name)->where($where)
+        $list = MU(WEBSITE::$_table_name)->where($where)
             ->order(WEBSITE::$id . " desc")
             ->select();
         $map = array();
@@ -481,7 +483,7 @@ function checkIsInstall()
     if (file_exists(TDConfig::$todo_runtime_path . "lock")) {
         return true;
     } else {
-        if (TD_URL == "http://127.0.0.1/malltodo-php-dev" || file_exists(dirname(__DIR__) . "/SQLiteDB/config.php")) {
+        if (TD_URL == "http://127.0.0.1/malltodo-php-dev" || file_exists(dirname(__DIR__) . "/SQLiteDB/SQLiteConfig.php")) {
             return true;
         } else {
             return false;

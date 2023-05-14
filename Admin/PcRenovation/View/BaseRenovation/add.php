@@ -282,6 +282,9 @@ function get_widget(widget_category, widget_name, widget_sign, widget_json){
 	if(widget_sign != undefined && widget_sign != "undefined"){
 		url = url + "&sign="+widget_sign;
 	}
+	if(widget_json == undefined || widget_json == "undefined"){
+		widget_json = "";
+	}
 	http.post(url, {"json":widget_json}, function(data){
 		malltodo_doms["malltodo"+data["dom"]["sign"]] = data["dom"];
 		cur_dom_pointer = "malltodo"+data["dom"]["sign"];

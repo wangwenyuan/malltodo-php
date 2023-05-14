@@ -31,6 +31,23 @@ class IndexTDController extends CommonTDController
     {
         $where = array();
         $info = array();
+        if (TDI("get." . CATEGORY::$pid) != "") {
+            $where[CATEGORY::$id] = array(
+                "eq",
+                trim(TDI("get." . CATEGORY::$pid))
+            );
+            $where[CATEGORY::$is_del] = array(
+                "eq",
+                0
+            );
+            $_info = MU(CATEGORY::$_table_name)->where($where)->find();
+            if ($_info == null) {
+                $this->error("不存在该父栏目或已被删除");
+                return;
+            }
+            $info[CATEGORY::$type] = $_info[CATEGORY::$type];
+            $info[CATEGORY::$pid] = trim(TDI("get." . CATEGORY::$pid));
+        }
         if (TDI("get." . CATEGORY::$id) != "") {
             $where[CATEGORY::$id] = array(
                 "eq",

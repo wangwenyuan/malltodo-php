@@ -4,6 +4,27 @@ require_once dirname(dirname(dirname(__DIR__))) . '/Index/View/Index/header.php'
 <div style="padding:15px;">
 <div class="main_title"><?=$page_action?>管理</div>
 <a onclick="malltodoJs.sub_window('新建<?=$page_action?>', '<?=TDU(TD_MODULE_NAME . "/" . TD_CONTROLLER_NAME . "/add")?>')" class="main_button">新建</a>
+
+<div style="clear: both;">
+	<form method="GET" action="<?=TDU(TD_MODULE_NAME . '/' . TD_CONTROLLER_NAME . '/' . TD_ACTION_NAME)?>" id="search_form">
+		<input type="hidden" name="m" value="<?=TD_MODULE_NAME?>">
+		<input type="hidden" name="c" value="<?=TD_CONTROLLER_NAME?>">
+		<input type="hidden" name="a" value="<?=TD_ACTION_NAME?>">
+
+		<div style="float: left; margin-top:5px; margin-bottom:5px;">
+			<input placeholder="标题关键字" name="title" value="<?=TDI('get.' . DETAIL::$title)?>" type="text" class="input_text" style="float: left;margin-right: 10px;width: 240px;">
+		</div>
+
+		<div style="float: left; margin-top:5px; margin-bottom:5px; margin-right:10px;">
+			<?=TDWIDGET::select(DETAIL::$category_id, TDI('get.' . DETAIL::$category_id), $category_map)?>
+		</div>
+
+		<div style="float: left;  margin-top:5px; margin-bottom:5px;">
+			<a class="main_button" style="float: left;" value="查询" type="submit" id="search_btn">查询</a>
+		</div>
+	</form>
+</div>
+
 <div class="clear_5px"></div>
   <table width="100%" cellpadding="0" cellspacing="0" class="main_table">
     <tr class="main_table_header">

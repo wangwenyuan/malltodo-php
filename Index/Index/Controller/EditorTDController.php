@@ -34,7 +34,7 @@ class EditorTDController extends TDCONTROLLER
                 $data[FILE::$uid] = $uid;
                 $data[FILE::$agent_id] = $agent_id;
                 $data[FILE::$merchant_id] = $merchant_id;
-                $data[FILE::$url] = TD_URL . str_replace('./', '/', TDConfig::$upload["rootPath"]) . $info["savepath"] . $info["savename"];
+                $data[FILE::$url] = TDConfig::$upload["picUrl"] . $info["savepath"] . $info["savename"];
                 $data[FILE::$name] = $info["name"];
                 $data[FILE::$ext] = $info["ext"];
                 $data[FILE::$show_pic] = $data[FILE::$url];
@@ -44,7 +44,7 @@ class EditorTDController extends TDCONTROLLER
 
                 $_info = array();
                 $_info["state"] = "SUCCESS";
-                $_info["url"] = TD_URL . str_replace('./', '/', TDConfig::$upload["rootPath"]) . $info["savepath"] . $info["savename"];
+                $_info["url"] = TDConfig::$upload["picUrl"] . $info["savepath"] . $info["savename"];
                 $_info["title"] = $info["savename"];
                 $_info["original"] = $info["name"];
                 $_info["type"] = "." . $info["ext"];

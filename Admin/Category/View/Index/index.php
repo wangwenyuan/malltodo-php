@@ -20,7 +20,7 @@ require_once dirname(dirname(dirname(__DIR__))) . '/Index/View/Index/header.php'
       <td>类型</td>
       <td>是否隐藏</td>
       <td>排序</td>
-      <td width="100px">操作</td>
+      <td width="200px">操作</td>
     </tr>
 
     <?php
@@ -44,7 +44,13 @@ require_once dirname(dirname(dirname(__DIR__))) . '/Index/View/Index/header.php'
             echo "<td>" . TDWIDGET::text($jsonObject["id"] . "_" . CATEGORY::$sort, $jsonObject[CATEGORY::$sort]) . "</td>";
             $arr = array();
             $arr["id"] = $list[$i][WEBSITE::$id];
-            echo "<td><a href=\"javascript:malltodoJs.max_sub_window('编辑', '" . TDU(TD_MODULE_NAME . "/" . TD_CONTROLLER_NAME . "/edit", $arr) . "')\">修改</a> <a href=\"javascript:malltodoJs.del('" . TDU(TD_MODULE_NAME . "/" . TD_CONTROLLER_NAME . "/del") . "','" . $list[$i][CATEGORY::$id] . "')\">删除</a></td>";
+            if ($jsonObject[CATEGORY::$type] == "Index/Index/index") {
+                echo "<td><a href=\"javascript:malltodoJs.max_sub_window('编辑', '" . TDU(TD_MODULE_NAME . "/" . TD_CONTROLLER_NAME . "/edit", $arr) . "')\">修改</a> <a href=\"javascript:malltodoJs.del('" . TDU(TD_MODULE_NAME . "/" . TD_CONTROLLER_NAME . "/del") . "','" . $list[$i][CATEGORY::$id] . "')\">删除</a></td>";
+            } else {
+                $parr = array();
+                $parr["pid"] = $list[$i][WEBSITE::$id];
+                echo "<td><a href=\"javascript:malltodoJs.max_sub_window('添加栏目', '" . TDU(TD_MODULE_NAME . "/" . TD_CONTROLLER_NAME . "/add", $parr) . "')\">添加下级栏目</a> <a href=\"javascript:malltodoJs.max_sub_window('编辑', '" . TDU(TD_MODULE_NAME . "/" . TD_CONTROLLER_NAME . "/edit", $arr) . "')\">修改</a> <a href=\"javascript:malltodoJs.del('" . TDU(TD_MODULE_NAME . "/" . TD_CONTROLLER_NAME . "/del") . "','" . $list[$i][CATEGORY::$id] . "')\">删除</a></td>";
+            }
             echo "</tr>";
         }
     }

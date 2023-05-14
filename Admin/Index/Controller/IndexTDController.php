@@ -18,10 +18,10 @@ class IndexTDController extends CommonTDController
                 return;
             }
             // 如果admin数据表的数据为空，则创建一条默认的admin登录账号
-            if (TDORM(ADMIN::$_table_name)->count() == 0) {
+            if (MU(ADMIN::$_table_name)->count() == 0) {
                 $default_admin_data = array();
-                $default_admin_data[ADMIN::$username] = "admin";
-                $default_admin_data[ADMIN::$password] = create_password("111111");
+                $default_admin_data[ADMIN::$username] = "malltodo";
+                $default_admin_data[ADMIN::$password] = create_password("malltodo");
                 MU(ADMIN::$_table_name)->data($default_admin_data)->add();
             }
             $username = TDI("post." . ADMIN::$username);
@@ -39,7 +39,7 @@ class IndexTDController extends CommonTDController
                 "eq",
                 0
             );
-            $info = TDORM(ADMIN::$_table_name)->where($where)->find();
+            $info = MU(ADMIN::$_table_name)->where($where)->find();
             if ($info) {
                 TDSESSION("admin_id", $info[ADMIN::$id]);
                 TDSESSION("admin_name", $info[ADMIN::$username]);

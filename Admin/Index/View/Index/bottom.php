@@ -181,6 +181,9 @@ $("#add").click(function () {
 	}
 })
 
+$("#search_btn").click(function(){
+	$('#search_form').submit();
+})
 </script>
 </body>
 </html>

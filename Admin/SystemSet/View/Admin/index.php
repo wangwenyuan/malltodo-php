@@ -2,7 +2,7 @@
 require_once dirname(dirname(dirname(__DIR__))) . '/Index/View/Index/header.php';
 ?>
 <div style="padding:15px;">
-<div class="main_title">成员管理</div>
+<div class="main_title">成员管理</div><a target="_blank" class="note_marker" href="<?=DocU(TD_MODULE_NAME . "/" . TD_CONTROLLER_NAME . "/". TD_ACTION_NAME) ?>">(操作指南)</a>
 <a onclick="malltodoJs.sub_window('新建成员', '<?=TDU("SystemSet/Admin/add")?>')" class="main_button">新建</a>
 <div class="clear_5px"></div>
   <table width="100%" cellpadding="0" cellspacing="0" class="main_table">

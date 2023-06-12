@@ -2,7 +2,7 @@
 require_once dirname(dirname(dirname(__DIR__))) . '/Index/View/Index/header.php';
 ?>
 <div style="padding:15px;">
-<div class="main_title"><?=$page_action?>管理</div>
+<div class="main_title"><?=$page_action?>管理</div><a target="_blank" class="note_marker" href="<?=DocU(TD_MODULE_NAME . "/" . TD_CONTROLLER_NAME . "/". TD_ACTION_NAME) ?>">(操作指南)</a>
 <a onclick="malltodoJs.sub_window('新建<?=$page_action?>', '<?=TDU(TD_MODULE_NAME . "/" . TD_CONTROLLER_NAME . "/add")?>')" class="main_button">新建</a>
 
 <div style="clear: both;">

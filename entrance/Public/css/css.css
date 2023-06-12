@@ -324,7 +324,7 @@ body {
 }
 
 .main_title {
-	width: 500px;
+	/*width: 500px;*/
 	height: 30px;
 	float: left;
 	border-left: #88B7E0 4px solid;
@@ -332,6 +332,17 @@ body {
 	line-height: 30px;
 	padding-left: 10px;
 	margin-bottom: 10px;
+}
+
+.note_marker{
+	height: 30px;
+	float: left;
+	font-size: 14px;
+	line-height: 30px;
+	padding-left: 10px;
+	margin-bottom: 10px;
+	color: red;
+	text-decoration: none;
 }
 
 .main_button {

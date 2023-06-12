@@ -2,7 +2,7 @@
 require_once __DIR__ . '/header.php';
 ?>
 <div style="padding:15px;">
-<div class="main_title">工作面板</div>
+<div class="main_title">工作面板</div><a target="_blank" class="note_marker" href="<?=DocU(TD_MODULE_NAME . "/" . TD_CONTROLLER_NAME . "/". TD_ACTION_NAME) ?>">(操作指南)</a>
 <div class="clear_5px"></div>
 
 <div style="font-size:14px;">

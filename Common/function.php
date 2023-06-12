@@ -478,6 +478,33 @@ function get_all_website()
     return TDS("website_cache");
 }
 
+function DocU($uri, $param = array())
+{
+    $param[TDConfig::$todo_pre . "m"] = "Index";
+    $param[TDConfig::$todo_pre . "c"] = "Index";
+    $param[TDConfig::$todo_pre . "a"] = "index";
+    
+    if (is_string($uri) && trim($uri) != "") {
+        $uri_arr = explode("/", $uri);
+        if (count($uri_arr) == 3) {
+            $param["module"] = trim($uri_arr[0]);
+            $param["controller"] = trim($uri_arr[1]);
+            $param["action"] = trim($uri_arr[2]);
+        }
+    }
+    $url = "http://www.malltodo.com/doc.php";
+    $paramar = "";
+    foreach ($param as $key => $val) {
+        if ($paramar == "") {
+            $paramar = "?" . $key . "=" . $val;
+        } else {
+            $paramar = $paramar . "&" . $key . "=" . $val;
+        }
+    }
+    $url = $url . $paramar;
+    return $url;
+}
+
 function checkIsInstall()
 {
     if (file_exists(TDConfig::$todo_runtime_path . "lock")) {

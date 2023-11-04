@@ -70,6 +70,9 @@ require_once dirname(dirname(dirname(__DIR__))) . '/Index/View/Index/sub_header.
     		var article_pic_url = $('#pic').val();
     		if(article_pic_url == ""){
     			var pic_url = $(zhi).find('img:first').attr('src');
+    			if(pic_url.indexOf("editor") > -1){
+    				return ;
+    			}
     			$('#pic').val(pic_url);
 				$('#pic_phptodo_upload_file_outerbox').css({'background-image':'url('+pic_url+')'});
     		}

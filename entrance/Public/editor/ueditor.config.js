@@ -385,7 +385,7 @@
 			dd:     ['class', 'style'],
 			del:    ['datetime'],
 			details: ['open'],
-			div:    ['class', 'style'],
+			div:    ['class', 'style', 'onclick'],
 			dl:     ['class', 'style'],
 			dt:     ['class', 'style'],
 			em:     ['class', 'style'],
@@ -425,7 +425,8 @@
 			tt:     [],
 			u:      [],
 			ul:     ['class', 'style'],
-			video:  ['autoplay', 'controls', 'loop', 'preload', 'src', 'height', 'width', 'class', 'style']
+			video:  ['autoplay', 'controls', 'loop', 'preload', 'src', 'height', 'width', 'class', 'style', 'muted'],
+			source: ['src', 'type']
 		}
     };
 

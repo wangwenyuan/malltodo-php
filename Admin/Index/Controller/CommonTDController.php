@@ -6,6 +6,13 @@ class CommonTDController extends TDCONTROLLER
     public function _td_init()
     {
         $website_id = get_home_website_id();
+        if(TD_IS_POST){
+            foreach($_POST as $k=>$v){
+                $v = str_replace("\n", "", $v);
+                $v = str_replace("\r", "", $v);
+                $_POST[$k] = $v;
+            }
+        }
         if (TD_MODULE_NAME == "Index" && TD_CONTROLLER_NAME == "Index" && (TD_ACTION_NAME == "login" || TD_ACTION_NAME == "signOut" || TD_ACTION_NAME == "verify")) {
             return true;
         } else {

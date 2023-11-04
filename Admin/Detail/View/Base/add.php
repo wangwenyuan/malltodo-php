@@ -61,6 +61,21 @@ require_once dirname(dirname(dirname(__DIR__))) . '/Index/View/Index/sub_header.
     $("#renovation_type").change(function(){
     	change_renovation_type();
     })
+    
+    ue_detail.addListener("contentChange", function() {
+    	if (ue_detail == null) {
+    		return;
+    	} else {
+    		var zhi = ue_detail.getContent();
+    		var article_pic_url = $('#pic').val();
+    		if(article_pic_url == ""){
+    			var pic_url = $(zhi).find('img:first').attr('src');
+    			$('#pic').val(pic_url);
+				$('#pic_phptodo_upload_file_outerbox').css({'background-image':'url('+pic_url+')'});
+    		}
+    	}
+    });
+    
     </script>
 
 </form>

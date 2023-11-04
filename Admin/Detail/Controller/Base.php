@@ -89,7 +89,7 @@ class Base extends CommonTDController
             ->join(CATEGORY::$_table_name, " as c on n.category_id = c.id", "left")
             ->where($where)
             ->limit($page->firstRow . "," . $page->listRows)
-            ->order(DETAIL::$id . " desc")
+            ->order(DETAIL::$release_time . " desc")
             ->field("n.*, c.category_name")
             ->select();
 

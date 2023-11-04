@@ -9,7 +9,7 @@ class AlbumDetailTDController extends BaseRenovation
         if (parent::_td_init()) {
             $this->type = "Index/Album/detail";
             $this->platform = "pc";
-            $this->assign("page_action", "新闻详情页");
+            $this->assign("page_action", "公司相册详情页");
             return true;
         } else {
             return false;

@@ -81,7 +81,7 @@ class TDWIDGET
     static function editor($name, $value)
     {
         $html = "<script id=\"" . $name . "\" name=\"" . $name . "\" type=\"text/plain\">\n" . $value . "\n</script>\n";
-        $html = $html . "<script type=\"text/javascript\">\nvar ue = UE.getEditor(\"" . $name . "\", {\n    serverUrl: \"" . TDConfig::$editor_controller . "\"\n});\n</script>";
+        $html = $html . "<script type=\"text/javascript\">\nvar ue_" . $name . " = UE.getEditor(\"" . $name . "\", {\n    serverUrl: \"" . TDConfig::$editor_controller . "\"\n});\n</script>";
         return $html;
     }
 

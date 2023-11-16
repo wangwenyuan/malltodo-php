@@ -362,7 +362,10 @@ function http_post($url, $data, $ssl = null)
 
     $tmpInfo = curl_exec($curl); // 执行操作
     if (curl_errno($curl)) {
-        echo 'Errno' . curl_error($curl); // 捕抓异常
+        //echo 'Errno' . curl_error($curl); // 捕抓异常
+        $arr = array("status"=>0, "info"=>"error", "url"=>"");
+        echo json_encode($arr, JSON_UNESCAPED_UNICODE);
+        exit();
     }
     curl_close($curl); // 关闭CURL会话
     return $tmpInfo; // 返回数据
@@ -383,8 +386,9 @@ function http_get($url)
     $neirong = curl_exec($ch);
     if (curl_errno($ch)) {
         // echo 'Errno' . curl_error($ch); // 捕抓异常
-        curl_close($ch);
-        return "";
+        $arr = array("status"=>0, "info"=>"error", "url"=>"");
+        echo json_encode($arr, JSON_UNESCAPED_UNICODE);
+        exit();
     }
     curl_close($ch);
     return $neirong;

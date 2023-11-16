@@ -3,7 +3,7 @@
 class Malltodo
 {
 
-    private static $serviceHost = "http://api.malltodo.com/";
+    public static $serviceHost = "http://api.malltodo.com/";
 
     private static function urlencodeParam($param)
     {
@@ -31,11 +31,25 @@ class Malltodo
     private static function postToService($serviceUrl, $postData = array())
     {
         foreach ($postData as $k => $v) {
-            $postData[$k] = $v;
+            $postData[$k] = Malltodo::replaceSpecialCharacters_encode($v);
         }
         $ret_content = http_post($serviceUrl, $postData);
+        $ret_content = Malltodo::replaceSpecialCharacters_decode($ret_content);
         return str_replace(".jsp", ".php", $ret_content);
     }
+    
+    private static function replaceSpecialCharacters_encode($string){
+        $string = str_replace("%", "mallpercenttodo", $string);
+        $string = str_replace("+", "malladdtodo", $string);
+        return $string;
+    }
+    
+    private static function replaceSpecialCharacters_decode($string){
+        $string = str_replace("mallpercenttodo", "%", $string);
+        $string = str_replace("malladdtodo", "+", $string);
+        return $string;
+    }
+
 
     public static function get_unique_id()
     {
@@ -167,4 +181,7 @@ class Malltodo
         $postData["domsSortString"] = $domsSortString;
         return self::postToService(self::getServiceUrl("buildHtmlCSSTemplate", $getParam), $postData);
     }
+}
+if($_SERVER["HTTP_HOST"] == "www.malltodo.cn"){
+    Malltodo::$serviceHost = "http://127.0.0.1:9500/";
 }

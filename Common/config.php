@@ -382,14 +382,15 @@ TDConfig::$config["detail_recommend_level"] = array(
     "9" => "九级推荐"
 );
 TDConfig::$upload = array(
-    "maxSize" => 5048576,
+    "maxSize" => 504857600,
     "exts" => array(
         'jpg',
         'gif',
         'png',
         'jpeg',
         'xlsx',
-        'xls'
+        'xls',
+        'mp4'
     ),
     "rootPath" => dirname(__DIR__) . "/entrance/Uploads/", // 图片保存的根目录
     "picUrl" => "./Uploads/" // 图片链接前缀

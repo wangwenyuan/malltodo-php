@@ -35,12 +35,13 @@ class Malltodo
         }
         $ret_content = http_post($serviceUrl, $postData);
         $ret_content = Malltodo::replaceSpecialCharacters_decode($ret_content);
+        $ret_content = str_replace(";amp", "", $ret_content);
         return str_replace(".jsp", ".php", $ret_content);
     }
     
     private static function replaceSpecialCharacters_encode($string){
-        $string = str_replace("%", "mallpercenttodo", $string);
-        $string = str_replace("+", "malladdtodo", $string);
+        //$string = str_replace("%", "mallpercenttodo", $string);
+        //$string = str_replace("+", "malladdtodo", $string);
         return $string;
     }
     

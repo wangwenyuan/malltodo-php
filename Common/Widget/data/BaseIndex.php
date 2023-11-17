@@ -146,7 +146,7 @@ class BaseIndex
         }
         $list = MU(DETAIL::$_table_name)->where($where)
             ->limit($page_size)
-            ->order(DETAIL::$id . " desc")
+            ->order('sort desc , ' . DETAIL::$id . " desc")
             ->select();
         for ($i = 0; $i < count($list); $i = $i + 1) {
             $time = $list[$i][DETAIL::$release_time];

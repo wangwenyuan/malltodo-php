@@ -520,6 +520,27 @@ function build_icon_panel(id) {
 	return html;
 }
 
+function replaceSpecialCharacters_encode(string){
+	if (string != "" && string != undefined && string != NaN && string != "" && string != undefined && string != NaN) {
+		string = string.replaceAll("%", "mallpercenttodo");
+		string = string.replaceAll("+", "malladdtodo");
+		return string;
+	}else{
+		return "";
+	}
+}
+
+function replaceSpecialCharacters_decode(string){
+	if (string != "" && string != undefined && string != NaN && string != "" && string != undefined && string != NaN) {
+		string = string.replaceAll("mallpercenttodo", "%");
+		string = string.replaceAll("malladdtodo", "+");
+		return string;
+	}else{
+		return "";
+	}
+	
+}
+
 $(function() {
 	var icon_length = $("[javatodo-icon]").length;
 	for (var i = 0; i < icon_length; i = i + 1) {

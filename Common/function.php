@@ -2,7 +2,7 @@
 
 function static_resources()
 {
-    $ext = "?t=006";
+    $ext = "?t=007";
     $resource = "";
     $resource = "<link rel=\"stylesheet\" type=\"text/css\" href=\"" . TD_URL . "/Public/css/css.css" . $ext . "\"/>\n";
     $resource = $resource . "<script type=\"text/javascript\" src=\"" . TD_URL . "/Public/js/jquery-1.12.4.min.js" . $ext . "\"></script>\n";

@@ -53,11 +53,15 @@ function setSQLiteConfig()
             SQLiteConfig::$template_db = __DIR__ . "/main/db/malltodo.db";
             TDConfig::$upload["rootPath"] = dirname(__DIR__) . "/entrance/template/main/Uploads/";
             TDConfig::$upload["picUrl"] = "./template/main/Uploads/"; // 图片链接前缀
+            TDConfig::$config["page_cache_path"] = TDConfig::$todo_runtime_path . "page/main";
         } else {
             SQLiteConfig::$data_db = __DIR__ . "/default/db/data.db";
             SQLiteConfig::$template_db = __DIR__ . "/" . $template_code . "/" . "db/template.db";
             TDConfig::$upload["rootPath"] = dirname(__DIR__) . "/entrance/template/default/Uploads/";
             TDConfig::$upload["picUrl"] = "./template/default/Uploads/"; // 图片链接前缀
+            if($template_code != "default"){
+                TDConfig::$config["page_cache_path"] = TDConfig::$todo_runtime_path . "page/".$template_code;
+            }
         }
     } else {
         exit();

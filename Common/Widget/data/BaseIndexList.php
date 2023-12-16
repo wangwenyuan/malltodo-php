@@ -5,16 +5,16 @@ class BaseIndexList
 
     public $parameter = array();
 
-    public function getValue($selfParameter, $bind_loop_list)
+    public function getValue($selfParameter, $bind_loop_list, $website_id, $urlinput)
     {
         $p = 1;
-        if (TDI("get.p")) {
-            $p = (int) TDI("get.p");
+        if ($urlinput['p']) {
+            $p = (int) $urlinput['p'];
         }
         if ($p == 0) {
             $p = 1;
         }
-        $category_id = TDI("get.id");
+        $category_id = $urlinput['id'];
         $where = array();
         // 栏目内容
         $where[CATEGORY::$is_del] = array(
@@ -37,7 +37,7 @@ class BaseIndexList
             0
         );
         $category_ids = array();
-        $websiteId = TDSESSION("website_id");
+        $websiteId = $website_id;
         require_once dirname(dirname(__DIR__)) . "/MenuCache.php";
         $all_category_list = MenuCache::getAdminMenuList($websiteId);
         $this->get_admin_menu_list($all_category_list);

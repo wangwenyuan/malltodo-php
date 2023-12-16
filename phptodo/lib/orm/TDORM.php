@@ -563,7 +563,14 @@ class TDORM
 
     public function execute($sql)
     {
-        return $this->query($sql);
+        global $TDORMHANDLE;
+        return $TDORMHANDLE->exec($sql);
+        /*
+        $stmt = $TDORMHANDLE->prepare($sql);
+        $ret = $stmt->execute();
+        $stmt = null;
+        return $ret;
+        */
     }
 
     public function startTrans()

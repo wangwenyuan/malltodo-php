@@ -5,13 +5,13 @@ class HomeIndexBread
 
     public $parameter = array();
 
-    public function getValue($selfParameter, $bind_loop_list)
+    public function getValue($selfParameter, $bind_loop_list, $website_id, $urlinput)
     {
         $category_id = "";
-        if (trim(TDI("get.a")) == "category") { // 说明是栏目
-            $category_id = trim(TDI("get.id"));
-        } else if (trim(TDI("get.a")) == "detail") { // 说明是内容
-            $detail_id = trim(TDI("get.id"));
+        if (trim($urlinput['a']) == "category") { // 说明是栏目
+            $category_id = trim($urlinput['id']);
+        } else if (trim($urlinput['a']) == "detail") { // 说明是内容
+            $detail_id = $urlinput['id'];
             $_where = array();
             $_where[DETAIL::$id] = array(
                 "eq",

@@ -17,6 +17,9 @@ class CommonTDController extends TDCONTROLLER
             return true;
         } else {
             if (TDSESSION("admin_id")) {
+                if(TD_MODULE_NAME == "Index" && TD_CONTROLLER_NAME == "RebuildCache"){
+                    return true;
+                }
                 return $this->auth();
             } else {
                 TDREDIRECT(TDU("Index/Index/login"));

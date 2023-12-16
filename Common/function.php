@@ -319,6 +319,9 @@ function is_weixin_miniprogram()
 // 生成目录
 function create_dir($src)
 {
+    if(is_dir($src)){
+        return TRUE;
+    }
     $arr = explode("/", trim($src));
     $dis = "";
     for ($i = 0; $i < count($arr); $i = $i + 1) {
@@ -521,4 +524,412 @@ function checkIsInstall()
         }
     }
 }
+
+function create_database_sql()
+{
+    if(TDConfig::$db_type == "mysql"){
+        $sql = "SELECT table_name from information_schema.`TABLES` where TABLE_SCHEMA = '" . TDConfig::$db_name . "';";
+        $list = MU()->query($sql);
+        for ($i = 0; $i < count($list); $i = $i + 1) {
+            $table_name = $list[$i]["table_name"];
+            $table_name = str_replace(TDConfig::$table_pre, "", $table_name);
+            $file_data_before = "<?php" . PHP_EOL . "$" . "table_columns = array(" . PHP_EOL;
+            $file_data = "";
+            $file_data_after = ");";
+            
+            $file_column_before = "<?php" . PHP_EOL . "class ". strtoupper($table_name) ."{" . PHP_EOL;
+            $file_column = '    public static $_table_name = "' . $table_name . '";'.PHP_EOL;
+            $file_column_after = "};";
+            
+            $sql = "SELECT * FROM information_schema.columns where table_schema = '" . TDConfig::$db_name . "' and table_name = '" . TDConfig::$table_pre . $table_name . "'";
+            $column_list = MU()->query($sql);
+            $column_data_types = array();
+            for ($n = 0; $n < count($column_list); $n = $n + 1) {
+                $data_type = $column_list[$n]["DATA_TYPE"];
+                if (strpos($data_type, "int") === false && strpos($data_type, "decimal") === false && strpos($data_type, "float") === false && strpos($data_type, "double") === false) { // 说明是字符串类型
+                    if ($column_list[$n]["COLUMN_DEFAULT"] == null) {
+                        $file_data = $file_data . "    " . '"' . $column_list[$n]["COLUMN_NAME"] . '" => array("' . $data_type . '", "")';
+                    } else {
+                        $file_data = $file_data . "    " . '"' . $column_list[$n]["COLUMN_NAME"] . '" => array("' . $data_type . '", "' . $column_list[$n]["COLUMN_DEFAULT"] . '")';
+                    }
+                } else {
+                    if ($column_list[$n]["COLUMN_DEFAULT"] == null) {
+                        $file_data = $file_data . "    " . '"' . $column_list[$n]["COLUMN_NAME"] . '" => array("' . $data_type . '", 0)';
+                    } else {
+                        $file_data = $file_data . "    " . '"' . $column_list[$n]["COLUMN_NAME"] . '" => array("' . $data_type . '", ' . $column_list[$n]["COLUMN_DEFAULT"] . ')';
+                    }
+                }
+                $file_column = $file_column . '	public static $'.$column_list[$n]["COLUMN_NAME"].' = "'.$column_list[$n]["COLUMN_NAME"].'";';
+                $column_data_types[$column_list[$n]["COLUMN_NAME"]] = $data_type;
+                if ($n < count($column_list) - 1) {
+                    $file_data = $file_data . "," . PHP_EOL;
+                } else {
+                    $file_data = $file_data . PHP_EOL;
+                }
+                $file_column = $file_column . PHP_EOL;
+            }
+            $file_data = $file_data_before . $file_data . $file_data_after;
+            $file_column = $file_column_before . $file_column . $file_column_after;
+            file_put_contents(__DIR__ ."/database/" . $table_name . ".data.php", $file_data);
+            file_put_contents(__DIR__ ."/database/" . $table_name . ".columns.php", $file_column);
+        }
+    }else if(TDConfig::$db_type == "sqlite"){
+        $sql = "SELECT * FROM sqlite_master WHERE type = 'table'";
+        $list = MU()->query($sql);
+        for($i=0; $i<count($list); $i=$i+1){
+            $table_name = $list[$i]["name"];
+            $table_name = str_replace(TDConfig::$table_pre, "", $table_name);
+            $file_data_before = "<?php" . PHP_EOL . "$" . "table_columns = array(" . PHP_EOL;
+            $file_data = "";
+            $file_data_after = ");";
+            
+            $file_column_before = "<?php" . PHP_EOL . "class ". strtoupper($table_name) ."{" . PHP_EOL;
+            $file_column = '    public static $_table_name = "' . $table_name . '";'.PHP_EOL;
+            $file_column_after = "};";
+            
+            $sql = "PRAGMA table_info('" . TDConfig::$table_pre . $table_name . "')";
+            $column_list = MU()->query($sql);
+            $column_data_types = array();
+            for ($n = 0; $n < count($column_list); $n = $n + 1) {
+                $data_type = $column_list[$n]["type"];
+                if (strpos($data_type, "int") === false && strpos($data_type, "decimal") === false && strpos($data_type, "float") === false && strpos($data_type, "double") === false) { // 说明是字符串类型
+                    if ($column_list[$n]["dflt_value"] == null) {
+                        $file_data = $file_data . "    " . '"' . $column_list[$n]["name"] . '" => array("' . $data_type . '", "")';
+                    } else {
+                        $file_data = $file_data . "    " . '"' . $column_list[$n]["name"] . '" => array("' . $data_type . '", "' . str_replace("'", "", $column_list[$n]["dflt_value"]) . '")';
+                    }
+                } else {
+                    if ($column_list[$n]["dflt_value"] == null) {
+                        $file_data = $file_data . "    " . '"' . $column_list[$n]["name"] . '" => array("' . $data_type . '", 0)';
+                    } else {
+                        $file_data = $file_data . "    " . '"' . $column_list[$n]["name"] . '" => array("' . $data_type . '", ' . str_replace("'", "", $column_list[$n]["dflt_value"]) . ')';
+                    }
+                }
+                $file_column = $file_column . '	public static $'.$column_list[$n]["name"].' = "'.$column_list[$n]["name"].'";';
+                $column_data_types[$column_list[$n]["name"]] = $data_type;
+                if ($n < count($column_list) - 1) {
+                    $file_data = $file_data . "," . PHP_EOL;
+                } else {
+                    $file_data = $file_data . PHP_EOL;
+                }
+                $file_column = $file_column . PHP_EOL;
+            }
+            $file_data = $file_data_before . $file_data . $file_data_after;
+            $file_column = $file_column_before . $file_column . $file_column_after;
+            file_put_contents(__DIR__ ."/database/" . $table_name . ".data.php", $file_data);
+            file_put_contents(__DIR__ ."/database/" . $table_name . ".columns.php", $file_column);
+        }
+    }
+}
+
+//生成表单数据表
+function create_form_table($table_name)
+{
+    $table_name = TDConfig::$table_pre . $table_name;
+    if(TDConfig::$db_type == "sqlite"){
+        $sql = "CREATE TABLE `" . $table_name . "` ( `id` char(25) NOT NULL DEFAULT '', `create_time` datetime NOT NULL, `ip` varchar(25) NOT NULL, `is_del` tinyint(4) NOT NULL DEFAULT '0', PRIMARY KEY (`id`))";
+    }else{
+        $sql = "CREATE TABLE `" . $table_name . "` ( `id` char(25) NOT NULL DEFAULT '', `create_time` datetime NOT NULL, `ip` varchar(25) NOT NULL, `is_del` tinyint(4) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8";
+    }
+    $res = MU()->execute($sql);
+    create_database_sql();
+}
+
+//修改表名称
+function alter_table_name($old_table_name, $new_table_name)
+{
+    $old_table_name = TDConfig::$table_pre . $old_table_name;
+    $new_table_name = TDConfig::$table_pre . $new_table_name;
+    $sql = "ALTER TABLE " . $old_table_name . " RENAME TO " . $new_table_name;
+    $res = MU()->execute($sql);
+    create_database_sql();
+}
+
+function delete_table($table_name)
+{
+    $table_name = TDConfig::$table_pre . $table_name;
+    $sql = "drop table " . $table_name;
+    $res = MU()->execute($sql);
+}
+
+function add_field($table_name, $field_name, $type)
+{
+    $table_name = TDConfig::$table_pre . $table_name;
+    if ($type == "date_part") {
+        $sql = "ALTER TABLE `" . $table_name . "` ADD  `" . $field_name . "_1` VARCHAR( 99 ) NOT NULL DEFAULT '',";
+        $sql = $sql . " ADD  `" . $field_name . "_2` VARCHAR( 99 ) NOT NULL DEFAULT ''";
+    } else if ($type == "editor") {
+        $sql = "ALTER TABLE  `" . $table_name . "` ADD  `" . $field_name . "` TEXT NOT NULL DEFAULT ''";
+    } else {
+        $sql = "ALTER TABLE  `" . $table_name . "` ADD  `" . $field_name . "` VARCHAR( 1000 ) NOT NULL DEFAULT ''";
+    }
+    $res = MU()->execute($sql);
+    create_database_sql();
+}
+
+/*
+function alter_field($table_name, $old_field_name, $new_field_name, $old_type, $new_type)
+{
+    $table_name = TDConfig::$table_pre . $table_name;
+    if(TDConfig::$db_type == "mysql"){
+        if ($old_type == "date_part") {
+            $sql = "alter table `" . $table_name . "` drop column `" . $old_field_name . "_1`";
+            MU()->execute($sql);
+            $sql = "alter table `" . $table_name . "` drop column `" . $old_field_name . "_2`";
+            MU()->execute($sql);
+        } else {
+            $sql = "alter table `" . $table_name . "` drop column `" . $old_field_name . "`";
+            MU()->execute($sql);
+        }
+        if ($new_type == "date_part") {
+            $sql = "ALTER TABLE `" . $table_name . "` ADD  `" . $new_field_name . "_1` VARCHAR( 99 ) NOT NULL,";
+            $sql = $sql . " ADD  `" . $new_field_name . "_2` VARCHAR( 99 ) NOT NULL";
+        } else if ($new_type == "editor") {
+            $sql = "ALTER TABLE  `" . $table_name . "` ADD  `" . $new_field_name . "` TEXT NOT NULL";
+        } else {
+            $sql = "ALTER TABLE  `" . $table_name . "` ADD  `" . $new_field_name . "` VARCHAR( 1000 ) NOT NULL";
+        }
+    }else if(TDConfig::$db_type == "sqlite"){
+        if ($new_type == "date_part") {
+            $sql = "ALTER TABLE `" . $table_name . "` ADD  `" . $new_field_name . "_1` VARCHAR( 99 ) NOT NULL DEFAULT '',";
+            $sql = $sql . " ADD  `" . $new_field_name . "_2` VARCHAR( 99 ) NOT NULL DEFAULT ''";
+        } else if ($new_type == "editor") {
+            $sql = "ALTER TABLE  `" . $table_name . "` ADD  `" . $new_field_name . "` TEXT NOT NULL DEFAULT ''";
+        } else {
+            $sql = "ALTER TABLE  `" . $table_name . "` ADD  `" . $new_field_name . "` VARCHAR( 1000 ) NOT NULL DEFAULT ''";
+        }
+    }
+    $res = MU()->execute($sql);
+    create_database_sql();
+}
+
+function delete_field($table_name, $field_name, $type)
+{
+    $table_name = TDConfig::$table_pre . $table_name;
+    if(TDConfig::$db_type == "mysql"){
+        if ($type == "date_part") {
+            $sql = "alter table `" . $table_name . "` drop column " . $field_name . "_1";
+            MU()->execute($sql);
+            $sql = "alter table `" . $table_name . "` drop column " . $field_name . "_2";
+            MU()->execute($sql);
+        } else {
+            $sql = "alter table `" . $table_name . "` drop column " . $field_name;
+            MU()->execute($sql);
+        }
+    }
+    //sqlite3无法删除字段，所以不做处理
+}
+*/
+
+function check_table_name($table_name)
+{
+    if (! preg_match("/^[a-zA-Z]{1,9}$/", $table_name)) {
+        return array(
+            "status" => 0,
+            'info' => '表名称只能由字母组成，长度不能超过9位'
+        );
+    }
+    
+    if (in_array($table_name, TDConfig::$config['default_table'])) {
+        return array(
+            "status" => 0,
+            'info' => '该数据表已经存在'
+        );
+    }
+    $where = array();
+    $where[FORM::$table_name] = array(
+        "eq",
+        $table_name
+    );
+    $info = MU(FORM::$_table_name)->where($where)->find();
+    if ($info) {
+        return array(
+            "status" => 0,
+            'info' => '该数据表已经存在'
+        );
+    }
+    $info = MU(FORM::$_table_name)->where($where)->find();
+    if ($info) {
+        return array(
+            "status" => 0,
+            'info' => '该数据表已经存在'
+        );
+    }
+    return array(
+        "status" => 1,
+        'info' => '该数据表不存在'
+    );
+}
+
+function check_field_name($field_name)
+{
+    $field_arr = array("id", "create_time", "ip", "is_del");
+    if(in_array($field_name, $field_arr)){
+        return false;
+    }
+    return preg_match("/^[a-zA-Z]{1,25}$/", $field_name);
+}
+
+function create_customer_form_table($fid, $url)
+{
+    $fields_array = MU("form_fields")->where(array(
+        "fid" => $fid,
+        "is_del" => 0
+    ))->select();
+    $form_html_start = '<form action="" id="html_form" method="post">';
+    $form_html_end = '</form>';
+    
+    $form_html = '';
+    for ($i = 0; $i < count($fields_array); $i = $i + 1) {
+        $required = "";
+        if ($fields_array[$i]["is_required"] == 1) {
+            $required = "<font style='color:red'>* </font>";
+        }
+        
+        if ($fields_array[$i]["type"] == 3) {
+            $form_html = $form_html . "<div class='head_title'>" . $fields_array[$i]["name"] . "</div>";
+        }
+        
+        if ($fields_array[$i]['field_type'] == 'text') {
+            $form_html = $form_html . '<div class="layui-form-item"><label class="layui-form-label">' . $required . $fields_array[$i]['name'] . '：</label><div class="layui-input-inline">' . TDWIDGET::text($fields_array[$i]['field_name'], '') . '</div><div class = "div_clear"></div></div>';
+        }
+        
+        if ($fields_array[$i]['field_type'] == 'password') {
+            $form_html = $form_html . '<div class="layui-form-item"><label class="layui-form-label">' . $required . $fields_array[$i]['name'] . '：</label><div class="layui-input-inline">' . TDWIDGET::password($fields_array[$i]['field_name'], '') . '</div><div class = "div_clear"></div></div>';
+        }
+        
+        if ($fields_array[$i]['field_type'] == 'select') {
+            $field_select = $fields_array[$i]['field_select'];
+            $field_select_arr = explode("|", $field_select);
+            $field_select_map = array();
+            for ($n = 0; $n < count($field_select_arr); $n = $n + 1) {
+                $field_select_map[$field_select_arr[$n]] = $field_select_arr[$n];
+            }
+            $form_html = $form_html . '<div class="layui-form-item"><label class="layui-form-label">' . $required . $fields_array[$i]['name'] . '：</label><div class="layui-input-inline">' . TDWIDGET::select($fields_array[$i]['field_name'], '', $field_select_map) . '</div><div class = "div_clear"></div></div>';
+        }
+        
+        if ($fields_array[$i]['field_type'] == 'checkbox') {
+            $field_select = $fields_array[$i]['field_select'];
+            $field_select_arr = explode("|", $field_select);
+            $field_select_map = $field_select_arr;
+            $form_html = $form_html . '<div class="layui-form-item"><label class="layui-form-label">' . $required . $fields_array[$i]['name'] . '：</label><div class="layui-input-inline">' . TDWIDGET::checkbox($fields_array[$i]['field_name'], $field_select_map, array()) . '</div><div class = "div_clear"></div></div>';
+        }
+        
+        if ($fields_array[$i]['field_type'] == 'date') {
+            $form_html = $form_html . '<div class="layui-form-item"><label class="layui-form-label">' . $required . $fields_array[$i]['name'] . '：</label><div class="layui-input-inline">' . TDWIDGET::date($fields_array[$i]['field_name'], '') . '</div><div class = "div_clear"></div></div>';
+        }
+        
+        if ($fields_array[$i]['field_type'] == 'date_part') {
+            $form_html = $form_html . '<div class="layui-form-item"><label class="layui-form-label">' . $required . $fields_array[$i]['name'] . '：</label><div class="layui-input-inline">' . TDWIDGET::date_part($fields_array[$i]['field_name'], '', '') . '</div><div class = "div_clear"></div></div>';
+        }
+        
+        if ($fields_array[$i]['field_type'] == 'upload') {
+            $form_html = $form_html . '<div class="layui-form-item"><label class="layui-form-label">' . $required . $fields_array[$i]['name'] . '：</label><div class="layui-input-inline">' . TDWIDGET::upload($fields_array[$i]['field_name'], '') . '</div><div class = "div_clear"></div></div>';
+        }
+        
+        if ($fields_array[$i]['field_type'] == 'textarea') {
+            $form_html = $form_html . '<div class="layui-form-item"><label class="layui-form-label">' . $required . $fields_array[$i]['name'] . '：</label><div class="layui-input-inline">' . TDWIDGET::text($fields_array[$i]['field_name'], '') . '</div><div class = "div_clear"></div></div>';
+        }
+        
+        if ($fields_array[$i]['field_type'] == 'editor') {
+            $form_html = $form_html . '<div class="layui-form-item"><label class="layui-form-label">' . $required . $fields_array[$i]['name'] . '：</label><div class="layui-input-inline">' . TDWIDGET::editor($fields_array[$i]['field_name'], '') . '</div><div class = "div_clear"></div></div>';
+        }
+    }
+    
+    $form_html = $form_html . '<div style="clear:both;"></div>';
+    $form_html = $form_html . '<div class="layui-form-item" id="xieyi_box">';
+    $form_html = $form_html . '<label class="layui-form-label">隐私协议：</label>';
+    $form_html = $form_html . '<div class="layui-input-inline">';
+    $form_html = $form_html . TDWIDGET::checkbox("malltodo_xieyi", array("同意协议内容")) .'   <span class="xieyi_span"><a href="' . TDUU('Index/Form/detail', array(
+        'id' => $fid
+    ), 'index.php') . '" target="_blank">查看协议</a></span>     </div></div>';
+    $form_html = $form_html . '<div style="clear:both;"></div>';
+    
+    $form_html = $form_html_start . $form_html . $form_html_end;
+    $form_html = $form_html . '<div style="clear:both;"></div><div class="form_btn"><input type="button" class="anniu" value="提交" id="add" /></div>';
+    return $form_html;
+}
+
+function get_client_ip($type = 0, $adv = false)
+{
+    $type      = $type ? 1 : 0;
+    static $ip = null;
+    if (null !== $ip) {
+        return $ip[$type];
+    }
+    
+    if ($adv) {
+        if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $arr = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
+            $pos = array_search('unknown', $arr);
+            if (false !== $pos) {
+                unset($arr[$pos]);
+            }
+            
+            $ip = trim($arr[0]);
+        } elseif (isset($_SERVER['HTTP_CLIENT_IP'])) {
+            $ip = $_SERVER['HTTP_CLIENT_IP'];
+        } elseif (isset($_SERVER['REMOTE_ADDR'])) {
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }
+    } elseif (isset($_SERVER['REMOTE_ADDR'])) {
+        $ip = $_SERVER['REMOTE_ADDR'];
+    }
+    // IP地址合法验证
+    $long = sprintf("%u", ip2long($ip));
+    $ip   = $long ? array($ip, $long) : array('0.0.0.0', 0);
+    return $ip[$type];
+}
+
+function check_customer_form($table_name, $input_data)
+{
+    $fid = MU("form")->where(array(
+        "table_name" => array(
+            "eq",
+            $table_name
+        )
+    ))->getField("id");
+    $fields_array = MU("form_fields")->where(array(
+        "fid" => $fid,
+        "is_del" => 0
+    ))->select();
+    for ($i = 0; $i < count($fields_array); $i = $i + 1) {
+        if (($fields_array[$i]['is_required'] == 1) && (trim($input_data[$fields_array[$i]['field_name']]) == "") && $fields_array[$i]['field_type'] != "date_part") {
+            return array(
+                "status" => 0,
+                'info' => $fields_array[$i]['name'] . "是必填项"
+            );
+        }
+        if (($fields_array[$i]['is_required'] == 1) && (trim($input_data[$fields_array[$i]['field_name'] . "_1"]) == "") && (trim($input_data[$fields_array[$i]['field_name'] . "_2"]) == "") && $fields_array[$i]['field_type'] == "date_part") {
+            return array(
+                "status" => 0,
+                'info' => $fields_array[$i]['name'] . "是必填项"
+            );
+        }
+        if ($fields_array[$i]['verification'] == "mobile") {
+            $mobile_field_value = $input_data[$fields_array[$i]['field_name']];
+            if (! check_mobile_format($mobile_field_value)) {
+                return array(
+                    "status" => 0,
+                    'info' => $fields_array[$i]['name'] . "中所填写的手机号格式不正确"
+                );
+            }
+        }
+        if ($fields_array[$i]['verification'] == "email") {
+            $email_field_value = $input_data[$fields_array[$i]['field_name']];
+            if (! check_email_format($email_field_value)) {
+                return array(
+                    "status" => 0,
+                    'info' => $fields_array[$i]['name'] . "中所填写的邮箱格式不正确"
+                );
+            }
+        }
+    }
+    return array(
+        "status" => 1,
+        'info' => '验证通过'
+    );
+}
+
+
 ?>

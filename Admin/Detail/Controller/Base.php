@@ -252,6 +252,8 @@ class Base extends CommonTDController
             if ($id == "") {
                 $_data[DETAIL::$website_id] = TDSESSION("website_id");
                 MU(DETAIL::$_table_name)->data($_data)->add();
+                //清理模板缓存
+                PageCache::clearPageCache();
                 $this->success("添加成功");
                 return;
             } else {
@@ -301,6 +303,8 @@ class Base extends CommonTDController
             $data = array();
             $data[DETAIL::$is_del] = 1;
             MU(DETAIL::$_table_name)->where($where)->save($data);
+            //清理模板缓存
+            PageCache::clearPageCache();
             $this->success("删除成功");
         }
     }

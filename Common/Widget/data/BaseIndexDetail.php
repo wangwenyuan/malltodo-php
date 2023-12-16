@@ -5,9 +5,9 @@ class BaseIndexDetail
 
     public $parameter = array();
 
-    public function getValue($selfParameter, $bind_loop_list)
+    public function getValue($selfParameter, $bind_loop_list, $website_id, $urlinput)
     {
-        $id = TDI("get.id");
+        $id = $urlinput['id'];
         $where = array();
         $where[DETAIL::$id] = array(
             "eq",
@@ -46,7 +46,7 @@ class BaseIndexDetail
         $object[DETAIL::$title] = $detail[DETAIL::$title];
         $object[DETAIL::$views] = $detail[DETAIL::$views];
 
-        $websiteId = TDSESSION("website_id");
+        $websiteId = $website_id;
         $object["pre"] = $this->getPre($detail, $category, $websiteId);
         $object["next"] = $this->getNext($detail, $category, $websiteId);
 

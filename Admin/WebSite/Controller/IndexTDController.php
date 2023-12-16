@@ -89,11 +89,15 @@ class IndexTDController extends CommonTDController
                 $data[WEBSITE::$addtime] = time();
                 MU(WEBSITE::$_table_name)->data($data)->add();
                 TDS("website_cache", null); // 清空缓存
+                //清理模板缓存
+                PageCache::clearPageCache();
                 $this->success("添加成功");
                 return;
             } else {
                 MU(WEBSITE::$_table_name)->where($where)->save($data);
                 TDS("website_cache", null); // 清空缓存
+                //清理模板缓存
+                PageCache::clearPageCache();
                 $this->success("修改成功");
                 return;
             }
@@ -124,6 +128,8 @@ class IndexTDController extends CommonTDController
                 TDSESSION("website_id", null);
             }
             TDS("website_cache", null); // 清空缓存
+            //清理模板缓存
+            PageCache::clearPageCache();
             $this->success("删除成功");
             return;
         }

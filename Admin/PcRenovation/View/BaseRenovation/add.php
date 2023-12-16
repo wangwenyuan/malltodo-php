@@ -494,6 +494,18 @@ function malltodo_renovation_submit(){
 						malltodo_doms[malltodosign][_key]["css_key_list"] = css_list;
 					}
 				}
+				if(_key.indexOf("javatodoattr")>-1){
+					if(malltodo_doms[malltodosign][_key]["attr"] != undefined && malltodo_doms[malltodosign][_key]["attr"] != "undefined"){
+						if(malltodo_doms[malltodosign][_key]["attr"]["href"] != undefined && malltodo_doms[malltodosign][_key]["attr"]["href"] != "undefined"){
+							malltodo_doms[malltodosign][_key]["attr"]["href"] = replaceSpecialCharacters_encode(malltodo_doms[malltodosign][_key]["attr"]["href"]);
+						}
+					}
+				}
+				if(_key.indexOf("javatodotext")>-1){
+					if(malltodo_doms[malltodosign][_key]["content-value"] != undefined && malltodo_doms[malltodosign][_key]["content-value"] != "undefined"){
+						malltodo_doms[malltodosign][_key]["content-value"] = replaceSpecialCharacters_encode(malltodo_doms[malltodosign][_key]["content-value"]);
+					}
+				}
 			}
 		}
 	}

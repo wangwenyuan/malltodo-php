@@ -26,7 +26,7 @@ class HomeIndexLinks
 
     public $type = "";
 
-    public function getValue($selfParameter, $bind_loop_list)
+    public function getValue($selfParameter, $bind_loop_list, $website_id, $urlinput)
     {
         $where = array();
         $where[LINKS::$is_del] = array(

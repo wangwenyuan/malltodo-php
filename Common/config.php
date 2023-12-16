@@ -337,6 +337,42 @@ $admin_home['Detail']['Links'] = [
     'edit' => '编辑友情链接',
     'del' => '删除友情链接'
 ];
+
+$admin_home['Form'] = array();
+$admin_home['Form']['_name'] = "万能表单";
+$admin_home['Form']['_isshow'] = true;
+$admin_home['Form']['_auth'] = true;
+$admin_home['Form']['_icon'] = "icon-file-text";
+$admin_home['Form']['Index'] = [
+    '_isshow' => true,
+    '_auth' => true,
+    '_name' => '表单设置',
+    'index' => '表单管理',
+    'add' => '新增表单',
+    'edit' => '编辑表单',
+    'del' => '删除表单'
+];
+$admin_home['Form']['FormField'] = [
+    '_isshow' => false,
+    '_auth' => true,
+    '_name' => '表单字段管理',
+    'index' => '表单字段列表',
+    'add' => '新增表单字段',
+    'edit' => '编辑表单字段',
+    'del' => '删除表单字段',
+    'addTitle' => '新增表单小标题',
+    'editTitle' => '编辑表单小标题',
+];
+$admin_home['Form']['Detail'] = [
+    '_isshow' => true,
+    '_auth' => true,
+    '_name' => '表单内容管理',
+    'index' => '表单列表',
+    'lists' => '表单内容列表',
+    'detail' => '表单内容详情',
+    'del' => '删除表单内容'
+];
+
 $admin_home['SystemSet'] = array();
 $admin_home['SystemSet']['_name'] = "系统设置";
 $admin_home['SystemSet']['_isshow'] = true;
@@ -395,6 +431,45 @@ TDConfig::$upload = array(
     "rootPath" => dirname(__DIR__) . "/entrance/Uploads/", // 图片保存的根目录
     "picUrl" => "./Uploads/" // 图片链接前缀
 );
+TDConfig::$config["page_cache_path"] = TDConfig::$todo_runtime_path . "page";
+
+//定义表单元素
+TDConfig::$config["field"] = array(
+    'text' => '输入框',
+    'password' => '密码框',
+    'select' => '下拉框',
+    'checkbox' => '多选框',
+    'date' => '日期选择器',
+    'date_part' => '时间区间',
+    'upload' => '上传图片',
+    'textarea' => '文本域',
+    'editor' => '编辑器'
+);
+
+//默认表单
+TDConfig::$config["default_table"] = array(
+    'admin',
+    'category',
+    'detail',
+    'file',
+    'form',
+    'form_fields',
+    'links',
+    'menu_cache',
+    'message',
+    'renovation',
+    'role',
+    'role_auth',
+    'website'
+);
+
+//字段验证
+TDConfig::$config["verification"] = array(
+    0 => '不验证',
+    'mobile' => '手机号',
+    'email' => '邮箱'
+);
+
 // 加载外部模板配置文件
 if (file_exists(dirname(__DIR__) . "/SQLiteDB/SQLiteConfig.php")) {
     require_once dirname(__DIR__) . "/SQLiteDB/SQLiteConfig.php";

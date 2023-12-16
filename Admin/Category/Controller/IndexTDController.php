@@ -193,6 +193,8 @@ class IndexTDController extends CommonTDController
                 MU(CATEGORY::$_table_name)->data($data)->add();
             }
             MenuCache::clean(TDSESSION("website_id"));
+            //清理模板缓存
+            PageCache::clearPageCache();
             $this->success("设置成功");
             return;
         } else {
@@ -232,6 +234,8 @@ class IndexTDController extends CommonTDController
             }
             MU(CATEGORY::$_table_name)->where($where)->save($save_data);
             MenuCache::clean(TDSESSION("website_id"));
+            //清理模板缓存
+            PageCache::clearPageCache();
             $this->success("设置成功");
         }
     }
@@ -252,6 +256,8 @@ class IndexTDController extends CommonTDController
             // var_dump($save_data);
             MU(CATEGORY::$_table_name)->where($where)->save($save_data);
             MenuCache::clean(TDSESSION("website_id"));
+            //清理模板缓存
+            PageCache::clearPageCache();
             $this->success("设置成功");
         }
     }
@@ -281,6 +287,8 @@ class IndexTDController extends CommonTDController
             $data[CATEGORY::$pid] = $pid;
             MU(CATEGORY::$_table_name)->where($where)->save($data);
             MenuCache::clean(TDSESSION("website_id"));
+            //清理模板缓存
+            PageCache::clearPageCache();
             $this->success("删除成功");
         }
     }

@@ -44,9 +44,9 @@ class BaseIndex
 
     public $category_type = "";
 
-    public function __construct()
+    public function __construct($website_id)
     {
-        $websiteId = TDSESSION("website_id");
+        $websiteId = $website_id;
         require_once dirname(dirname(__DIR__)) . "/MenuCache.php";
         $all_category_list = MenuCache::getAdminMenuList($websiteId);
         $this->get_admin_menu_list($all_category_list);
@@ -64,7 +64,7 @@ class BaseIndex
         }
     }
 
-    public function getValue($selfParameter, $bind_loop_list)
+    public function getValue($selfParameter, $bind_loop_list, $website_id, $urlinput)
     {
         if ($selfParameter == null) {
             return null;

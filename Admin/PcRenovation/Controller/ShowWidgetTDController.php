@@ -106,7 +106,7 @@ class ShowWidgetTDController extends CommonTDController
             $system_html = $system_html . $this->getModelSystemHtml($jsonObject, $object->dom->sign);
         }
         if ($category == "home_menu_mobile" || $category == "home_menu_pc" || $category == "home_bottom_menu_pc" || $category == "home_bottom_menu_mobile") {
-            $html = RenovationWidget::parseTemplateMenuDom($html, $object->dom);
+            $html = RenovationWidget::parseTemplateMenuDom($html, $object->dom, TDSESSION("website_id"));
         }
         $css = $object->css;
         $html = "<style>\n" . $css . "\n</style>\n" . $html;

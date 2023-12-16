@@ -148,6 +148,8 @@ class BaseRenovation extends CommonTDController
                 }
                 $data[RENOVATION::$website_id] = TDSESSION("website_id");
                 MU(RENOVATION::$_table_name)->data($data)->add();
+                //清理模板缓存
+                PageCache::clearPageCache();
                 $this->success("添加成功");
             }
         } else {
@@ -213,6 +215,8 @@ class BaseRenovation extends CommonTDController
                 $data = array();
                 $data[RENOVATION::$is_default] = 0;
                 MU(RENOVATION::$_table_name)->where($where)->save($data);
+                //清理模板缓存
+                PageCache::clearPageCache();
                 $this->success("设置成功");
                 return;
             }
@@ -250,6 +254,8 @@ class BaseRenovation extends CommonTDController
             }
             $data[RENOVATION::$is_del] = 1;
             MU(RENOVATION::$_table_name)->where($where)->save($data);
+            //清理模板缓存
+            PageCache::clearPageCache();
             $this->success("删除成功");
         }
     }

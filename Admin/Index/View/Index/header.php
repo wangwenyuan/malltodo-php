@@ -10,6 +10,8 @@ static_resources();
 .ui-c-element{ float:left}
 .tab_website .ui-c-element{ width:100%;}
 .ui-c-note{ height:30px; line-height:30px; font-size:12px; float:left; padding-left:10px;}
+.rebuildCache{ width:70px; float:left; font-size:12px; line-height:50px; text-align:right; color: #000000;}
+.rebuildCache a{ color:#000000; }
 </style>
 </head>
 
@@ -20,7 +22,7 @@ static_resources();
       <td colspan="2"><div class="header">
           <div class="logo"><strong id="logo_name">MALLTODO</strong></div>
           <div class="top_menu"><a href="<?=TDU("Index/Index/index")?>">工作面板</a></div>
-          <div class="tab_website" style="float:left; width:350px;">
+          <div class="tab_website" style="float:left; width:450px;">
           	<div style="width:80px; float:left; font-size:14px; line-height:50px;">当前站点：</div><div style="width:240px; padding-top:10px; float:left;"><?=TDWIDGET::select("current_website_id", TDSESSION("website_id"), get_all_website())?></div>
           	<script>
           		$("#current_website_id").change(function(){
@@ -32,7 +34,8 @@ static_resources();
                         })
           			});
           		})
-          	</script>
+          	</script>  
+          	<span class="rebuildCache"><a href="javascript:malltodoJs.sub_window('更新缓存', '<?=TDU("Index/RebuildCache/index")?>')">更新缓存</a></span>         	
           </div>
           <div class="header_right">当前管理员： <a href="javascript:malltodoJs.sub_window('修改资料', '<?=TDU("SystemSet/Admin/material")?>')"> <?=TDSESSION("admin_name")?></a> &nbsp;&nbsp;&nbsp;&nbsp; <a target="_blank" href="<?=TD_URL?>">网站首页</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:sign_out()">退出</a></div>
         <div class="clear"></div>

@@ -5,6 +5,7 @@ require_once '../Common/function.php';
 require_once '../Common/malltodo.service.php';
 require_once '../Common/RenovationWidget.php';
 require_once '../Common/MU.php';
+require_once '../Common/PageCache.php';
 if (checkIsInstall()) {
     echo PHPTODO::run("Index");
 } else {

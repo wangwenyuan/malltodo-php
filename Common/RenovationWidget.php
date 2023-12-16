@@ -23,7 +23,7 @@ class RenovationWidget
         return Malltodo::buildHtmlCSSTemplate($domain, $domsJSONString, $domsSortString);
     }
 
-    public static function buildPage($id, $seo_title = "", $seo_keywords = "", $seo_description = "")
+    public static function buildPage($id, $seo_title = "", $seo_keywords = "", $seo_description = "", $website_id, $urlinput = array())
     {
         $where = array();
         $where[RENOVATION::$id] = array(
@@ -38,9 +38,9 @@ class RenovationWidget
         if (! $map) {
             return "";
         }
-        $body_html = self::buildHtmlCSS($id, 0);
-        $header_html = self::buildHtmlCSS($map[RENOVATION::$header_id], 0);
-        $bottom_html = self::buildHtmlCSS($map[RENOVATION::$bottom_id], 0);
+        $body_html = self::buildHtmlCSS($id, 0, $website_id, $urlinput);
+        $header_html = self::buildHtmlCSS($map[RENOVATION::$header_id], 0, $website_id, $urlinput);
+        $bottom_html = self::buildHtmlCSS($map[RENOVATION::$bottom_id], 0, $website_id, $urlinput);
         $title = $seo_title;
         $keywords = $seo_keywords;
         $description = $seo_description;
@@ -110,7 +110,7 @@ class RenovationWidget
         return $string;
     }
 
-    public static function buildList($id)
+    public static function buildList($id, $website_id, $urlinput = array())
     {
         $where = array();
         $where[RENOVATION::$id] = array(
@@ -125,11 +125,11 @@ class RenovationWidget
         if (! $map) {
             return "";
         }
-        $body_html = self::buildHtmlCSS($id, 1);
+        $body_html = self::buildHtmlCSS($id, 1, $website_id, $urlinput);
         return $body_html;
     }
 
-    private static function buildHtmlCSS($id, $type)
+    private static function buildHtmlCSS($id, $type, $website_id, $urlinput)
     {
         $where = array();
         $where[RENOVATION::$id] = array(
@@ -187,7 +187,7 @@ class RenovationWidget
             array_push($doms_sort, $key);
             $bind_loop_list = self::getBindLoopList($dom);
             require_once __DIR__ . "/BindData.php";
-            $bindData = BindData::bind($dom, $bind_loop_list);
+            $bindData = BindData::bind($dom, $bind_loop_list, $website_id, $urlinput);
             $bindDataMap->$key = $bindData;
         }
         return self::buildOneWidgetHtmlCSS($html, $doms, $doms_sort, $bindDataMap, $type);
@@ -198,11 +198,11 @@ class RenovationWidget
         return Malltodo::buildOneWidgetHtmlCSS($html, json_encode($doms, JSON_UNESCAPED_UNICODE), json_encode($doms_sort, JSON_UNESCAPED_UNICODE), json_encode($bindDataMap, JSON_UNESCAPED_UNICODE), $type . "");
     }
 
-    public static function parseTemplateMenuDom($html, $dom)
+    public static function parseTemplateMenuDom($html, $dom, $website_id, $urlinput)
     {
         $bind_loop_list = self::getBindLoopList($dom);
         require_once __DIR__ . "/BindData.php";
-        $bindData = BindData::bind($dom, $bind_loop_list);
+        $bindData = BindData::bind($dom, $bind_loop_list, $website_id, $urlinput);
         $category = $dom->category;
         if ($category == "base") {
             return "";

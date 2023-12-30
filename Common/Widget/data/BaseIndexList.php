@@ -84,7 +84,7 @@ class BaseIndexList
             }
         }
 
-        $page = new TDPAGE($count, $page_size);
+        $page = new TDPAGE($count, $page_size, $urlinput);
 
         $list = MU(DETAIL::$_table_name)->where($where)
             ->limit($page->firstRow . "," . $page->listRows)
@@ -116,7 +116,7 @@ class BaseIndexList
         $object[CATEGORY::$pid] = $category[CATEGORY::$pid];
         $object[CATEGORY::$smalltext] = $category[CATEGORY::$smalltext];
         $object["list"] = $list;
-        $object["page"] = $page->show();
+        $object["page"] = $page->show($urlinput);
 
         require_once __DIR__ . "/HomeIndexBread.php";
         $object["bread"] = HomeIndexBread::getBread($category_id, $category[CATEGORY::$category_name], $category[CATEGORY::$pid], "-&gt");

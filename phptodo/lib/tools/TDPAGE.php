@@ -40,7 +40,7 @@ class TDPAGE
         $this->firstRow = (string) ($this->p - 1) * (string) $this->listRows;
         $this->allPageNum = ceil((string) $total / (string) $this->listRows);
     }
-
+    
     public function show($param = array())
     {
         if(count($param) > 0){
@@ -51,27 +51,54 @@ class TDPAGE
         $html = "<span>共" . $this->allPageNum . "页，每页" . $this->listRows . "条，当前第" . $this->p . "页</span>";
         if ($this->p == 1) {
             $arr["p"] = ($this->p) + 1;
-            $html = $html . "<span>首页</span><span>上一页</span><a href='" . TDU($arr) . "' >下一页</a>";
+            if(count($param) > 0){
+                $html = $html . "<span>首页</span><span>上一页</span><a href='" . TDUU($arr) . "' >下一页</a>";
+            }else{
+                $html = $html . "<span>首页</span><span>上一页</span><a href='" . TDU($arr) . "' >下一页</a>";
+            }
             $arr["p"] = $this->allPageNum;
-            $html = $html . "<a href='" . TDU($arr) . "' >尾页</a>";
+            if(count($param) > 0){
+                $html = $html . "<a href='" . TDUU($arr) . "' >尾页</a>";
+            }else{
+                $html = $html . "<a href='" . TDU($arr) . "' >尾页</a>";
+            }
         } else if ($this->p == $this->allPageNum) {
             $arr["p"] = 1;
-            $html = $html . "<a href='" . TDU($arr) . "'>首页</a>";
+            if(count($param) > 0){
+                $html = $html . "<a href='" . TDUU($arr) . "'>首页</a>";
+            }else{
+                $html = $html . "<a href='" . TDU($arr) . "'>首页</a>";
+            }
             $arr["p"] = $this->p - 1;
-            $html = $html . "<a href='" . TDU($arr) . "' >上一页</a><span>下一页</span><span>尾页</span>";
+            if(count($param) > 0){
+                $html = $html . "<a href='" . TDUU($arr) . "' >上一页</a><span>下一页</span><span>尾页</span>";
+            }else{
+                $html = $html . "<a href='" . TDU($arr) . "' >上一页</a><span>下一页</span><span>尾页</span>";
+            }
         } else if ($this->p < 1) {
             $html = "";
         } else if ($this->p > $this->allPageNum) {
             $html = "";
         } else {
-            $arr["p"] = 1;
-            $html = $html . "<a href='" . TDU($arr) . "' >首页</a>";
-            $arr["p"] = $this->p - 1;
-            $html = $html . "<a href='" . TDU($arr) . "' >上一页</a>";
-            $arr["p"] = $this->p + 1;
-            $html = $html . "<a href='" . TDU($arr) . "' >下一页</a>";
-            $arr["p"] = $this->allPageNum;
-            $html = $html . "<a href='" . TDU($arr) . "' >尾页</a>";
+            if(count($param) > 0){
+                $arr["p"] = 1;
+                $html = $html . "<a href='" . TDUU($arr) . "' >首页</a>";
+                $arr["p"] = $this->p - 1;
+                $html = $html . "<a href='" . TDUU($arr) . "' >上一页</a>";
+                $arr["p"] = $this->p + 1;
+                $html = $html . "<a href='" . TDUU($arr) . "' >下一页</a>";
+                $arr["p"] = $this->allPageNum;
+                $html = $html . "<a href='" . TDUU($arr) . "' >尾页</a>";
+            }else{
+                $arr["p"] = 1;
+                $html = $html . "<a href='" . TDU($arr) . "' >首页</a>";
+                $arr["p"] = $this->p - 1;
+                $html = $html . "<a href='" . TDU($arr) . "' >上一页</a>";
+                $arr["p"] = $this->p + 1;
+                $html = $html . "<a href='" . TDU($arr) . "' >下一页</a>";
+                $arr["p"] = $this->allPageNum;
+                $html = $html . "<a href='" . TDU($arr) . "' >尾页</a>";
+            }
         }
         $gotopage = "<span>转到：<select onchange=\"self.location.href=this.options[this.selectedIndex].value\">";
         for ($i = 0; $i < $this->allPageNum; $i = $i + 1) {
@@ -82,7 +109,11 @@ class TDPAGE
             } else {
                 $selected = "";
             }
-            $gotopage = $gotopage . "<option " . $selected . " value=\"" . TDU($arr) . "\">第 " . ($i + 1) . " 页</option>";
+            if(count($param) > 0){
+                $gotopage = $gotopage . "<option " . $selected . " value=\"" . TDUU($arr) . "\">第 " . ($i + 1) . " 页</option>";
+            }else{
+                $gotopage = $gotopage . "<option " . $selected . " value=\"" . TDU($arr) . "\">第 " . ($i + 1) . " 页</option>";
+            }
         }
         $gotopage = $gotopage . "</select></span>";
 

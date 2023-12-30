@@ -11,7 +11,7 @@ class IndexTDController extends BaseTDController
 
     public function category()
     {
-        $p = (int)(trim(TDI("p")));
+        $p = (int)(trim(TDI("get.p")));
         if($p == 0){
             $p = 1;
         }

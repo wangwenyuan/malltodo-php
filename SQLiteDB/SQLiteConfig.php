@@ -35,10 +35,10 @@ function setTemplate($template_code)
 function getTemplate()
 {
     $template_code = TDS("template_code");
-    if ($template_code) {
-        return $template_code;
+    if (is_null($template_code)) {
+        return get_domain_prefix();        
     } else {
-        return get_domain_prefix();
+        return $template_code;
     }
 }
 

@@ -56,6 +56,7 @@ function sign_out(){
     			dataType : "json",
     			url : url,
     			data : {
+    				"malltodo": "exit"
     			},
     			success : function(data){
     				if(data["url"]){

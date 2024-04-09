@@ -333,6 +333,9 @@ function create_dir($src)
         } else {
             $dis = $dis . "/" . $arr[$i];
         }
+        if($src[0] == '/' && $dis[0] != '/'){
+            $dis = '/'.$dis;
+        }
         if (! is_dir($dis)) {
             mkdir($dis);
         }

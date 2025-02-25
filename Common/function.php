@@ -934,5 +934,9 @@ function check_customer_form($table_name, $input_data)
     );
 }
 
+function replace_field($old_value, $new_value){
+    $sql = "UPDATE table_name SET field_name=REPLACE(field_name,'".$old_value."','".$new_value."')";
+    MU()->execute($sql);
+}
 
 ?>

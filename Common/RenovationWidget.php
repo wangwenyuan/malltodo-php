@@ -23,7 +23,7 @@ class RenovationWidget
         return Malltodo::buildHtmlCSSTemplate($domain, $domsJSONString, $domsSortString);
     }
 
-    public static function buildPage($id, $seo_title = "", $seo_keywords = "", $seo_description = "", $website_id, $urlinput = array())
+    public static function buildPage($id, $website_id, $seo_title = "", $seo_keywords = "", $seo_description = "", $urlinput = array())
     {
         $where = array();
         $where[RENOVATION::$id] = array(

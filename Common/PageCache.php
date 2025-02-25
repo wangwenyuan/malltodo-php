@@ -60,7 +60,7 @@ class PageCache
                 $title = trim($category[CATEGORY::$seo_title]);
                 $keywords = trim($category[CATEGORY::$seo_keywords]);
                 $description = trim($category[CATEGORY::$seo_description]);
-                $html = RenovationWidget::buildPage($map[RENOVATION::$id], $title, $keywords, $description, $website_id, $urlinput);
+                $html = RenovationWidget::buildPage($map[RENOVATION::$id], $website_id, $title, $keywords, $description, $urlinput);
             } else {
                 $html = RenovationWidget::noTemplateNotice("尚未配置首页默认模板");
             }
@@ -162,7 +162,7 @@ class PageCache
                 $title = trim($category[CATEGORY::$seo_title]);
                 $keywords = trim($category[CATEGORY::$seo_keywords]);
                 $description = trim($category[CATEGORY::$seo_description]);
-                $html = RenovationWidget::buildPage($renovation[RENOVATION::$id], $title, $keywords, $description, $website_id, $urlinput);
+                $html = RenovationWidget::buildPage($renovation[RENOVATION::$id], $website_id, $title, $keywords, $description, $urlinput);
                 file_put_contents(TDConfig::$config["page_cache_path"] . "/category/" . $category_id . "_" . $p . ".temp", $html);
                 return file_get_contents(TDConfig::$config["page_cache_path"] . "/category/" . $category_id . "_" . $p . ".temp");
             }
@@ -286,7 +286,7 @@ class PageCache
                 $title = trim($detail[DETAIL::$seo_title]);
                 $keywords = trim($detail[DETAIL::$seo_keywords]);
                 $description = trim($detail[DETAIL::$seo_description]);
-                $html = RenovationWidget::buildPage($renovation[RENOVATION::$id], $title, $keywords, $description, $website_id, $urlinput);
+                $html = RenovationWidget::buildPage($renovation[RENOVATION::$id], $website_id, $title, $keywords, $description, $urlinput);
                 file_put_contents(TDConfig::$config["page_cache_path"] . "/detail/" . $detail_id . ".temp", $html);
                 return file_get_contents(TDConfig::$config["page_cache_path"] . "/detail/" . $detail_id . ".temp");
             }

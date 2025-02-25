@@ -15,14 +15,14 @@ function MU($table_name = "")
             TDConfig::$sqlite_db = SQLiteConfig::$template_db;
             if ($TDORMHANDLE_TEMPLATE == null) {
                 $TDORMHANDLE_TEMPLATE = new PDO("sqlite:" . TDConfig::$sqlite_db);
-                $TDORMHANDLE_TEMPLATE->exec("set names utf8");
+                // $TDORMHANDLE_TEMPLATE->exec("set names utf8");
             }
             $TDORMHANDLE = $TDORMHANDLE_TEMPLATE;
         } else {
             TDConfig::$sqlite_db = SQLiteConfig::$data_db;
             if ($TDORMHANDLE_DATA == null) {
                 $TDORMHANDLE_DATA = new PDO("sqlite:" . TDConfig::$sqlite_db);
-                $TDORMHANDLE_DATA->exec("set names utf8");
+                // $TDORMHANDLE_DATA->exec("set names utf8");
             }
             $TDORMHANDLE = $TDORMHANDLE_DATA;
         }

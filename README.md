@@ -32,7 +32,7 @@ MALLTODO 的官方网址是： www.malltodo.com
 
 # MALLTODO技术交流
 
-![image](./readme_images/weixin.png)  
+![image](./readme_images/weixin.jpg)  
 
 
 # MALLTODO协议条款

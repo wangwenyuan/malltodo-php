@@ -101,7 +101,7 @@ class IndexTDController extends CommonTDController
         );
         $mobile_renovation_list = MU(RENOVATION::$_table_name)->where($mobile_renovation_where)->select();
         $mobile_renovation = array();
-        for ($i = 0; $i < count(mobile_renovation_list); $i = $i + 1) {
+        for ($i = 0; $i < count($mobile_renovation_list); $i = $i + 1) {
             $object = array();
             $object[RENOVATION::$name] = $mobile_renovation_list[$i][RENOVATION::$name];
             $object[RENOVATION::$type] = $mobile_renovation_list[$i][RENOVATION::$type];

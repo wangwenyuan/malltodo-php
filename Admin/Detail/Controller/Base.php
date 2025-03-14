@@ -134,7 +134,7 @@ class Base extends CommonTDController
                 $this->error("该内容不存在或已被删除");
                 return;
             }
-            $info[DETAIL::$detail] = htmlspecialchars_decode($info[DETAIL::$detail]);
+            $info[DETAIL::$detail] = htmlspecialchars_decode(getString($info[DETAIL::$detail]));
         }
 
         // 获取栏目

@@ -23,7 +23,7 @@ require_once dirname(dirname(dirname(__DIR__))) . '/Index/View/Index/sub_header.
         <tr><td align="right" width="150px">外部跳转链接：</td><td align="left"><?=TDWIDGET::text(DETAIL::$url, $info[DETAIL::$url])?>（如果该链接不为空，则进入该栏目时自动跳转至该链接上。链接前面请添加“http://”或“https://”）</td></tr>
         <tr><td align="right" width="150px">所属栏目：</td><td align="left"><?=TDWIDGET::select(DETAIL::$category_id, $info[DETAIL::$category_id], $category_map)?>（必选）</td></tr>
         <tr><td align="right" width="150px">内容简介：</td><td align="left"><?=TDWIDGET::textarea(DETAIL::$smalltext, $info[DETAIL::$smalltext])?></td></tr>
-        <tr><td align="right" width="150px">内容详情：</td><td align="left"><div style="width:600px"><?=TDWIDGET::editor(DETAIL::$detail, htmlspecialchars_decode($info[DETAIL::$detail]))?></div></td></tr>
+        <tr><td align="right" width="150px">内容详情：</td><td align="left"><div style="width:600px"><?=TDWIDGET::editor(DETAIL::$detail, htmlspecialchars_decode(getString($info[DETAIL::$detail])))?></div></td></tr>
         <?php
         $arr = array(
             "0" => "普通模板",

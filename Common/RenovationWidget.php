@@ -56,7 +56,7 @@ class RenovationWidget
         // 初始化body样式
         if ($body_image != "") {
             $background_image = "";
-            $background_image = "background-image:" . htmlspecialchars_decode($body_image) . ";";
+            $background_image = "background-image:" . htmlspecialchars_decode(getString($body_image)) . ";";
             if ($body_repeat == "repeat") {
                 $background_image = "background-repeat:repeat; background-size:auto; " . $background_image;
             } else {
@@ -101,7 +101,7 @@ class RenovationWidget
         );
         $websiteInfo = MU(WEBSITE::$_table_name)->where($website_where)->find();
         if ($websiteInfo) {
-            $code = $code . htmlspecialchars_decode($websiteInfo[WEBSITE::$statistics_code]);
+            $code = $code . htmlspecialchars_decode(getString($websiteInfo[WEBSITE::$statistics_code]));
         }
         $code = $code . "\r\n</div>\r\n";
         $string = $string . $code;
@@ -149,14 +149,14 @@ class RenovationWidget
         $doms = new stdClass();
         if ($type == 0) {
             $html = $map["html"];
-            $html = htmlspecialchars_decode($html);
+            $html = htmlspecialchars_decode(getString($html));
             $doms_string = $map["doms"];
-            $doms_string = htmlspecialchars_decode($doms_string);
+            $doms_string = htmlspecialchars_decode(getString($doms_string));
             $doms = json_decode($doms_string);
         }
         if ($type == 1) {
             $html = $map["list_html"];
-            $html = htmlspecialchars_decode($html);
+            $html = htmlspecialchars_decode(getString($html));
             $doms_string = $map["list_dom"];
             $doms = json_decode($doms_string);
         }

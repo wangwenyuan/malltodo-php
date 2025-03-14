@@ -939,4 +939,15 @@ function replace_field($old_value, $new_value){
     MU()->execute($sql);
 }
 
+function getString($param) {
+    if($param === NULL || $param === false){
+        return '';
+    }else{
+        if($param===0){
+            return '0';
+        }else{
+            return $param ? $param : '';
+        }
+    }
+}
 ?>

@@ -12,7 +12,7 @@ class ShowWidgetTDController extends CommonTDController
         foreach ($widget_map as $key => $v) {
             $css = $widget_map->$key->css;
             $html = $widget_map->$key->html;
-            $html = "<style>\n" . $css . "\n</style>\n" . htmlspecialchars_decode($html);
+            $html = "<style>\n" . $css . "\n</style>\n" . htmlspecialchars_decode(getString($html));
             $map[$key] = $html;
         }
         $this->assign("map", $map);
@@ -27,11 +27,11 @@ class ShowWidgetTDController extends CommonTDController
         $sign = trim(TDI("get.sign"));
         $json = trim(TDI("post.json"));
         if ($json != "") {
-            $json = htmlspecialchars_decode($json);
+            $json = htmlspecialchars_decode(getString($json));
         }
         $object = RenovationWidget::getBaseWidget(TD_URL, $category, $name, $sign, $json);
         $html = $object->html;
-        $html = htmlspecialchars_decode($html);
+        $html = htmlspecialchars_decode(getString($html));
         $system_html = $object->system_html;
         if ($category == "home_menu_mobile" || $category == "home_menu_pc") {
             $menu_system_html = Malltodo::getSystemWidget("menu", $sign);

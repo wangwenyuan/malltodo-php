@@ -70,7 +70,7 @@ class FormTDController extends TDCONTROLLER
             0
         );
         $form_info = MU("form")->where($where)->find();
-        $this->assign("detail", htmlspecialchars_decode($form_info["detail"]));
+        $this->assign("detail", htmlspecialchars_decode(getString($form_info["detail"])));
         $this->display();
     }
 }

@@ -162,7 +162,7 @@ class BaseIndex
                 $list[$i][DETAIL::$url] = $url;
             } else {
                 $url = $list[$i][DETAIL::$url];
-                $url = htmlspecialchars_decode($url);
+                $url = htmlspecialchars_decode(getString($url));
                 $list[$i][DETAIL::$url] = $url;
             }
         }

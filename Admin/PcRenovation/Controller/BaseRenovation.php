@@ -81,7 +81,7 @@ class BaseRenovation extends CommonTDController
             $data[RENOVATION::$type] = $this->type;
             $data[RENOVATION::$doms] = TDI("post." . RENOVATION::$doms);
             $data[RENOVATION::$doms_sort] = TDI("post." . RENOVATION::$doms_sort);
-            $data[RENOVATION::$html] = RenovationWidget::buildHtmlCSSTemplate(TD_URL, htmlspecialchars_decode($data[RENOVATION::$doms]), htmlspecialchars_decode($data[RENOVATION::$doms_sort]));
+            $data[RENOVATION::$html] = RenovationWidget::buildHtmlCSSTemplate(TD_URL, htmlspecialchars_decode(getString($data[RENOVATION::$doms])), htmlspecialchars_decode(getString($data[RENOVATION::$doms_sort])));
             $data[RENOVATION::$name] = $name;
             $data[RENOVATION::$title] = TDI("post." . RENOVATION::$title);
             $data[RENOVATION::$keywords] = TDI("post." . RENOVATION::$keywords);

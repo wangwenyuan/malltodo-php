@@ -39,7 +39,7 @@ class BaseIndexDetail
         $object = array();
         $object["info"] = $detail;
         $object[DETAIL::$category_id] = $detail[DETAIL::$category_id];
-        $object[DETAIL::$detail] = htmlspecialchars_decode($detail[DETAIL::$detail]);
+        $object[DETAIL::$detail] = htmlspecialchars_decode( getString($detail[DETAIL::$detail]));
         $object[DETAIL::$pic] = $detail[DETAIL::$pic];
         $object[DETAIL::$release_time] = date("Y-m-d H:i:s", $detail[DETAIL::$release_time]);
         $object[DETAIL::$smalltext] = $detail[DETAIL::$smalltext];

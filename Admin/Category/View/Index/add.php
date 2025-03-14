@@ -41,7 +41,7 @@ $order_by_json["release_time asc"] = "发布时间的先后次序，正序";
         <tr class="type_no_index category_type_0"><td align="right" width="150px">电脑端详情页模版：</td><td align="left"><?=TDWIDGET::select(CATEGORY::$pc_page_renovation_id, $info[CATEGORY::$pc_page_renovation_id], array())?></td></tr>
         <tr class="type_no_index category_type_0"><td align="right" width="150px">排序方式：</td><td align="left"><?=TDWIDGET::select(CATEGORY::$order_by, $info[CATEGORY::$order_by], $order_by_json)?></td></tr>
         <tr class="type_no_index category_type_1"><td align="right" width="150px">栏目简介：</td><td align="left"><?=TDWIDGET::textarea(CATEGORY::$smalltext, $info[CATEGORY::$smalltext])?></td></tr>
-        <tr class="type_no_index category_type_1"><td align="right" width="150px">栏目详情：</td><td align="left"><div style="max-width:800px"><?=TDWIDGET::editor(CATEGORY::$detail, htmlspecialchars_decode($info[CATEGORY::$detail]))?></div></td></tr>
+        <tr class="type_no_index category_type_1"><td align="right" width="150px">栏目详情：</td><td align="left"><div style="max-width:800px"><?=TDWIDGET::editor(CATEGORY::$detail, htmlspecialchars_decode(getString($info[CATEGORY::$detail])))?></div></td></tr>
         <tr class="type_no_index category_type_2"><td align="right" width="150px">电脑端自定义页模版：</td><td align="left"><?=TDWIDGET::select(CATEGORY::$pc_custom_id, $info[CATEGORY::$pc_custom_id], array())?></td></tr>
         <tr><td></td><td><input type="button" class="anniu" id="add" value="提交" /></td></tr>
     </table>

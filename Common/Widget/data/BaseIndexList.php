@@ -111,7 +111,7 @@ class BaseIndexList
         $object[CATEGORY::$id] = $category[CATEGORY::$id];
         $object[CATEGORY::$category_name] = $category[CATEGORY::$category_name];
         $object[CATEGORY::$category_sub_name] = $category[CATEGORY::$category_sub_name];
-        $object[CATEGORY::$detail] = htmlspecialchars_decode($category[CATEGORY::$detail]);
+        $object[CATEGORY::$detail] = htmlspecialchars_decode(getString($category[CATEGORY::$detail]));
         $object[CATEGORY::$pic] = $category[CATEGORY::$pic];
         $object[CATEGORY::$pid] = $category[CATEGORY::$pid];
         $object[CATEGORY::$smalltext] = $category[CATEGORY::$smalltext];
@@ -155,7 +155,7 @@ class BaseIndexList
             $category[CATEGORY::$url] = $url;
         } else {
             $url = $category[CATEGORY::$url];
-            $url = htmlspecialchars_decode($url);
+            $url = htmlspecialchars_decode(getString($url));
             $category[CATEGORY::$url] = $url;
         }
         array_push($list, $category);
@@ -183,7 +183,7 @@ class BaseIndexList
                 array_push($list, $_list[$i]);
             } else {
                 $url = $_list[$i][CATEGORY::$url];
-                $url = htmlspecialchars_decode($url);
+                $url = htmlspecialchars_decode(getString($url));
                 $_list[$i][CATEGORY::$url] = $url;
                 array_push($list, $_list[$i]);
             }

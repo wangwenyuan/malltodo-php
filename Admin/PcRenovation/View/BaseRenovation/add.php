@@ -83,7 +83,7 @@ require_once dirname(dirname(dirname(__DIR__))) . '/Index/View/Index/sub_header.
 
 
 <div id="phone_body">
-	<?=htmlspecialchars_decode($info["html"])?>
+	<?=htmlspecialchars_decode(getString($info["html"]))?>
 </div>
 
 				<div id="renovation_menu_content">
@@ -192,19 +192,19 @@ var doms_sort = [];
 if (! $info || ! $info["doms"] || $info["doms"] == "") {
     echo "var malltodo_doms = {};";
 } else {
-    echo "var malltodo_doms = " . htmlspecialchars_decode($info["doms"]) . ";";
+    echo "var malltodo_doms = " . htmlspecialchars_decode(getString($info["doms"])) . ";";
 }
 ?>
 var malltodo_page_config = {
-	"name":"<?=trim($info["name"])?>",
-	"title":"<?=trim($info["title"])?>",
-	"keywords":"<?=trim($info["keywords"])?>",
-	"description":"<?=trim($info["description"])?>",
-	"background_color":"<?=trim($info["background_color"]) == "" ? "#FFFFFF" : trim($info["background_color"])?>",
-	"background_image":'<?=trim(htmlspecialchars_decode($info["background_image"]))?>',
-	"background_repeat":"<?=trim($info["background_repeat"])?>",
-	"header_id":"<?=trim($info["header_id"])?>",
-	"bottom_id":"<?=trim($info["bottom_id"])?>"
+	"name":"<?=trim(getString($info["name"]))?>",
+	"title":"<?=trim(getString($info["title"]))?>",
+	"keywords":"<?=trim(getString($info["keywords"]))?>",
+	"description":"<?=trim(getString($info["description"]))?>",
+	"background_color":"<?=trim(getString($info["background_color"])) == "" ? "#FFFFFF" : trim(getString($info["background_color"]))?>",
+	"background_image":'<?=trim(htmlspecialchars_decode(getString($info["background_image"])))?>',
+	"background_repeat":"<?=trim(getString($info["background_repeat"]))?>",
+	"header_id":"<?=trim(getString($info["header_id"]))?>",
+	"bottom_id":"<?=trim(getString($info["bottom_id"]))?>"
 };
 
 function malltodo_page_config_init(){

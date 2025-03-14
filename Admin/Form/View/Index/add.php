@@ -11,7 +11,7 @@ require_once dirname(dirname(dirname(__DIR__))) . '/Index/View/Index/sub_header.
         <?php
         }
         ?>
-        <tr><td align="right" width="150px">隐私政策：</td><td align="left"><div style="width:600px"><?=TDWIDGET::editor(FORM::$detail, htmlspecialchars_decode($info[FORM::$detail]))?></div></td></tr>
+        <tr><td align="right" width="150px">隐私政策：</td><td align="left"><div style="width:600px"><?=TDWIDGET::editor(FORM::$detail, htmlspecialchars_decode(getString($info[FORM::$detail])))?></div></td></tr>
         <tr><td></td><td><input type="button" class="anniu" id="add" value="提交" /></td></tr>
     </table>
 </form>

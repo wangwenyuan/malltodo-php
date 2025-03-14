@@ -8,6 +8,8 @@ class PageCache
         deldir($dir);
         $dir = TDConfig::$config["page_cache_path"] . "/detail/";
         deldir($dir);
+        $dir = TDConfig::$config["page_cache_path"] . "/custom/";
+        deldir($dir);
     }
     
     public static function getIndexPageCache($website_id)
@@ -291,5 +293,64 @@ class PageCache
                 return file_get_contents(TDConfig::$config["page_cache_path"] . "/detail/" . $detail_id . ".temp");
             }
         }
+    }
+    
+    public static function getCustomPageCache($website_id)
+    {
+        $urlinput = array();
+        $urlinput["m"] = "Index";
+        $urlinput["c"] = "Index";
+        $urlinput["a"] = "custom";
+        if(file_exists(TDConfig::$config["page_cache_path"] . "/index/".$website_id.".temp")){
+            return file_get_contents(TDConfig::$config["page_cache_path"] . "/index/".$website_id.".temp");
+        }else{
+            create_dir(TDConfig::$config["page_cache_path"] . "/index/");
+            $where = array();
+            $where[RENOVATION::$type] = array(
+                "eq",
+                "Index/Index/index"
+            );
+            $where[RENOVATION::$is_default] = array(
+                "eq",
+                1
+            );
+            $where[RENOVATION::$is_del] = array(
+                "eq",
+                0
+            );
+            $where[RENOVATION::$platform] = array(
+                "eq",
+                "pc"
+            );
+            $where[RENOVATION::$website_id] = array(
+                "eq",
+                $website_id
+            );
+            $map = MU(RENOVATION::$_table_name)->where($where)->find();
+            if ($map != null) {
+                $where = array();
+                $where[CATEGORY::$type] = array(
+                    "eq",
+                    "Index/Index/index"
+                );
+                $where[CATEGORY::$is_del] = array(
+                    "eq",
+                    0
+                );
+                $where[CATEGORY::$website_id] = array(
+                    "eq",
+                    $website_id
+                );
+                $category = MU(CATEGORY::$_table_name)->where($where)->find();
+                $title = trim($category[CATEGORY::$seo_title]);
+                $keywords = trim($category[CATEGORY::$seo_keywords]);
+                $description = trim($category[CATEGORY::$seo_description]);
+                $html = RenovationWidget::buildPage($map[RENOVATION::$id], $website_id, $title, $keywords, $description, $urlinput);
+            } else {
+                $html = RenovationWidget::noTemplateNotice("尚未配置首页默认模板");
+            }
+            file_put_contents(TDConfig::$config["page_cache_path"] . "/index/".$website_id.".temp", $html);
+        }
+        return file_get_contents(TDConfig::$config["page_cache_path"] . "/index/".$website_id.".temp");
     }
 }
